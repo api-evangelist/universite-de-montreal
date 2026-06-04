@@ -1,0 +1,95 @@
+---
+aid: universite-de-montreal
+name: Université de Montréal
+description: >-
+  Université de Montréal (UdeM) is a leading French-language public research
+  university in Montréal, Québec, Canada, ranked #95 in the QS World University
+  Rankings 2025. Its public, machine-readable developer footprint is modest and
+  research/library oriented rather than a centralized developer portal: the
+  SADVR REST API (Service d'accès aux données de la Vitrine-Recherche) exposes
+  research expertise and unit data, the Papyrus institutional repository offers
+  a live OAI-PMH metadata endpoint, and UdeM participates in the Borealis
+  Canadian Dataverse for research data. There is no single unified, branded
+  developer portal; integration surfaces are distributed across library and
+  research infrastructure.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - Open Data
+  - Library
+  - Canada
+  - Québec
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: universite-de-montreal:sadvr
+    name: SADVR REST API (Vitrine-Recherche)
+    description: >-
+      REST API from the Service d'accès aux données de la Vitrine-Recherche,
+      redistributing UdeM research data. Provides five JSON services: resource
+      value exposure (faculties, departments, functions, programs, study
+      domains, research expertise, languages, unit types), persistent
+      identifier search for individuals and research units, extended identifier
+      search, full data retrieval by persistent identifier, and a SOLR-backed
+      search engine service. The documented base path is a testing/legacy
+      endpoint and may not currently resolve.
+    humanURL: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+    tags: [ Research, Expertise, Open Data, REST, JSON ]
+    properties:
+      - type: Documentation
+        url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  - aid: universite-de-montreal:papyrus-oai
+    name: Papyrus OAI-PMH Endpoint
+    description: >-
+      OAI-PMH 2.0 metadata harvesting endpoint for Papyrus, the UdeM
+      institutional repository (a DSpace/Scholaris platform). Exposes
+      open-access theses, dissertations, and scholarly output metadata for
+      harvesting by service providers. Verified live returning a valid Identify
+      response for "PAPYRUS - Dépôt institutionnel de l'Université de Montréal".
+    humanURL: https://papyrus.bib.umontreal.ca/
+    baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+    tags: [ Library, Institutional Repository, OAI-PMH, Metadata, DSpace, Open Access ]
+    properties:
+      - type: Documentation
+        url: https://papyrus.bib.umontreal.ca/
+      - type: GitHub
+        url: https://github.com/bibudem
+  - aid: universite-de-montreal:borealis-dataverse
+    name: UdeM Borealis Dataverse
+    description: >-
+      Université de Montréal's collection within Borealis, the Canadian
+      Dataverse Repository, for depositing, sharing, and discovering research
+      data. Dataverse provides a documented native REST API for data and
+      metadata access; UdeM operates as a participating institution rather than
+      hosting its own Dataverse instance.
+    humanURL: https://borealisdata.ca/dataverse/montreal
+    tags: [ Research Data, Dataverse, Open Data, REST ]
+    properties:
+      - type: Documentation
+        url: https://borealisdata.ca/dataverse/montreal
+common:
+  - type: Website
+    url: https://www.umontreal.ca/en/
+  - type: GitHub
+    url: https://github.com/bibudem
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/universite-de-montreal/
+  - type: Plans
+    url: plans/universite-de-montreal-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/universite-de-montreal-rate-limits.yml
+  - type: FinOps
+    url: finops/universite-de-montreal-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

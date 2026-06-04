@@ -1,0 +1,44 @@
+---
+name: Université de Montréal
+description: Université de Montréal public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      UdeM has no centralized, branded developer portal. The verified public
+      surface is research/library oriented: the Papyrus OAI-PMH endpoint was
+      probed live and returns a valid OAI-PMH 2.0 Identify response, the SADVR
+      REST API is documented on the UdeM Confluence wiki (doc page live, but its
+      documented base path returns 404 and appears to be a testing/legacy
+      endpoint), and UdeM participates in the Borealis Canadian Dataverse. The
+      official UdeM Libraries GitHub org (bibudem) exists and hosts repository
+      tooling. No endpoints, keys, or baseURLs were fabricated; the SADVR base
+      URL is intentionally omitted from apis.yml because it does not resolve.
+    endpoints:
+      - url: https://umontreal.scholaris.ca/server/oai/openaire4?verb=Identify
+        status: 200
+        note: Live OAI-PMH 2.0 endpoint; valid Identify for Papyrus repository.
+      - url: https://papyrus.bib.umontreal.ca/
+        status: 200
+        note: Papyrus institutional repository home (DSpace/Scholaris).
+      - url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+        status: 200
+        note: SADVR REST API technical documentation (Confluence wiki).
+      - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/langues
+        status: 404
+        note: Documented SADVR base path does not resolve (testing/legacy).
+      - url: https://borealisdata.ca/dataverse/montreal
+        status: 200
+        note: UdeM collection in Borealis Canadian Dataverse.
+      - url: https://github.com/bibudem
+        status: 200
+        note: Official UdeM Libraries (Bibliothèques) GitHub org.
+      - url: https://www.umontreal.ca/en/
+        status: 200
+        note: Official institutional website.
+      - url: https://www.linkedin.com/school/universite-de-montreal/
+        status: 999
+        note: LinkedIn school page exists; 999 is LinkedIn bot-block, not absence.
