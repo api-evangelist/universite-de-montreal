@@ -1,0 +1,31 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "udem": "https://www.umontreal.ca/vocab#",
+    "dataverse": "https://borealisdata.ca/vocab#",
+
+    "Institution": "schema:CollegeOrUniversity",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+
+    "Dataverse": "dataverse:Dataverse",
+    "Dataset": { "@id": "dataverse:Dataset", "@type": "schema:Dataset" },
+    "DataFile": { "@id": "dataverse:DataFile", "@type": "schema:DataDownload" },
+
+    "alias": "dataverse:alias",
+    "id": "schema:identifier",
+    "protocol": "dataverse:protocol",
+    "authority": "dataverse:authority",
+    "identifier": "schema:identifier",
+    "publicationDate": { "@id": "schema:datePublished", "@type": "schema:Date" },
+    "createDate": { "@id": "schema:dateCreated", "@type": "schema:Date" },
+    "modificationTime": { "@id": "schema:dateModified", "@type": "schema:DateTime" },
+    "status": "dataverse:status",
+    "data": "dataverse:data"
+  },
+  "@type": "Institution",
+  "name": "Université de Montréal",
+  "url": "https://www.umontreal.ca/en/"
+}

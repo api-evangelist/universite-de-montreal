@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/main/json-schema/universite-de-montreal-dataset-schema.json",
+  "title": "Borealis Dataverse Dataset",
+  "description": "JSON Schema for a Dataset object returned by the Borealis (Canadian Dataverse) native REST API, as used by the Universite de Montreal collection. Derived from the Dataverse v6.8.1 OpenAPI Dataset schema; only fields actually present in the spec are retained.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "description": "Internal numeric database identifier for the dataset." },
+    "storageIdentifier": { "type": "string", "description": "Backing storage identifier for the dataset." },
+    "protocol": { "type": "string", "description": "Persistent identifier protocol (e.g. doi)." },
+    "authority": { "type": "string", "description": "Persistent identifier authority/prefix." },
+    "identifier": { "type": "string", "description": "Persistent identifier value within the authority." },
+    "identifierRegistered": { "type": "boolean", "description": "Whether the persistent identifier is registered with the provider." },
+    "globalIdCreateTime": { "type": "string", "description": "Timestamp when the global persistent identifier was created." },
+    "publicationDate": { "type": "string", "description": "Date the dataset was published." },
+    "createDate": { "type": "string", "description": "Date the dataset record was created." },
+    "modificationTime": { "type": "string", "description": "Last modification timestamp." },
+    "dtype": { "type": "string", "description": "Internal discriminator type for the persisted DvObject." }
+  },
+  "required": ["id"],
+  "additionalProperties": true
+}

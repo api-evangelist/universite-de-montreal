@@ -1,0 +1,40 @@
+formats:
+  - oas3
+rules:
+  udem-info-title-present:
+    description: API info.title must be present.
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: truthy
+  udem-info-version-present:
+    description: API info.version must be present (Borealis/Dataverse reports a semantic version).
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+  udem-operations-have-tags:
+    description: Every operation should carry at least one tag, as the Dataverse API groups operations by tag.
+    severity: warn
+    given: $.paths[*][get,put,post,delete,patch]
+    then:
+      field: tags
+      function: truthy
+  udem-paths-kebab-or-segment:
+    description: Path segments should not contain underscores or uppercase, matching observed Dataverse path style.
+    severity: warn
+    given: $.paths
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        notMatch: "[A-Z_]"
+  udem-responses-json:
+    description: Operations should declare JSON responses; the Borealis API returns application/json envelopes.
+    severity: warn
+    given: $.paths[*][get,post,put,delete,patch].responses[*].content
+    then:
+      field: application/json
+      function: truthy

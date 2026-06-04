@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/main/json-schema/universite-de-montreal-datafile-schema.json",
+  "title": "Borealis Dataverse DataFile",
+  "description": "JSON Schema for a DataFile object returned by the Borealis native REST API, as used by the Universite de Montreal collection. Derived from the Dataverse v6.8.1 OpenAPI DataFile schema; only fields actually present in the spec are retained.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "description": "Internal numeric database identifier for the file." },
+    "storageIdentifier": { "type": "string", "description": "Backing storage identifier for the file." },
+    "protocol": { "type": "string", "description": "Persistent identifier protocol." },
+    "authority": { "type": "string", "description": "Persistent identifier authority/prefix." },
+    "identifier": { "type": "string", "description": "Persistent identifier value." },
+    "identifierRegistered": { "type": "boolean", "description": "Whether the persistent identifier is registered." },
+    "publicationDate": { "type": "string", "description": "Date the file was published." },
+    "createDate": { "type": "string", "description": "Date the file record was created." },
+    "dtype": { "type": "string", "description": "Internal discriminator type for the persisted DvObject." }
+  },
+  "required": ["id"],
+  "additionalProperties": true
+}

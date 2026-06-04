@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/main/json-structure/universite-de-montreal-dataverse-structure.json",
+  "name": "BorealisDataverseCollection",
+  "description": "JSON Structure for a Borealis Dataverse collection as used by the Universite de Montreal collection, derived from the Dataverse v6.8.1 OpenAPI Dataverse schema.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "int64", "description": "Internal numeric database identifier." },
+    "alias": { "type": "string", "description": "URL-friendly collection alias (e.g. montreal)." },
+    "name": { "type": "string", "description": "Display name of the collection." },
+    "storageIdentifier": { "type": "string", "description": "Backing storage identifier." },
+    "protocol": { "type": "string", "description": "Persistent identifier protocol." },
+    "authority": { "type": "string", "description": "Persistent identifier authority/prefix." },
+    "identifier": { "type": "string", "description": "Persistent identifier value." },
+    "publicationDate": { "type": "string", "description": "Publication date." },
+    "createDate": { "type": "string", "description": "Record creation date." },
+    "dtype": { "type": "string", "description": "Internal DvObject discriminator type." }
+  },
+  "required": ["id"]
+}

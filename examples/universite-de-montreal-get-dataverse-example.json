@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://borealisdata.ca/api/dataverses/montreal",
+    "description": "Retrieve the Universite de Montreal collection from the Borealis (Canadian Dataverse) native REST API."
+  },
+  "response": {
+    "status": "OK",
+    "data": {
+      "id": 75123,
+      "alias": "montreal",
+      "name": "Université de Montréal – Dataverse",
+      "permissionRoot": true,
+      "description": "<h3><strong>Nouvel utilisateur?</strong> <a href=\"https://umontreal.libwizard.com/f/formulaire_borealis\">Demandez la création d'un espace</a> pour publier des données de recherche.</h3>",
+      "dataverseType": "ORGANIZATIONS_INSTITUTIONS",
+      "isMetadataBlockRoot": false,
+      "isFacetRoot": false,
+      "ownerId": 1,
+      "creationDate": "2019-04-11T17:02:01Z",
+      "theme": {
+        "id": 86,
+        "logo": "Logo_UdeM-RVB.png",
+        "linkColor": "428BCA",
+        "textColor": "888888",
+        "backgroundColor": "FFFFFF",
+        "logoBackgroundColor": "FFFFFF"
+      },
+      "effectiveRequiresFilesToPublishDataset": false,
+      "isReleased": true
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/main/json-structure/universite-de-montreal-dataset-structure.json",
+  "name": "BorealisDataverseDataset",
+  "description": "JSON Structure for a Borealis (Canadian Dataverse) Dataset as used by the Universite de Montreal collection, derived from the Dataverse v6.8.1 OpenAPI Dataset schema.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "int64", "description": "Internal numeric database identifier." },
+    "storageIdentifier": { "type": "string", "description": "Backing storage identifier." },
+    "protocol": { "type": "string", "description": "Persistent identifier protocol (e.g. doi)." },
+    "authority": { "type": "string", "description": "Persistent identifier authority/prefix." },
+    "identifier": { "type": "string", "description": "Persistent identifier value." },
+    "identifierRegistered": { "type": "boolean", "description": "Whether the PID is registered." },
+    "globalIdCreateTime": { "type": "string", "description": "Timestamp the global PID was created." },
+    "publicationDate": { "type": "string", "description": "Publication date." },
+    "createDate": { "type": "string", "description": "Record creation date." },
+    "modificationTime": { "type": "string", "description": "Last modification timestamp." },
+    "dtype": { "type": "string", "description": "Internal DvObject discriminator type." }
+  },
+  "required": ["id"]
+}

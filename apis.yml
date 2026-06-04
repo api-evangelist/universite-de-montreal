@@ -75,6 +75,8 @@ apis:
     properties:
       - type: Documentation
         url: https://borealisdata.ca/dataverse/montreal
+      - type: OpenAPI
+        url: openapi/universite-de-montreal-borealis-dataverse.yaml
 common:
   - type: Website
     url: https://www.umontreal.ca/en/

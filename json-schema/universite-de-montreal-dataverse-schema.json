@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/main/json-schema/universite-de-montreal-dataverse-schema.json",
+  "title": "Borealis Dataverse Collection",
+  "description": "JSON Schema for a Dataverse (collection) object returned by the Borealis native REST API, as used by the Universite de Montreal collection. Derived from the Dataverse v6.8.1 OpenAPI Dataverse schema; only fields actually present in the spec are retained.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "integer", "description": "Internal numeric database identifier for the dataverse collection." },
+    "alias": { "type": "string", "description": "Short URL-friendly alias for the collection (e.g. montreal)." },
+    "name": { "type": "string", "description": "Display name of the dataverse collection." },
+    "storageIdentifier": { "type": "string", "description": "Backing storage identifier for the collection." },
+    "protocol": { "type": "string", "description": "Persistent identifier protocol." },
+    "authority": { "type": "string", "description": "Persistent identifier authority/prefix." },
+    "identifier": { "type": "string", "description": "Persistent identifier value." },
+    "publicationDate": { "type": "string", "description": "Date the collection was published." },
+    "createDate": { "type": "string", "description": "Date the collection record was created." },
+    "dtype": { "type": "string", "description": "Internal discriminator type for the persisted DvObject." }
+  },
+  "required": ["id"],
+  "additionalProperties": true
+}

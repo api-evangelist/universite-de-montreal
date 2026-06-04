@@ -1,0 +1,43 @@
+vocabulary:
+  name: Université de Montréal Borealis Dataverse Vocabulary
+  description: >-
+    Controlled vocabulary for the key objects and fields exposed by the Borealis
+    (Canadian Dataverse Repository) native REST API as used by the Université de
+    Montréal collection. Terms are derived from the Dataverse v6.8.1 OpenAPI
+    description and observed live responses.
+  version: "1.0.0"
+  terms:
+    - term: Dataverse
+      definition: >-
+        A container (collection) for datasets, files, and other dataverses;
+        the Université de Montréal operates the "montreal" dataverse collection.
+      tags: [collection, container, research-data]
+    - term: Dataset
+      definition: >-
+        A persistent, citable container of research data files and metadata,
+        typically identified by a DOI within a dataverse collection.
+      tags: [dataset, citation, doi]
+    - term: DataFile
+      definition: A single file belonging to a dataset, with its own storage and persistent identifier.
+      tags: [file, storage]
+    - term: DatasetVersion
+      definition: A specific draft or released version of a dataset, carrying its files and metadata fields.
+      tags: [version, draft, released]
+    - term: alias
+      definition: Short URL-friendly identifier for a dataverse collection (e.g. "montreal").
+      tags: [identifier, collection]
+    - term: protocol
+      definition: The persistent identifier protocol used for an object, such as "doi".
+      tags: [persistent-identifier, doi]
+    - term: authority
+      definition: The persistent identifier authority or prefix under which an identifier is registered.
+      tags: [persistent-identifier]
+    - term: identifier
+      definition: The persistent identifier value assigned within a given authority.
+      tags: [persistent-identifier]
+    - term: publicationDate
+      definition: The date on which a dataverse, dataset, or file was published.
+      tags: [metadata, date]
+    - term: status
+      definition: Top-level envelope field returned by the native API indicating "OK" or "ERROR".
+      tags: [envelope, response]
