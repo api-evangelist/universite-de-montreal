@@ -1,0 +1,28 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.umontreal.ca
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Dec  9 23:59:59 2026 GMT
+  hsts: false
+- host: wiki.umontreal.ca
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec  9 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: papyrus.bib.umontreal.ca
+  https: true
+  tls_version: TLSv1.2
+  cert_expires: Feb 11 23:59:59 2027 GMT
+  hsts: true
+  hsts_max_age: 31536000
+domains:
+- domain: umontreal.ca
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
