@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Meta API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Meta
+paths:
+  /meta/datafile/{fileId}:
+    get:
+      operationId: Meta_datafile
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: exclude
+        in: query
+        schema:
+          type: string
+      - name: fileMetadataId
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: include
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/xml:
+              schema:
+                type: string
+      deprecated: true
+      tags:
+      - Meta
+  /meta/dataset/{datasetId}:
+    get:
+      operationId: Meta_dataset
+      parameters:
+      - name: datasetId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: exclude
+        in: query
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                type: string
+      deprecated: true
+      tags:
+      - Meta

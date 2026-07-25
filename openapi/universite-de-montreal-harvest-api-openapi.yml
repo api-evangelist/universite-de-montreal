@@ -1,0 +1,200 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Harvest API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Harvest
+paths:
+  /harvest/clients:
+    get:
+      operationId: HarvestingClients_harvestingClients
+      parameters:
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+  /harvest/clients/{nickName}:
+    get:
+      operationId: HarvestingClients_harvestingClient
+      parameters:
+      - name: nickName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+    put:
+      operationId: HarvestingClients_modifyHarvestingClient
+      parameters:
+      - name: nickName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+    post:
+      operationId: HarvestingClients_createHarvestingClient
+      parameters:
+      - name: nickName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+    delete:
+      operationId: HarvestingClients_deleteHarvestingClient
+      parameters:
+      - name: nickName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+  /harvest/clients/{nickName}/run:
+    post:
+      operationId: HarvestingClients_startHarvestingJob
+      parameters:
+      - name: nickName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+  /harvest/server/oaisets:
+    get:
+      operationId: HarvestingServer_oaiSets
+      parameters:
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+  /harvest/server/oaisets/add:
+    post:
+      operationId: HarvestingServer_createOaiSet
+      parameters:
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+  /harvest/server/oaisets/{specname}:
+    get:
+      operationId: HarvestingServer_oaiSet
+      parameters:
+      - name: specname
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+    put:
+      operationId: HarvestingServer_modifyOaiSet
+      parameters:
+      - name: specname
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+    delete:
+      operationId: HarvestingServer_deleteOaiSet
+      parameters:
+      - name: specname
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest
+  /harvest/server/oaisets/{specname}/datasets:
+    get:
+      operationId: HarvestingServer_oaiSetListDatasets
+      parameters:
+      - name: specname
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Harvest

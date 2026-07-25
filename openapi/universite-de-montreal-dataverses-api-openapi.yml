@@ -1,0 +1,1049 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Dataverses API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Dataverses
+paths:
+  /dataverses:
+    post:
+      operationId: Dataverses_addRoot
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{dataverseId}/featuredItems:
+    put:
+      operationId: Dataverses_updateFeaturedItems
+      parameters:
+      - name: dataverseId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: array
+              items:
+                format: int64
+                type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}:
+    get:
+      operationId: Dataverses_getDataverse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: returnChildCount
+        in: query
+        schema:
+          type: boolean
+      - name: returnOwners
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    put:
+      operationId: Dataverses_updateDataverse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_addDataverse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    delete:
+      operationId: Dataverses_deleteDataverse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/actions/:publish:
+    post:
+      operationId: Dataverses_publishDataverse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/assignments:
+    get:
+      operationId: Dataverses_listAssignments
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_createAssignment
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/assignments/{id}:
+    delete:
+      operationId: Dataverses_deleteAssignment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/attribute/{attribute}:
+    put:
+      operationId: Dataverses_updateAttribute
+      parameters:
+      - name: attribute
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: value
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/contents:
+    get:
+      operationId: Dataverses_listContent
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/datasetSchema:
+    get:
+      operationId: Dataverses_getDatasetSchema
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/datasets:
+    post:
+      operationId: Dataverses_createDataset
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: doNotValidate
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              type: string
+          application/json-ld:
+            schema:
+              type: string
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/datasets/:import:
+    post:
+      operationId: Dataverses_importDataset
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pid
+        in: query
+        schema:
+          type: string
+      - name: release
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/datasets/:importddi:
+    post:
+      operationId: Dataverses_importDatasetDdi
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pid
+        in: query
+        schema:
+          type: string
+      - name: release
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/datasets/:startmigration:
+    post:
+      operationId: Dataverses_recreateDataset
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              type: string
+          application/json-ld:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/defaultContributorRole/{roleAlias}:
+    put:
+      operationId: Dataverses_updateDefaultContributorRole
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: roleAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/facets:
+    get:
+      operationId: Dataverses_listFacets
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: returnDetails
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_setFacets
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/featured:
+    get:
+      operationId: Dataverses_getFeaturedDataverses
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_setFeaturedDataverses
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    delete:
+      operationId: Dataverses_deleteFeaturedCollections
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/featuredItems:
+    get:
+      operationId: Dataverses_listFeaturedItems
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_createFeaturedItem
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    delete:
+      operationId: Dataverses_deleteFeaturedItems
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/groups:
+    get:
+      operationId: Dataverses_listGroups
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_createExplicitGroup
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/groups/{aliasInOwner}:
+    get:
+      operationId: Dataverses_getGroupByOwnerAndAliasInOwner
+      parameters:
+      - name: aliasInOwner
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    put:
+      operationId: Dataverses_updateGroup
+      parameters:
+      - name: aliasInOwner
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    delete:
+      operationId: Dataverses_deleteGroup
+      parameters:
+      - name: aliasInOwner
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/groups/{aliasInOwner}/roleAssignees:
+    post:
+      operationId: Dataverses_addRoleAssingees
+      parameters:
+      - name: aliasInOwner
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/groups/{aliasInOwner}/roleAssignees/{roleAssigneeIdentifier}:
+    put:
+      operationId: Dataverses_addRoleAssingee
+      parameters:
+      - name: aliasInOwner
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: roleAssigneeIdentifier
+        in: path
+        required: true
+        schema:
+          pattern: .*
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    delete:
+      operationId: Dataverses_deleteRoleAssingee
+      parameters:
+      - name: aliasInOwner
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: roleAssigneeIdentifier
+        in: path
+        required: true
+        schema:
+          pattern: .*
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/guestbookResponses:
+    get:
+      operationId: Dataverses_getGuestbookResponsesByDataverse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: guestbookId
+        in: query
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/inputLevels:
+    get:
+      operationId: Dataverses_getInputLevels
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    put:
+      operationId: Dataverses_updateInputLevels
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/links:
+    get:
+      operationId: Dataverses_listLinks
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/metadatablockfacets:
+    get:
+      operationId: Dataverses_listMetadataBlockFacets
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_setMetadataBlockFacets
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/metadatablockfacets/isRoot:
+    post:
+      operationId: Dataverses_updateMetadataBlockFacetsRoot
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/metadatablocks:
+    get:
+      operationId: Dataverses_listMetadataBlocks
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: datasetType
+        in: query
+        schema:
+          type: string
+      - name: onlyDisplayedOnCreate
+        in: query
+        schema:
+          type: boolean
+      - name: returnDatasetFieldTypes
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_setMetadataBlocks
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/metadatablocks/:isRoot:
+    get:
+      operationId: Dataverses_getMetadataRoot_legacy
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_setMetadataRoot_legacy
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/metadatablocks/isRoot:
+    get:
+      operationId: Dataverses_getMetadataRoot
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    put:
+      operationId: Dataverses_setMetadataRoot
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/roles:
+    get:
+      operationId: Dataverses_listRoles
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_createRole
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/storage/quota:
+    get:
+      operationId: Dataverses_getCollectionQuota
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    delete:
+      operationId: Dataverses_deleteCollectionQuota
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/storage/quota/{bytesAllocated}:
+    post:
+      operationId: Dataverses_setCollectionQuota
+      parameters:
+      - name: bytesAllocated
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/storage/use:
+    get:
+      operationId: Dataverses_getCollectionStorageUse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/storagesize:
+    get:
+      operationId: Dataverses_getStorageSize
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeCached
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/templates:
+    get:
+      operationId: Dataverses_getTemplates
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+    post:
+      operationId: Dataverses_createTemplate
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/userPermissions:
+    get:
+      operationId: Dataverses_getUserPermissionsOnDataverse
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{identifier}/validateDatasetJson:
+    post:
+      operationId: Dataverses_validateDatasetJson
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{id}/move/{targetDataverseAlias}:
+    post:
+      operationId: Dataverses_moveDataverse
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: targetDataverseAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: forceMove
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{linkedDataverseAlias}/link/{linkingDataverseAlias}:
+    put:
+      operationId: Dataverses_linkDataverse
+      parameters:
+      - name: linkedDataverseAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: linkingDataverseAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses
+  /dataverses/{linkingDataverseId}/deleteLink/{linkedDataverseId}:
+    delete:
+      operationId: Dataverses_deleteDataverseLinkingDataverse
+      parameters:
+      - name: linkedDataverseId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: linkingDataverseId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Dataverses

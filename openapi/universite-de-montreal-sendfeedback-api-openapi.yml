@@ -1,0 +1,16 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Sendfeedback API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Sendfeedback
+paths:
+  /sendfeedback:
+    post:
+      operationId: SendFeedbackAPI_submitFeedback
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Sendfeedback

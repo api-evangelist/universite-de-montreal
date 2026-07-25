@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Batch API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Batch
+paths:
+  /batch/harvest:
+    get:
+      operationId: BatchImport_harvest
+      parameters:
+      - name: createDV
+        in: query
+        schema:
+          type: boolean
+      - name: dv
+        in: query
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      - name: path
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Batch
+  /batch/import:
+    get:
+      operationId: BatchImport_getImport
+      parameters:
+      - name: createDV
+        in: query
+        schema:
+          type: boolean
+      - name: dv
+        in: query
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      - name: path
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Batch
+    post:
+      operationId: BatchImport_postImport
+      parameters:
+      - name: dv
+        in: query
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Batch
+  /batch/jobs/import/datasets/files/{identifier}:
+    post:
+      operationId: FileRecordJobResource_getFilesystemImport
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: mode
+        in: query
+        schema:
+          default: MERGE
+          type: string
+      - name: totalSize
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: uploadFolder
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Batch

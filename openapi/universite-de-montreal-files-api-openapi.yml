@@ -1,0 +1,456 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Files API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Files
+paths:
+  /files/fixityAlgorithm:
+    get:
+      operationId: Files_getFixityAlgorithm
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}:
+    get:
+      operationId: Files_getFileData
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      - name: returnDatasetVersion
+        in: query
+        schema:
+          type: boolean
+      - name: returnOwners
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+    delete:
+      operationId: Files_deleteFileInDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/dataTables:
+    get:
+      operationId: Files_getFileDataTables
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/downloadCount:
+    get:
+      operationId: Files_getFileDownloadCount
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/externalTool/{tid}/toolUrl:
+    post:
+      operationId: Files_getExternalToolUrl
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/extractNcml:
+    post:
+      operationId: Files_extractNcml
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/hasBeenDeleted:
+    get:
+      operationId: Files_getHasBeenDeleted
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/metadata:
+    get:
+      operationId: Files_getFileMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+    post:
+      operationId: Files_updateFileMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sourceLastUpdateTime
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/metadata/categories:
+    post:
+      operationId: Files_setFileCategories
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: replace
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/metadata/draft:
+    get:
+      operationId: Files_getFileMetadataDraft
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/metadata/tabularTags:
+    post:
+      operationId: Files_setFileTabularTags
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: replace
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/metadata/{fmid}/toolparams/{tid}:
+    get:
+      operationId: Files_getExternalToolFMParams
+      parameters:
+      - name: fmid
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: locale
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/prov-freeform:
+    get:
+      operationId: Prov_getProvFreeForm
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+    post:
+      operationId: Prov_addProvFreeForm
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/prov-json:
+    get:
+      operationId: Prov_getProvJson
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+    post:
+      operationId: Prov_addProvJson
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entityName
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+    delete:
+      operationId: Prov_deleteProvJson
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/redetect:
+    post:
+      operationId: Files_redetectDatafile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: dryRun
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/reingest:
+    post:
+      operationId: Files_reingest
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/restrict:
+    put:
+      operationId: Files_restrictFileInDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/uningest:
+    post:
+      operationId: Files_uningestDatafile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/versionDifferences:
+    get:
+      operationId: Files_getFileVersionsList
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/versions/{datasetVersionId}:
+    get:
+      operationId: Files_getFileDataForVersion
+      parameters:
+      - name: datasetVersionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      - name: returnDatasetVersion
+        in: query
+        schema:
+          type: boolean
+      - name: returnOwners
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files
+  /files/{id}/versions/{dsVersionString}/citation:
+    get:
+      operationId: Files_getFileCitationByVersion
+      parameters:
+      - name: dsVersionString
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Files

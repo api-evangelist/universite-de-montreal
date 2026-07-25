@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Edit API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Edit
+paths:
+  /edit/{fileId}:
+    put:
+      operationId: EditDDI_edit
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              format: binary
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Edit

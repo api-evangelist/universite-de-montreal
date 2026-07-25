@@ -1,0 +1,2257 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Datasets API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Datasets
+paths:
+  /datasets/datasetTypes:
+    get:
+      operationId: Datasets_getDatasetTypes
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    post:
+      operationId: Datasets_addDatasetType
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/datasetTypes/{idOrName}:
+    get:
+      operationId: Datasets_getDatasetTypes
+      parameters:
+      - name: idOrName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_updateDatasetTypeLinksWithMetadataBlocks
+      parameters:
+      - name: idOrName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/datasetTypes/{idOrName}/licenses:
+    put:
+      operationId: Datasets_updateDatasetTypeWithLicenses
+      parameters:
+      - name: idOrName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/datasetTypes/{id}:
+    delete:
+      operationId: Datasets_deleteDatasetType
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/export:
+    get:
+      operationId: Datasets_exportDataset
+      parameters:
+      - name: exporter
+        in: query
+        schema:
+          type: string
+      - name: persistentId
+        in: query
+        schema:
+          type: string
+      - name: version
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/listCurationStates:
+    get:
+      operationId: Datasets_getCurationStates
+      parameters:
+      - name: includeHistory
+        in: query
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/locks:
+    get:
+      operationId: Datasets_listLocks
+      parameters:
+      - name: type
+        in: query
+        schema:
+          type: string
+      - name: userIdentifier
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/modifyRegistrationAll:
+    post:
+      operationId: Datasets_updateDatasetTargetURLAll
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/modifyRegistrationPIDMetadataAll:
+    post:
+      operationId: Datasets_updateDatasetPIDMetadataAll
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/mpupload:
+    put:
+      operationId: Datasets_completeMPUpload
+      parameters:
+      - name: globalid
+        in: query
+        schema:
+          type: string
+      - name: storageidentifier
+        in: query
+        schema:
+          type: string
+      - name: uploadid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_abortMPUpload
+      parameters:
+      - name: globalid
+        in: query
+        schema:
+          type: string
+      - name: storageidentifier
+        in: query
+        schema:
+          type: string
+      - name: uploadid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/previewUrlDatasetVersion/{previewUrlToken}:
+    get:
+      operationId: Datasets_getPreviewUrlDatasetVersion
+      parameters:
+      - name: previewUrlToken
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: returnOwners
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/previewUrlDatasetVersion/{previewUrlToken}/citation:
+    get:
+      operationId: Datasets_getPreviewUrlDatasetVersionCitation
+      parameters:
+      - name: previewUrlToken
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/privateUrlDatasetVersion/{privateUrlToken}:
+    get:
+      operationId: Datasets_getPrivateUrlDatasetVersion
+      parameters:
+      - name: privateUrlToken
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: returnOwners
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/privateUrlDatasetVersion/{privateUrlToken}/citation:
+    get:
+      operationId: Datasets_getPrivateUrlDatasetVersionCitation
+      parameters:
+      - name: privateUrlToken
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/summaryFieldNames:
+    get:
+      operationId: Datasets_getDatasetSummaryFieldNames
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{datasetId}/deleteLink/{linkedDataverseId}:
+    delete:
+      operationId: Datasets_deleteDatasetLinkingDataverse
+      parameters:
+      - name: datasetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: linkedDataverseId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/allowedCurationLabels:
+    get:
+      operationId: Datasets_getAllowedCurationLabels
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/assignments:
+    get:
+      operationId: Datasets_getAssignments
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    post:
+      operationId: Datasets_createAssignment
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/assignments/{id}:
+    delete:
+      operationId: Datasets_deleteAssignment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/curationLabelSet:
+    get:
+      operationId: Datasets_getCurationLabelSet
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_setCurationLabelSet
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_resetCurationLabelSet
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/dataCaptureModule/checksumValidation:
+    post:
+      operationId: Datasets_receiveChecksumValidationResults
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/dataCaptureModule/rsync:
+    get:
+      operationId: Datasets_getRsync
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Datasets
+  /datasets/{identifier}/guestbookEntryAtRequest:
+    get:
+      operationId: Datasets_getGuestbookEntryOption
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_setguestbookEntryAtRequest
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_resetGuestbookEntryAtRequest
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/lock/{type}:
+    post:
+      operationId: Datasets_lockDataset
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/Reason'
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/locks:
+    get:
+      operationId: Datasets_getLocksForDataset
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        schema:
+          $ref: '#/components/schemas/Reason'
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deleteLocks
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        schema:
+          $ref: '#/components/schemas/Reason'
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/pidGenerator:
+    get:
+      operationId: Datasets_getPidGenerator
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_setPidGenerator
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_resetPidGenerator
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/pidReconcile:
+    put:
+      operationId: Datasets_reconcilePid
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/storageDriver:
+    get:
+      operationId: Datasets_getFileStore
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_setFileStore
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_resetFileStore
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/storagesize:
+    get:
+      operationId: Datasets_getStorageSize
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeCached
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/timestamps:
+    get:
+      operationId: Datasets_getTimestamps
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{identifier}/versions/{versionId}/downloadsize:
+    get:
+      operationId: Datasets_getDownloadSize
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: accessStatus
+        in: query
+        schema:
+          type: string
+      - name: categoryName
+        in: query
+        schema:
+          type: string
+      - name: contentType
+        in: query
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      - name: mode
+        in: query
+        schema:
+          type: string
+      - name: searchText
+        in: query
+        schema:
+          type: string
+      - name: tabularTagName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}:
+    get:
+      operationId: Datasets_getDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: returnOwners
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deleteDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/actions/:publish:
+    get:
+      operationId: Datasets_publishDataseUsingGetDeprecated
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Datasets
+    post:
+      operationId: Datasets_publishDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: assureIsIndexed
+        in: query
+        schema:
+          type: boolean
+      - name: type
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/actions/:releasemigrated:
+    post:
+      operationId: Datasets_publishMigratedDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: updatepidatprovider
+        in: query
+        schema:
+          default: false
+          type: boolean
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              type: string
+          application/json-ld:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/availableFileCategories:
+    get:
+      operationId: Datasets_getAvailableFileCategories
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/citationdate:
+    put:
+      operationId: Datasets_setCitationDate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_useDefaultCitationDate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/cleanStorage:
+    get:
+      operationId: Datasets_cleanStorage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: dryrun
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/curationStatus:
+    get:
+      operationId: Datasets_getCurationStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeHistory
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_setCurationStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: label
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deleteCurationStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/deleteFiles:
+    put:
+      operationId: Datasets_deleteDatasetFiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/deleteMetadata:
+    put:
+      operationId: Datasets_deleteVersionMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/destroy:
+    delete:
+      operationId: Datasets_destroyDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/dirindex:
+    get:
+      operationId: Datasets_getFileAccessFolderView
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: folder
+        in: query
+        schema:
+          type: string
+      - name: original
+        in: query
+        schema:
+          type: boolean
+      - name: version
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/download/count:
+    get:
+      operationId: Datasets_getDownloadCountByDatasetId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeMDC
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/editMetadata:
+    put:
+      operationId: Datasets_editVersionMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: replace
+        in: query
+        schema:
+          type: boolean
+      - name: sourceLastUpdateTime
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/externalTool/{tid}/toolUrl:
+    post:
+      operationId: Datasets_getDatasetExternalToolUrl
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/files/actions/:set-embargo:
+    post:
+      operationId: Datasets_createFileEmbargo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/files/actions/:set-retention:
+    post:
+      operationId: Datasets_createFileRetention
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/files/actions/:unset-embargo:
+    post:
+      operationId: Datasets_removeFileEmbargo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/files/actions/:unset-retention:
+    post:
+      operationId: Datasets_removeFileRetention
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/files/metadata:
+    post:
+      operationId: Datasets_updateMultipleFileMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/files/uploadlimit:
+    delete:
+      operationId: Datasets_deleteDatasetFilesLimits
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/files/uploadlimit/{limit}:
+    post:
+      operationId: Datasets_updateDatasetFilesLimits
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: path
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/globusDownloadParameters:
+    get:
+      operationId: Datasets_getGlobusDownloadParams
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: downloadId
+        in: query
+        schema:
+          type: string
+      - name: locale
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/globusUploadParameters:
+    get:
+      operationId: Datasets_getGlobusUploadParams
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locale
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/links:
+    get:
+      operationId: Datasets_getLinks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/logo:
+    get:
+      operationId: Datasets_getDatasetLogo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/makeDataCount/citations:
+    get:
+      operationId: Datasets_getMakeDataCountCitations
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/makeDataCount/{metric}:
+    get:
+      operationId: Datasets_getMakeDataCountMetricCurrentMonth
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: metric
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: country
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/makeDataCount/{metric}/{yyyymm}:
+    get:
+      operationId: Datasets_getMakeDataCountMetric
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: metric
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: yyyymm
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: country
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/metadata:
+    get:
+      operationId: Datasets_getJsonLDMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_updateVersionMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: replace
+        in: query
+        schema:
+          default: false
+          type: boolean
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              type: string
+          application/json-ld:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/metadata/delete:
+    put:
+      operationId: Datasets_deleteMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              type: string
+          application/json-ld:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/modifyRegistration:
+    post:
+      operationId: Datasets_updateDatasetTargetURL
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/modifyRegistrationMetadata:
+    post:
+      operationId: Datasets_updateDatasetPIDMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/monitorGlobusDownload:
+    post:
+      operationId: Datasets_monitorGlobusDownload
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/move/{targetDataverseAlias}:
+    post:
+      operationId: Datasets_moveDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: targetDataverseAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: forceMove
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/previewUrl:
+    get:
+      operationId: Datasets_getPreviewUrlData
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    post:
+      operationId: Datasets_createPreviewUrl
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: anonymizedAccess
+        in: query
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deletePreviewUrl
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/privateUrl:
+    get:
+      operationId: Datasets_getPrivateUrlData
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Datasets
+    post:
+      operationId: Datasets_createPrivateUrl
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: anonymizedAccess
+        in: query
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deletePrivateUrl
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Datasets
+  /datasets/{id}/requestGlobusDownload:
+    post:
+      operationId: Datasets_requestGlobusDownload
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: downloadId
+        in: query
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/requestGlobusUploadPaths:
+    post:
+      operationId: Datasets_requestGlobusUpload
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/returnToAuthor:
+    post:
+      operationId: Datasets_returnToAuthor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/submitForReview:
+    post:
+      operationId: Datasets_submitForReview
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/thumbnail:
+    get:
+      operationId: Datasets_getDatasetThumbnail
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_removeDatasetLogo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/thumbnail/candidates:
+    get:
+      operationId: Datasets_getDatasetThumbnailCandidates
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/thumbnail/{dataFileId}:
+    post:
+      operationId: Datasets_setDataFileAsThumbnail
+      parameters:
+      - name: dataFileId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/uploadurls:
+    get:
+      operationId: Datasets_getMPUploadUrls
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: size
+        in: query
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/userPermissions:
+    get:
+      operationId: Datasets_getUserPermissionsOnDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions:
+    get:
+      operationId: Datasets_listVersions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: excludeFiles
+        in: query
+        schema:
+          type: boolean
+      - name: excludeMetadataBlocks
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: offset
+        in: query
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/compareSummary:
+    get:
+      operationId: Datasets_getCompareVersionsSummary
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId1}/compare/{versionId2}:
+    get:
+      operationId: Datasets_getCompareVersions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId1
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId2
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}:
+    get:
+      operationId: Datasets_getVersion
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: excludeFiles
+        in: query
+        schema:
+          type: boolean
+      - name: excludeMetadataBlocks
+        in: query
+        schema:
+          type: boolean
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      - name: returnOwners
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_updateDraftVersion
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deleteDraftVersion
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/canDownloadAtLeastOneFile:
+    get:
+      operationId: Datasets_getCanDownloadAtLeastOneFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/citation:
+    get:
+      operationId: Datasets_getDatasetVersionInternalCitation
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/citation/{format}:
+    get:
+      operationId: Datasets_getDatasetVersionCitation
+      parameters:
+      - name: format
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/customlicense:
+    get:
+      operationId: Datasets_getCustomTermsTab
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/deaccession:
+    post:
+      operationId: Datasets_deaccessionDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/files:
+    get:
+      operationId: Datasets_getVersionFiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: accessStatus
+        in: query
+        schema:
+          type: string
+      - name: categoryName
+        in: query
+        schema:
+          type: string
+      - name: contentType
+        in: query
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: offset
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: orderCriteria
+        in: query
+        schema:
+          type: string
+      - name: searchText
+        in: query
+        schema:
+          type: string
+      - name: tabularTagName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/files/counts:
+    get:
+      operationId: Datasets_getVersionFileCounts
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: accessStatus
+        in: query
+        schema:
+          type: string
+      - name: categoryName
+        in: query
+        schema:
+          type: string
+      - name: contentType
+        in: query
+        schema:
+          type: string
+      - name: includeDeaccessioned
+        in: query
+        schema:
+          type: boolean
+      - name: searchText
+        in: query
+        schema:
+          type: string
+      - name: tabularTagName
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/linkset:
+    get:
+      operationId: Datasets_getLinkset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/metadata:
+    get:
+      operationId: Datasets_getVersionJsonLDMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionId}/versionNote:
+    get:
+      operationId: Datasets_getVersionCreationNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_addVersionNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deleteVersionNote
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{versionNumber}/metadata/{block}:
+    get:
+      operationId: Datasets_getVersionMetadataBlock
+      parameters:
+      - name: block
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: versionNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/versions/{version}/toolparams/{tid}:
+    get:
+      operationId: Datasets_getExternalToolDVParams
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: tid
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: locale
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{id}/{version}/archivalStatus:
+    get:
+      operationId: Datasets_getDatasetVersionArchivalStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    put:
+      operationId: Datasets_setDatasetVersionArchivalStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+    delete:
+      operationId: Datasets_deleteDatasetVersionArchivalStatus
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+  /datasets/{linkedDatasetId}/link/{linkingDataverseAlias}:
+    put:
+      operationId: Datasets_linkDataset
+      parameters:
+      - name: linkedDatasetId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: linkingDataverseAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Datasets
+components:
+  schemas:
+    Reason:
+      enum:
+      - Ingest
+      - Workflow
+      - InReview
+      - DcmUpload
+      - GlobusUpload
+      - finalizePublication
+      - EditInProgress
+      - FileValidationFailed
+      type: string

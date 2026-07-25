@@ -1,0 +1,42 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access DataverseFeaturedItems API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: DataverseFeaturedItems
+paths:
+  /dataverseFeaturedItems/{id}:
+    put:
+      operationId: DataverseFeaturedItems_updateFeaturedItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - DataverseFeaturedItems
+    delete:
+      operationId: DataverseFeaturedItems_deleteFeaturedItem
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - DataverseFeaturedItems

@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Builtin Users API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Builtin Users
+paths:
+  /builtin-users:
+    post:
+      operationId: BuiltinUsers_save
+      parameters:
+      - name: key
+        in: query
+        schema:
+          type: string
+      - name: password
+        in: query
+        schema:
+          type: string
+      - name: sendEmailNotification
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Builtin Users
+  /builtin-users/{password}/{key}:
+    post:
+      operationId: BuiltinUsers_create
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Builtin Users
+  /builtin-users/{password}/{key}/{sendEmailNotification}:
+    post:
+      operationId: BuiltinUsers_createWithNotification
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sendEmailNotification
+        in: path
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Builtin Users
+  /builtin-users/{username}/api-token:
+    get:
+      operationId: BuiltinUsers_getApiToken
+      parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Builtin Users

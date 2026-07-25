@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access saveAuxiliaryFileWithVersion API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: saveAuxiliaryFileWithVersion
+  description: Save Auxiliary File With Version
+paths:
+  /access/datafile/{fileId}/auxiliary/{formatTag}/{formatVersion}:
+    post:
+      tags:
+      - saveAuxiliaryFileWithVersion
+      summary: Save auxiliary file with version
+      description: Saves an auxiliary file
+      operationId: Access_saveAuxiliaryFileWithVersion
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: formatTag
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: formatVersion
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: File saved response
+        '403':
+          description: User not authorized to edit the dataset.
+        '400':
+          description: File not found based on id.

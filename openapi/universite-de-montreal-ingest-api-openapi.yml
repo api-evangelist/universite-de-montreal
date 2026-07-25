@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Ingest API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Ingest
+paths:
+  /ingest/test/file:
+    get:
+      operationId: TestIngest_datafile
+      parameters:
+      - name: fileName
+        in: query
+        schema:
+          type: string
+      - name: fileType
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+      tags:
+      - Ingest

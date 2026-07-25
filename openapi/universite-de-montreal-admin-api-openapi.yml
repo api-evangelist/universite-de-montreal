@@ -1,0 +1,2189 @@
+openapi: 3.0.3
+info:
+  title: Dataverse Access Admin API
+  description: Open source research data repository software.
+  version: v6.8.1-SP
+tags:
+- name: Admin
+paths:
+  /admin/archiveAllUnarchivedDatasetVersions:
+    post:
+      operationId: Admin_archiveAllUnarchivedDatasetVersions
+      parameters:
+      - name: latestonly
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: listonly
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/assignee/{idtf}:
+    get:
+      operationId: Admin_findRoleAssignee
+      parameters:
+      - name: idtf
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/assignments/assignees/{raIdtf}:
+    get:
+      operationId: Admin_getAssignmentsFor
+      parameters:
+      - name: raIdtf
+        in: path
+        required: true
+        schema:
+          pattern: .*
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers:
+    get:
+      operationId: Admin_listAuthenticatedUsers
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Admin
+    post:
+      operationId: Admin_createAuthenicatedUser
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers/convert/builtin2oauth:
+    put:
+      operationId: Admin_builtin2oauth
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers/convert/builtin2shib:
+    put:
+      operationId: Admin_builtin2shib
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers/id/{id}:
+    delete:
+      operationId: Admin_deleteAuthenticatedUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers/id/{id}/convertRemoteToBuiltIn:
+    put:
+      operationId: Admin_convertOAuthUserToBuiltin
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers/id/{id}/convertShibToBuiltIn:
+    put:
+      operationId: Admin_convertShibUserToBuiltin
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Admin
+  /admin/authenticatedUsers/id/{id}/deactivate:
+    post:
+      operationId: Admin_deactivateAuthenticatedUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers/{identifier}:
+    get:
+      operationId: Admin_getAuthenticatedUserByIdentifier
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Admin_deleteAuthenticatedUser
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticatedUsers/{identifier}/deactivate:
+    post:
+      operationId: Admin_deactivateAuthenticatedUser
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticationProviderFactories:
+    get:
+      operationId: Admin_listAuthProviderFactories
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticationProviders:
+    get:
+      operationId: Admin_listAuthProviders
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Admin_addProvider
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticationProviders/{id}:
+    get:
+      operationId: Admin_showProvider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Admin_deleteAuthenticationProvider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticationProviders/{id}/:enabled:
+    post:
+      operationId: Admin_enableAuthenticationProvider_deprecated
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/authenticationProviders/{id}/enabled:
+    get:
+      operationId: Admin_checkAuthenticationProviderEnabled
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: Admin_enableAuthenticationProvider
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/bannerMessage:
+    get:
+      operationId: Admin_getBannerMessages
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Admin_addBannerMessage
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/bannerMessage/{id}:
+    delete:
+      operationId: Admin_deleteBannerMessage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/bannerMessage/{id}/deactivate:
+    put:
+      operationId: Admin_deactivateBannerMessage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/batch/jobs:
+    get:
+      operationId: BatchJobResource_listBatchJobs
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/batch/jobs/name/{jobName}:
+    get:
+      operationId: BatchJobResource_listBatchJobsByName
+      parameters:
+      - name: jobName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/batch/jobs/{jobId}:
+    get:
+      operationId: BatchJobResource_listBatchJobById
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/clearMetricsCache:
+    delete:
+      operationId: Admin_clearMetricsCache
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/clearMetricsCache/{name}:
+    delete:
+      operationId: Admin_clearMetricsCacheByName
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/clearThumbnailFailureFlag:
+    delete:
+      operationId: Admin_clearThumbnailFailureFlag
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/clearThumbnailFailureFlag/{id}:
+    delete:
+      operationId: Admin_clearThumbnailFailureFlagByDatafile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/computeDataFileHashValue/{fileId}/algorithm/{alg}:
+    post:
+      operationId: Admin_computeDataFileHashValue
+      parameters:
+      - name: alg
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/confirmEmail/{userId}:
+    get:
+      operationId: Admin_getConfirmEmailToken
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Admin_startConfirmEmailProcess
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/convertUserFromBcryptToSha1:
+    post:
+      operationId: Admin_convertUserFromBcryptToSha1
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datafiles/auditFiles:
+    get:
+      operationId: Admin_getAuditFiles
+      parameters:
+      - name: datasetIdentifierList
+        in: query
+        schema:
+          type: string
+      - name: firstId
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: lastId
+        in: query
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datafiles/integrity/fixmissingoriginalsizes:
+    get:
+      operationId: Admin_fixMissingOriginalSizes
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datafiles/integrity/fixmissingoriginaltypes:
+    get:
+      operationId: Admin_fixMissingOriginalTypes
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasetfield:
+    get:
+      operationId: DatasetFieldServiceApi_getAll
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasetfield/controlledVocabulary/subject:
+    get:
+      operationId: DatasetFieldServiceApi_showControlledVocabularyForSubject
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasetfield/load:
+    post:
+      operationId: DatasetFieldServiceApi_loadDatasetFields
+      requestBody:
+        content:
+          text/tab-separated-values:
+            schema:
+              format: binary
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasetfield/loadNAControlledVocabularyValue:
+    get:
+      operationId: DatasetFieldServiceApi_loadNAControlledVocabularyValue
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasetfield/loadpropertyfiles:
+    post:
+      operationId: DatasetFieldServiceApi_loadLanguagePropertyFile
+      requestBody:
+        content:
+          application/zip:
+            schema:
+              format: binary
+              type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasetfield/setDisplayOnCreate:
+    post:
+      operationId: DatasetFieldServiceApi_setDisplayOnCreate
+      parameters:
+      - name: datasetFieldType
+        in: query
+        schema:
+          type: string
+      - name: setDisplayOnCreate
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasetfield/{name}:
+    get:
+      operationId: DatasetFieldServiceApi_getByName
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasets/integrity/{datasetVersionId}/fixmissingunf:
+    post:
+      operationId: Admin_fixUnf
+      parameters:
+      - name: datasetVersionId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: forceRecalculate
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/datasets/thumbnailMetadata/{id}:
+    get:
+      operationId: Admin_getDatasetThumbnailMetadata
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/dataverse/curationLabelSets:
+    get:
+      operationId: Admin_listCurationLabelSets
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/dataverse/storageDrivers:
+    get:
+      operationId: Admin_listStorageDrivers
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/dataverse/{alias}/addRoleAssignmentsToChildren:
+    get:
+      operationId: Admin_addRoleAssignementsToChildren
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/dataverse/{alias}/curationLabelSet:
+    get:
+      operationId: Admin_getCurationLabelSet
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: Admin_setCurationLabelSet
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Admin_resetCurationLabelSet
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/dataverse/{alias}/storageDriver:
+    get:
+      operationId: Admin_getStorageDriver
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: Admin_setStorageDriver
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Admin_resetStorageDriver
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/downloadTmpFile:
+    get:
+      operationId: Admin_downloadTmpFile
+      parameters:
+      - name: fullyQualifiedPathToFile
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/externalTools:
+    get:
+      operationId: ExternalTools_getExternalTools
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: ExternalTools_addExternalTool
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/externalTools/{id}:
+    get:
+      operationId: ExternalTools_getExternalTool
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: ExternalTools_deleteExternalTool
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/featureFlags:
+    get:
+      operationId: Admin_getFeatureFlags
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/featureFlags/{flag}:
+    get:
+      operationId: Admin_getFeatureFlag
+      parameters:
+      - name: flag
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/feedback:
+    post:
+      operationId: FeedbackApi_submitFeedback
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/affiliation:
+    get:
+      operationId: Groups_listAffiliationGroups
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Groups_postAffiliationGroup
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/affiliation/{groupId}:
+    get:
+      operationId: Groups_getAffiliationGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Groups_deleteAffiliationGroup
+      parameters:
+      - name: groupId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/affiliation/{groupName}:
+    put:
+      operationId: Groups_putAffiliationGroups
+      parameters:
+      - name: groupName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/affiliations:
+    post:
+      operationId: Groups_postAffiliationGroups
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/domain:
+    get:
+      operationId: Groups_listMailDomainGroups
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Groups_createMailDomainGroup
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/domain/{groupAlias}:
+    get:
+      operationId: Groups_getMailDomainGroup
+      parameters:
+      - name: groupAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: Groups_updateMailDomainGroups
+      parameters:
+      - name: groupAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Groups_deleteMailDomainGroup
+      parameters:
+      - name: groupAlias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/ip:
+    get:
+      operationId: Groups_listIpGroups
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Groups_postIpGroup
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/ip/{group}:
+    get:
+      operationId: Groups_getIpGroup
+      parameters:
+      - name: group
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: Groups_putIpGroups
+      parameters:
+      - name: group
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Groups_deleteIpGroup
+      parameters:
+      - name: group
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/shib:
+    get:
+      operationId: Groups_listShibGroups
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Groups_createShibGroup
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/groups/shib/{primaryKey}:
+    delete:
+      operationId: Groups_deleteShibGroup
+      parameters:
+      - name: primaryKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index:
+    get:
+      operationId: Index_indexAllOrSubset
+      parameters:
+      - name: numPartitions
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: partitionIdToProcess
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: previewOnly
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/clear:
+    get:
+      operationId: Index_clearSolrIndex
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/clear-orphans:
+    get:
+      operationId: Index_clearOrphans
+      parameters:
+      - name: sync
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/continue:
+    get:
+      operationId: Index_indexAllOrSubsetContinue
+      parameters:
+      - name: numPartitions
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: partitionIdToProcess
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: previewOnly
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/dataset:
+    get:
+      operationId: Index_indexDatasetByPersistentId
+      parameters:
+      - name: persistentId
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/datasets/{id}:
+    delete:
+      operationId: Index_clearDatasetFromIndex
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/filemetadata/{dataset_id}:
+    get:
+      operationId: Index_getFileMetadataByDatasetId
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: maxResults
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: order
+        in: query
+        schema:
+          type: string
+      - name: sort
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/filesearch:
+    get:
+      operationId: Index_filesearch
+      parameters:
+      - name: persistentId
+        in: query
+        schema:
+          type: string
+      - name: q
+        in: query
+        schema:
+          type: string
+      - name: semanticVersion
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/mod:
+    get:
+      operationId: Index_indexMod
+      parameters:
+      - name: partitions
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: which
+        in: query
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/perms:
+    get:
+      operationId: Index_indexAllPermissions
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/perms/{id}:
+    get:
+      operationId: Index_indexPermissions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/permsDebug:
+    get:
+      operationId: Index_searchPermsDebug
+      parameters:
+      - name: id
+        in: query
+        schema:
+          format: int64
+          type: integer
+      - name: key
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/solr/schema:
+    get:
+      operationId: Index_getSolrSchema
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+      tags:
+      - Admin
+  /admin/index/status:
+    get:
+      operationId: Index_indexStatus
+      parameters:
+      - name: sync
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/test:
+    get:
+      operationId: Index_searchDebug
+      parameters:
+      - name: fq
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: key
+        in: query
+        schema:
+          type: string
+      - name: q
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/timestamps:
+    delete:
+      operationId: Index_deleteAllTimestamps
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/timestamps/{dvObjectId}:
+    delete:
+      operationId: Index_deleteTimestamp
+      parameters:
+      - name: dvObjectId
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/index/{type}/{id}:
+    get:
+      operationId: Index_indexTypeById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: type
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/isOrcid:
+    get:
+      operationId: Admin_isOrcidEnabled
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/list-users:
+    get:
+      operationId: Admin_filterAuthenticatedUsers
+      parameters:
+      - name: itemsPerPage
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: searchTerm
+        in: query
+        schema:
+          type: string
+      - name: selectedPage
+        in: query
+        schema:
+          format: int32
+          type: integer
+      - name: sortKey
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/makeDataCount/addUsageMetricsFromSushiReport:
+    post:
+      operationId: MakeDataCountApi_addUsageMetricsFromSushiReportAll
+      parameters:
+      - name: reportOnDisk
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/makeDataCount/sendToHub:
+    post:
+      operationId: MakeDataCountApi_sendDataToHub
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/makeDataCount/{id}/addUsageMetricsFromSushiReport:
+    post:
+      operationId: MakeDataCountApi_addUsageMetricsFromSushiReport
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: reportOnDisk
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/makeDataCount/{id}/updateCitationsForDataset:
+    post:
+      operationId: MakeDataCountApi_updateCitationsForDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/makeDataCount/{yearMonth}/processingState:
+    get:
+      operationId: MakeDataCountApi_getProcessingState
+      parameters:
+      - name: yearMonth
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: MakeDataCountApi_updateProcessingState
+      parameters:
+      - name: yearMonth
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: server
+        in: query
+        schema:
+          type: string
+      - name: state
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: MakeDataCountApi_deleteProcessingState
+      parameters:
+      - name: yearMonth
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/metadata/clearExportTimestamps:
+    get:
+      operationId: Metadata_clearExportTimestamps
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/metadata/exportAll:
+    get:
+      operationId: Metadata_exportAll
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/metadata/exportOAI/{specname}:
+    put:
+      operationId: Metadata_exportOaiSet
+      parameters:
+      - name: specname
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/metadata/reExportAll:
+    get:
+      operationId: Metadata_reExportAll
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/metadata/{id}/reExportDataset:
+    get:
+      operationId: Metadata_indexDatasetByPersistentId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/permissions/{dvo}:
+    get:
+      operationId: Admin_findPermissonsOn
+      parameters:
+      - name: dvo
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/publishDataverseAsCreator/{id}:
+    post:
+      operationId: Admin_publishDataverseAsCreator
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/rateLimitStats:
+    get:
+      operationId: Admin_rateLimitStats
+      parameters:
+      - name: deltaMinutesFilter
+        in: query
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/registerDataFileAll:
+    get:
+      operationId: Admin_registerDataFileAll
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/registerDataFiles/{alias}:
+    get:
+      operationId: Admin_registerDataFilesInCollection
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sleep
+        in: query
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/requestSignedUrl:
+    post:
+      operationId: Admin_getSignedUrl
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/roles:
+    get:
+      operationId: Admin_listBuiltinRoles
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Admin_createNewBuiltinRole
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/roles/{id}:
+    put:
+      operationId: Admin_updateBuiltinRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Admin_deleteRole
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/savedsearches:
+    get:
+      operationId: SavedSearches_meta
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: SavedSearches_add
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/savedsearches/list:
+    get:
+      operationId: SavedSearches_list
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/savedsearches/makelinks/all:
+    put:
+      operationId: SavedSearches_makeLinksForAllSavedSearches
+      parameters:
+      - name: debug
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/savedsearches/makelinks/{id}:
+    put:
+      operationId: SavedSearches_makeLinksForSingleSavedSearch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: debug
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/savedsearches/{id}:
+    get:
+      operationId: SavedSearches_show
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: SavedSearches_delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - name: unlink
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/settings:
+    get:
+      operationId: Admin_listAllSettings
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/settings/{name}:
+    get:
+      operationId: Admin_getSetting
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: Admin_putSetting
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Admin_deleteSetting
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/settings/{name}/lang/{lang}:
+    put:
+      operationId: Admin_putSettingLang
+      parameters:
+      - name: lang
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: Admin_deleteSettingLang
+      parameters:
+      - name: lang
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/sitemap:
+    post:
+      operationId: SiteMap_updateSiteMap
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/storageSites:
+    get:
+      operationId: StorageSites_listAll
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: StorageSites_addSite
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/storageSites/{id}:
+    get:
+      operationId: StorageSites_get
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: StorageSites_delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/storageSites/{id}/primaryStorage:
+    put:
+      operationId: StorageSites_setPrimary
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/submitDatasetVersionToArchive/{id}/{version}:
+    post:
+      operationId: Admin_submitDatasetVersionToArchive
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/superuser/{identifier}:
+    put:
+      operationId: Admin_setSuperuserStatus
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: Admin_toggleSuperuser
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      deprecated: true
+      tags:
+      - Admin
+  /admin/template/{id}:
+    delete:
+      operationId: Admin_deleteTemplate
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/templates:
+    get:
+      operationId: Admin_findAllTemplates
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/templates/{alias}:
+    get:
+      operationId: Admin_findTemplates
+      parameters:
+      - name: alias
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/updateHashValues/{alg}:
+    get:
+      operationId: Admin_updateHashValues
+      parameters:
+      - name: alg
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: num
+        in: query
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/validate/dataset/files/{id}:
+    get:
+      operationId: Admin_validateDatasetDatafiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/validate/dataset/{id}:
+    get:
+      operationId: Admin_validateDataset
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: variables
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/validate/datasets:
+    get:
+      operationId: Admin_validateAllDatasets
+      parameters:
+      - name: variables
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/validateDataFileHashValue/{fileId}:
+    post:
+      operationId: Admin_validateDataFileHashValue
+      parameters:
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/validatePassword:
+    post:
+      operationId: Admin_validatePassword
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/workflows:
+    get:
+      operationId: WorkflowsAdmin_listWorkflows
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    post:
+      operationId: WorkflowsAdmin_addWorkflow
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/workflows/default:
+    get:
+      operationId: WorkflowsAdmin_listDefaults
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/workflows/default/{triggerType}:
+    get:
+      operationId: WorkflowsAdmin_getDefault
+      parameters:
+      - name: triggerType
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: WorkflowsAdmin_setDefault
+      parameters:
+      - name: triggerType
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: WorkflowsAdmin_deleteDefault
+      parameters:
+      - name: triggerType
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/workflows/ip-whitelist:
+    get:
+      operationId: WorkflowsAdmin_getIpWhitelist
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    put:
+      operationId: WorkflowsAdmin_setIpWhitelist
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: WorkflowsAdmin_deleteIpWhitelist
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/workflows/{id}:
+    get:
+      operationId: WorkflowsAdmin_getWorkflow
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+    delete:
+      operationId: WorkflowsAdmin_deleteWorkflow
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/{id}/registerDataFile:
+    get:
+      operationId: Admin_registerDataFile
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
+  /admin/{id}/reregisterHDLToPID:
+    post:
+      operationId: Admin_reregisterHdlToPID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+      tags:
+      - Admin
