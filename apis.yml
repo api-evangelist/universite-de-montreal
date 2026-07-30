@@ -13,9 +13,21 @@ description: >-
   developer portal; integration surfaces are distributed across library and
   research infrastructure.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/universite-de-montreal.png
 url: https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/refs/heads/main/apis.yml
 tags:
   - Education
@@ -30,53 +42,517 @@ created: '2026-06-03'
 modified: '2026-06-03'
 specificationVersion: '0.19'
 apis:
-  - aid: universite-de-montreal:sadvr
-    name: SADVR REST API (Vitrine-Recherche)
-    description: >-
-      REST API from the Service d'accès aux données de la Vitrine-Recherche,
-      redistributing UdeM research data. Provides five JSON services: resource
-      value exposure (faculties, departments, functions, programs, study
-      domains, research expertise, languages, unit types), persistent
-      identifier search for individuals and research units, extended identifier
-      search, full data retrieval by persistent identifier, and a SOLR-backed
-      search engine service. The documented base path is a testing/legacy
-      endpoint and may not currently resolve.
-    humanURL: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
-    tags: [ Research, Expertise, Open Data, REST, JSON ]
-    properties:
-      - type: Documentation
-        url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
-  - aid: universite-de-montreal:papyrus-oai
-    name: Papyrus OAI-PMH Endpoint
-    description: >-
-      OAI-PMH 2.0 metadata harvesting endpoint for Papyrus, the UdeM
-      institutional repository (a DSpace/Scholaris platform). Exposes
-      open-access theses, dissertations, and scholarly output metadata for
-      harvesting by service providers. Verified live returning a valid Identify
-      response for "PAPYRUS - Dépôt institutionnel de l'Université de Montréal".
-    humanURL: https://papyrus.bib.umontreal.ca/
-    baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
-    tags: [ Library, Institutional Repository, OAI-PMH, Metadata, DSpace, Open Access ]
-    properties:
-      - type: Documentation
-        url: https://papyrus.bib.umontreal.ca/
-      - type: GitHub
-        url: https://github.com/bibudem
-  - aid: universite-de-montreal:borealis-dataverse
-    name: UdeM Borealis Dataverse
-    description: >-
-      Université de Montréal's collection within Borealis, the Canadian
-      Dataverse Repository, for depositing, sharing, and discovering research
-      data. Dataverse provides a documented native REST API for data and
-      metadata access; UdeM operates as a participating institution rather than
-      hosting its own Dataverse instance.
-    humanURL: https://borealisdata.ca/dataverse/montreal
-    tags: [ Research Data, Dataverse, Open Data, REST ]
-    properties:
-      - type: Documentation
-        url: https://borealisdata.ca/dataverse/montreal
-      - type: OpenAPI
-        url: openapi/universite-de-montreal-borealis-dataverse.yaml
+- aid: universite-de-montreal:sadvr
+  name: SADVR REST API (Vitrine-Recherche)
+  description: >-
+    REST API from the Service d'accès aux données de la Vitrine-Recherche, redistributing UdeM research
+    data. Provides five JSON services: resource value exposure (faculties, departments, functions, programs,
+    study domains, research expertise, languages, unit types), persistent identifier search for individuals
+    and research units, extended identifier search, full data retrieval by persistent identifier, and
+    a SOLR-backed search engine service. The documented base path is a testing/legacy endpoint and may
+    not currently resolve.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  tags:
+  - Research
+  - Expertise
+  - Open Data
+  - REST
+  - JSON
+  properties:
+  - type: Documentation
+    url: >-
+      https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+- aid: universite-de-montreal:papyrus-oai
+  name: Papyrus OAI-PMH Endpoint
+  description: >-
+    OAI-PMH 2.0 metadata harvesting endpoint for Papyrus, the UdeM institutional repository (a DSpace/Scholaris
+    platform). Exposes open-access theses, dissertations, and scholarly output metadata for harvesting
+    by service providers. Verified live returning a valid Identify response for "PAPYRUS - Dépôt institutionnel
+    de l'Université de Montréal".
+  humanURL: https://papyrus.bib.umontreal.ca/
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Library
+  - Institutional Repository
+  - OAI-PMH
+  - Metadata
+  - DSpace
+  - Open Access
+  properties:
+  - type: Documentation
+    url: https://papyrus.bib.umontreal.ca/
+  - type: GitHub
+    url: https://github.com/bibudem
+- aid: universite-de-montreal:universite-de-montreal-access-api
+  name: Université de Montréal Access API
+  description: The Access API from Université de Montréal — 23 operation(s) for access.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Access
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-access-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-addfilestodataset-api
+  name: Université de Montréal addFilesToDataset API
+  description: Uploads a set of files to a dataset
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - addFilesToDataset
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-addfilestodataset-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-addfiletodataset-api
+  name: Université de Montréal addFileToDataset API
+  description: Uploads a file for a dataset
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - addFileToDataset
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-addfiletodataset-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-addglobusfilestodataset-api
+  name: Université de Montréal addGlobusFilesToDataset API
+  description: Uploads a Globus file for a dataset
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - addGlobusFilesToDataset
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-addglobusfilestodataset-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-admin-api
+  name: Université de Montréal Admin API
+  description: The Admin API from Université de Montréal — 131 operation(s) for admin.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-admin-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-batch-api
+  name: Université de Montréal Batch API
+  description: The Batch API from Université de Montréal — 3 operation(s) for batch.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-batch-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-builtin-users-api
+  name: Université de Montréal Builtin Users API
+  description: The Builtin Users API from Université de Montréal — 4 operation(s) for builtin users.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Builtin Users
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-builtin-users-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-datasetfields-api
+  name: Université de Montréal Datasetfields API
+  description: The Datasetfields API from Université de Montréal — 1 operation(s) for datasetfields.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Datasetfields
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-datasetfields-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-datasets-api
+  name: Université de Montréal Datasets API
+  description: The Datasets API from Université de Montréal — 94 operation(s) for datasets.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-datasets-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-datatags-api
+  name: Université de Montréal Datatags API
+  description: The Datatags API from Université de Montréal — 1 operation(s) for datatags.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Datatags
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-datatags-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-dataversefeatureditems-api
+  name: Université de Montréal DataverseFeaturedItems API
+  description: >-
+    The DataverseFeaturedItems API from Université de Montréal — 1 operation(s) for dataversefeatureditems.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - DataverseFeaturedItems
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-dataversefeatureditems-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-dataverses-api
+  name: Université de Montréal Dataverses API
+  description: The Dataverses API from Université de Montréal — 40 operation(s) for dataverses.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Dataverses
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-dataverses-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-edit-api
+  name: Université de Montréal Edit API
+  description: The Edit API from Université de Montréal — 1 operation(s) for edit.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Edit
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-edit-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-externaltools-api
+  name: Université de Montréal ExternalTools API
+  description: The ExternalTools API from Université de Montréal — 2 operation(s) for externaltools.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - ExternalTools
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-externaltools-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-files-api
+  name: Université de Montréal Files API
+  description: The Files API from Université de Montréal — 21 operation(s) for files.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-files-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-harvest-api
+  name: Université de Montréal Harvest API
+  description: The Harvest API from Université de Montréal — 7 operation(s) for harvest.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Harvest
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-harvest-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-inbox-api
+  name: Université de Montréal Inbox API
+  description: The Inbox API from Université de Montréal — 1 operation(s) for inbox.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Inbox
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-inbox-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-info-api
+  name: Université de Montréal Info API
+  description: The Info API from Université de Montréal — 51 operation(s) for info.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-info-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-ingest-api
+  name: Université de Montréal Ingest API
+  description: The Ingest API from Université de Montréal — 1 operation(s) for ingest.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Ingest
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-ingest-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-licenses-api
+  name: Université de Montréal Licenses API
+  description: The Licenses API from Université de Montréal — 6 operation(s) for licenses.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Licenses
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-licenses-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-localcontexts-api
+  name: Université de Montréal Localcontexts API
+  description: The Localcontexts API from Université de Montréal — 2 operation(s) for localcontexts.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Localcontexts
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-localcontexts-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-logout-api
+  name: Université de Montréal Logout API
+  description: The Logout API from Université de Montréal — 1 operation(s) for logout.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Logout
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-logout-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-mail-api
+  name: Université de Montréal Mail API
+  description: The Mail API from Université de Montréal — 1 operation(s) for mail.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Mail
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-mail-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-meta-api
+  name: Université de Montréal Meta API
+  description: The Meta API from Université de Montréal — 2 operation(s) for meta.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Meta
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-meta-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-metadatablocks-api
+  name: Université de Montréal Metadatablocks API
+  description: The Metadatablocks API from Université de Montréal — 2 operation(s) for metadatablocks.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Metadatablocks
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-metadatablocks-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-mydata-api
+  name: Université de Montréal Mydata API
+  description: The Mydata API from Université de Montréal — 2 operation(s) for mydata.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Mydata
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-mydata-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-notifications-api
+  name: Université de Montréal Notifications API
+  description: The Notifications API from Université de Montréal — 8 operation(s) for notifications.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-pids-api
+  name: Université de Montréal Pids API
+  description: The Pids API from Université de Montréal — 6 operation(s) for pids.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Pids
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-pids-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-replacefilesindataset-api
+  name: Université de Montréal replaceFilesInDataset API
+  description: Replace a file to a dataset
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - replaceFilesInDataset
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-replacefilesindataset-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-roles-api
+  name: Université de Montréal Roles API
+  description: The Roles API from Université de Montréal — 3 operation(s) for roles.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Roles
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-roles-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-saveauxiliaryfilewithversion-api
+  name: Université de Montréal saveAuxiliaryFileWithVersion API
+  description: Save Auxiliary File With Version
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - saveAuxiliaryFileWithVersion
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-saveauxiliaryfilewithversion-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-search-api
+  name: Université de Montréal Search API
+  description: The Search API from Université de Montréal — 2 operation(s) for search.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-search-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-sendfeedback-api
+  name: Université de Montréal Sendfeedback API
+  description: The Sendfeedback API from Université de Montréal — 1 operation(s) for sendfeedback.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Sendfeedback
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-sendfeedback-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-uploaddatasetlogo-api
+  name: Université de Montréal uploadDatasetLogo API
+  description: Uploads a logo for a dataset
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - uploadDatasetLogo
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-uploaddatasetlogo-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-users-api
+  name: Université de Montréal Users API
+  description: The Users API from Université de Montréal — 10 operation(s) for users.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-users-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
+- aid: universite-de-montreal:universite-de-montreal-workflows-api
+  name: Université de Montréal Workflows API
+  description: The Workflows API from Université de Montréal — 1 operation(s) for workflows.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
+  tags:
+  - Workflows
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-workflows-api-openapi.yml
+  - type: Documentation
+    url: https://borealisdata.ca/dataverse/montreal
 common:
   - type: AgenticAccess
     url: agentic-access/universite-de-montreal-agentic-access.yml
