@@ -1,0 +1,197 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dataverse Access Users API",
+    "version": "v6.8.1-SP"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Users_getAuthenticatedUserByToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:me"
+          }
+        },
+        {
+          "info": {
+            "name": "Users_registerOIDCUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/register"
+          }
+        },
+        {
+          "info": {
+            "name": "Users_getTokenExpirationDate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/token"
+          }
+        },
+        {
+          "info": {
+            "name": "Users_deleteToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/users/token"
+          }
+        },
+        {
+          "info": {
+            "name": "Users_recreateToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/token/recreate",
+            "params": [
+              {
+                "name": "returnExpiration",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Users_mergeInAuthenticatedUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/:consumedIdentifier/mergeIntoUser/:baseIdentifier",
+            "params": [
+              {
+                "name": "baseIdentifier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "consumedIdentifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Users_getUserPermittedCollections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:identifier/allowedCollections/:permission",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "permission",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Users_changeAuthenticatedUserIdentifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/:identifier/changeIdentifier/:newIdentifier",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "newIdentifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Users_removeUserRoles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/users/:identifier/removeRoles",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Users_getTraces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:identifier/traces",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Users_getTracesElement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/users/:identifier/traces/:element",
+            "params": [
+              {
+                "name": "element",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

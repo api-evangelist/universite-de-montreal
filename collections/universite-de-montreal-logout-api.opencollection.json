@@ -1,0 +1,28 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dataverse Access Logout API",
+    "version": "v6.8.1-SP"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Logout_logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/logout"
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

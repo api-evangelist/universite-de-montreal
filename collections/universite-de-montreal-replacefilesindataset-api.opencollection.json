@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dataverse Access replaceFilesInDataset API",
+    "version": "v6.8.1-SP"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "replaceFilesInDataset",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Replace a set of files to a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/datasets/:id/replaceFiles",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Replace a set of files to a dataset"
+        },
+        {
+          "info": {
+            "name": "Replace a file on a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/files/:id/replace",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Replace a file to a dataset"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,940 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dataverse Access Info API",
+    "version": "v6.8.1-SP"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Metrics_getAccountsAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/accounts"
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getAccountsTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/accounts/monthly"
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getAccountsPastDays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/accounts/pastDays/:days",
+            "params": [
+              {
+                "name": "days",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getAccountsToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/accounts/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDatasetsAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/datasets",
+            "params": [
+              {
+                "name": "dataLocation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDatasetsBySubject",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/datasets/bySubject",
+            "params": [
+              {
+                "name": "dataLocation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDatasetsBySubjectToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/datasets/bySubject/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dataLocation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDatasetsTimeSeriest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/datasets/monthly",
+            "params": [
+              {
+                "name": "dataLocation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDatasetsPastDays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/datasets/pastDays/:days",
+            "params": [
+              {
+                "name": "days",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dataLocation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDatasetsToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/datasets/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dataLocation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/dataverses",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesByCategory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/dataverses/byCategory",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesBySubject",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/dataverses/bySubject",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/dataverses/monthly",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesPastDays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/dataverses/pastDays/:days",
+            "params": [
+              {
+                "name": "days",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/dataverses/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDownloadsAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/downloads",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDownloadsTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/downloads/monthly",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDownloadsPastDays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/downloads/pastDays/:days",
+            "params": [
+              {
+                "name": "days",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDownloadsToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/downloads/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFileDownloadsAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/filedownloads",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFileDownloadsTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/filedownloads/monthly",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFileDownloadsToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/filedownloads/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFilesAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/files",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFilesByType",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/files/byType",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFilesByTypeTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/files/byType/monthly",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFilesTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/files/monthly",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFilesPastDays",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/files/pastDays/:days",
+            "params": [
+              {
+                "name": "days",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getFilesToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/files/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getMakeDataCountMetricCurrentMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/makeDataCount/:metric",
+            "params": [
+              {
+                "name": "metric",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getMakeDataCountMetricTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/makeDataCount/:metric/monthly",
+            "params": [
+              {
+                "name": "metric",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getMakeDataCountMetricToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/makeDataCount/:metric/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "metric",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesTree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/tree",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getDataversesTreeToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/tree/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getUniqueDownloadsAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/uniquedownloads",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getUniqueDownloadsTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/uniquedownloads/monthly",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getUniqueDownloadsToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/uniquedownloads/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getUniqueFileDownloadsAllTime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/uniquefiledownloads",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getUniqueFileDownloadsTimeSeries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/uniquefiledownloads/monthly",
+            "params": [
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Metrics_getUniqueFileDownloadsToMonth",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/metrics/uniquefiledownloads/toMonth/:yyyymm",
+            "params": [
+              {
+                "name": "yyyymm",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "parentAlias",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getTermsOfUse",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/apiTermsOfUse"
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getApplicationTermsOfUse",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/applicationTermsOfUse",
+            "params": [
+              {
+                "name": "lang",
+                "value": "en",
+                "type": "query",
+                "description": "Two-character language code."
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getExportFormats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/exportFormats"
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getShibInstitutionIgnoreList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/idpignorelist"
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getServer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/server"
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getDatasetPublishPopupCustomText",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/settings/:DatasetPublishPopupCustomText"
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getMaxEmbargoDurationInMonths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/settings/:MaxEmbargoDurationInMonths"
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getCustomizationFile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/settings/customization/:customizationFileType",
+            "params": [
+              {
+                "name": "customizationFileType",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Info_getAllowsIncompleteMetadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/settings/incompleteMetadataViaApi"
+          }
+        },
+        {
+          "info": {
+            "name": "Get version and build information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/version"
+          },
+          "docs": "Get version and build information"
+        },
+        {
+          "info": {
+            "name": "Info_getZipDownloadLimit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/info/zipDownloadLimit"
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

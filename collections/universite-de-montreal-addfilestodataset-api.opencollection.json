@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dataverse Access addFilesToDataset API",
+    "version": "v6.8.1-SP"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "addFilesToDataset",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Uploads a set of files to a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/datasets/:id/addFiles",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a set of files to a dataset"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

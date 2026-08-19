@@ -1,0 +1,28 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dataverse Access Datasetfields API",
+    "version": "v6.8.1-SP"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasetfields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DatasetFields_listAllFacetableDatasetFields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/datasetfields/facetables"
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
