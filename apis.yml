@@ -274,6 +274,8 @@ apis:
     https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
   baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -430,6 +432,8 @@ apis:
     https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
   baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -481,7 +485,8 @@ apis:
   humanURL: >-
     https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
   baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
-  tags:
+  tags: []
+  tags_raw:
   - saveAuxiliaryFileWithVersion
   properties:
   - type: OpenAPI
@@ -520,7 +525,8 @@ apis:
   humanURL: >-
     https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
   baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
-  tags:
+  tags: []
+  tags_raw:
   - uploadDatasetLogo
   properties:
   - type: OpenAPI
@@ -534,6 +540,8 @@ apis:
     https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
   baseURL: https://umontreal.scholaris.ca/server/oai/openaire4
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
