@@ -13,6 +13,18 @@ description: >-
   developer portal; integration surfaces are distributed across library and
   research infrastructure.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: unknown
@@ -562,6 +574,9 @@ apis:
   - type: Documentation
     url: https://borealisdata.ca/dataverse/montreal
 common:
+  - type: CapabilityMap
+    url: capabilities/universite-de-montreal-capability-edges.yml
+    name: Université de Montréal Business Capability Map
   - type: AgenticAccess
     url: agentic-access/universite-de-montreal-agentic-access.yml
   - type: DomainSecurity
