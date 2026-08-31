@@ -1,0 +1,14 @@
+{
+  "repo": "universite-de-montreal",
+  "feeds": [
+    {
+      "source": "https://vie-privee.umontreal.ca/confidentialite/",
+      "feed_url": "https://vie-privee.umontreal.ca/confidentialite/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-30T22:33:40Z"
+}
