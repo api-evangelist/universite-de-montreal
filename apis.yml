@@ -55,7 +55,7 @@ accessModel:
   - probed
   generated: '2026-08-30'
   method: probed
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/universite-de-montreal.png
 url: https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/refs/heads/main/apis.yml
