@@ -82,68 +82,21 @@ created: '2026-06-03'
 modified: '2026-08-30'
 specificationVersion: '0.23'
 apis:
-- aid: universite-de-montreal:sadvr
-  name: SADVR REST API (Vitrine-Recherche)
-  x-operator: institution
-  x-operator-evidence: >-
-    Runs on recherche.umontreal.ca, Université de Montréal's own registrable domain. Built in-house
-    by the institution's Centre d'expertise numérique pour la recherche under the SADVR project
-    (2015-2016) and documented by UdeM staff on the institution's own Confluence wiki.
-  description: >-
-    Université de Montréal's own read-only research API, and the one genuinely institution-engineered
-    contract in this profile. Five services: reference-value exposure (faculties, departments,
-    administrative units, job titles, programmes, study domains, disciplines, research-expertise
-    keywords, languages, research-unit types), persistent-identifier resolution for individuals and
-    research units, an extended identifier service carrying affiliations and expertise, full record
-    retrieval by idsadvr, and a SOLR-backed search across three showcases. No API key. GET only.
-    Requests to the documented base are redirected into a /public/ path segment, so clients must
-    follow redirects.
-
-    The June 2026 profile of this repo recorded this API as a dead testing endpoint. That was wrong:
-    the documented example URL uses `ressource/langues` where the deployment serves
-    `ressource/langue`, and the undocumented HTML 404 read as a decommissioned service. Fifteen
-    documented routes were re-probed on 2026-08-30 and returned 200 application/json.
-  humanURL: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
-  baseURL: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
-  tags:
-  - Research
-  - Research Expertise
-  - Persistent Identifiers
-  - Open Data
-  - REST
-  - JSON
-  properties:
-  - type: OpenAPI
-    url: openapi/universite-de-montreal-sadvr-openapi.yml
-  - type: Documentation
-    url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
-  - type: JSONSchema
-    url: json-schema/universite-de-montreal-sadvr-ressource-schema.json
-  - type: JSONSchema
-    url: json-schema/universite-de-montreal-sadvr-uniterech-schema.json
-  - type: Examples
-    url: examples/universite-de-montreal-sadvr-ressource-faculte-example.json
-  - type: Vocabulary
-    url: vocabulary/universite-de-montreal-sadvr-vocabulary.yml
-  - type: Rules
-    url: rules/universite-de-montreal-sadvr-rules.yml
-  - type: JSONLD
-    url: json-ld/universite-de-montreal-context.jsonld
 - aid: universite-de-montreal:shibboleth-idp
   name: UdeM Shibboleth Identity Provider (SAML metadata)
   x-operator: institution
   x-operator-evidence: >-
-    entityID https://shibboleth.umontreal.ca/idp/shibboleth, served from the institution's own
-    registrable domain, asserting shibmd:Scope "umontreal.ca". An identity provider is
-    institution-operated by definition — it is the institution asserting who its people are.
+    entityID https://shibboleth.umontreal.ca/idp/shibboleth, served from the institution's own registrable
+    domain, asserting shibmd:Scope "umontreal.ca". An identity provider is institution-operated by definition
+    — it is the institution asserting who its people are.
   description: >-
-    Université de Montréal's campus single sign-on, published as machine-readable SAML 2.0 entity
-    metadata. The document declares an IDPSSODescriptor supporting SAML 2.0, SAML 1.1 and the legacy
-    urn:mace:shibboleth:1.0 AuthnRequest profile, an AttributeAuthorityDescriptor for out-of-band
-    attribute queries, SSO and SLO endpoints over HTTP-POST, HTTP-POST-SimpleSign, HTTP-Redirect and
-    SOAP, artifact resolution on port 8443, and mdui display names in French and English. This is
-    not an API a developer calls; it is the contract a relying party consumes to federate with UdeM,
-    and it is machine-readable, versioned by publication, and permanently public.
+    Université de Montréal's campus single sign-on, published as machine-readable SAML 2.0 entity metadata.
+    The document declares an IDPSSODescriptor supporting SAML 2.0, SAML 1.1 and the legacy urn:mace:shibboleth:1.0
+    AuthnRequest profile, an AttributeAuthorityDescriptor for out-of-band attribute queries, SSO and SLO
+    endpoints over HTTP-POST, HTTP-POST-SimpleSign, HTTP-Redirect and SOAP, artifact resolution on port
+    8443, and mdui display names in French and English. This is not an API a developer calls; it is the
+    contract a relying party consumes to federate with UdeM, and it is machine-readable, versioned by
+    publication, and permanently public.
   humanURL: https://ti.umontreal.ca/
   baseURL: https://shibboleth.umontreal.ca/idp
   tags:
@@ -163,17 +116,17 @@ apis:
   name: PAPYRUS OAI-PMH Endpoint (institutional repository)
   x-operator: tenant
   x-operator-evidence: >-
-    umontreal.scholaris.ca is an institution-specific subdomain of Scholaris, the CRKN-hosted
-    national DSpace service. papyrus.bib.umontreal.ca 301s to it. The repository content, sets and
-    Identify response are UdeM's; the OAI-PMH implementation is DSpace's. No DSpace or Scholaris
-    contract is saved under this institution's slug.
+    umontreal.scholaris.ca is an institution-specific subdomain of Scholaris, the CRKN-hosted national
+    DSpace service. papyrus.bib.umontreal.ca 301s to it. The repository content, sets and Identify response
+    are UdeM's; the OAI-PMH implementation is DSpace's. No DSpace or Scholaris contract is saved under
+    this institution's slug.
   description: >-
-    OAI-PMH 2.0 harvesting interface for PAPYRUS, Université de Montréal's institutional repository
-    of open-access theses, dissertations and scholarly output. Identify returns repositoryName
-    "PAPYRUS - Dépôt institutionnel de l'Université de Montréal". Two contexts are served: the
-    default at /server/oai/request advertises 18 metadata prefixes including oai_dc, qdc, mods,
-    marc21, dim, mets, ore and the ETD-MS family, and a second at /server/oai/openaire4 is restricted
-    to oai_openaire against the OpenAIRE repo-lit 4.0 schema. Anonymous, no key.
+    OAI-PMH 2.0 harvesting interface for PAPYRUS, Université de Montréal's institutional repository of
+    open-access theses, dissertations and scholarly output. Identify returns repositoryName "PAPYRUS -
+    Dépôt institutionnel de l'Université de Montréal". Two contexts are served: the default at /server/oai/request
+    advertises 18 metadata prefixes including oai_dc, qdc, mods, marc21, dim, mets, ore and the ETD-MS
+    family, and a second at /server/oai/openaire4 is restricted to oai_openaire against the OpenAIRE repo-lit
+    4.0 schema. Anonymous, no key.
   humanURL: https://umontreal.scholaris.ca/
   baseURL: https://umontreal.scholaris.ca/server/oai/request
   tags:
@@ -192,14 +145,13 @@ apis:
   name: PAPYRUS DSpace REST API (HAL)
   x-operator: tenant
   x-operator-evidence: >-
-    The HAL root at umontreal.scholaris.ca/server/api self-identifies as
-    dspaceName "PAPYRUS - Dépôt institutionnel de l'Université de Montréal" running on a DSpace
-    server. UdeM's tenancy, DSpace's contract.
+    The HAL root at umontreal.scholaris.ca/server/api self-identifies as dspaceName "PAPYRUS - Dépôt institutionnel
+    de l'Université de Montréal" running on a DSpace server. UdeM's tenancy, DSpace's contract.
   description: >-
-    The DSpace 8 REST API behind PAPYRUS, answering anonymously at the HAL root and advertising the
-    repository's entry points as application/hal+json. Reads are open; deposit and restricted items
-    require a repository account issued by the UdeM libraries. Recorded as a tenant relationship —
-    the DSpace API description belongs in DSpace's own catalog entry, not under this institution.
+    The DSpace 8 REST API behind PAPYRUS, answering anonymously at the HAL root and advertising the repository's
+    entry points as application/hal+json. Reads are open; deposit and restricted items require a repository
+    account issued by the UdeM libraries. Recorded as a tenant relationship — the DSpace API description
+    belongs in DSpace's own catalog entry, not under this institution.
   humanURL: https://umontreal.scholaris.ca/
   baseURL: https://umontreal.scholaris.ca/server/api
   tags:
@@ -215,17 +167,16 @@ apis:
   name: Borealis Dataverse — Université de Montréal collection
   x-operator: tenant
   x-operator-evidence: >-
-    borealisdata.ca is the shared Canadian Dataverse instance operated by Scholars Portal / OCUL for
-    CRKN — a generic host every participating institution shares, not a UdeM subdomain. UdeM holds
-    collection id 75123, alias "montreal". On 2026-08-30 the 36 Dataverse product OpenAPIs previously
-    saved under this slug were removed; this entry replaces all of them.
+    borealisdata.ca is the shared Canadian Dataverse instance operated by Scholars Portal / OCUL for CRKN
+    — a generic host every participating institution shares, not a UdeM subdomain. UdeM holds collection
+    id 75123, alias "montreal". On 2026-08-30 the 36 Dataverse product OpenAPIs previously saved under
+    this slug were removed; this entry replaces all of them.
   description: >-
-    Université de Montréal's research-data collection inside Borealis, the Canadian national
-    Dataverse. 452 UdeM datasets, each carrying a DataCite DOI under the 10.5683 prefix, plus 20-odd
-    sub-collections including a student Dataverse and per-researcher collections. Reachable through
-    Borealis's Dataverse native API by collection alias. The data and the DOIs are UdeM's; the API,
-    the software and the hosting are Borealis's, and the Dataverse contract is scored against
-    Dataverse, not against this institution.
+    Université de Montréal's research-data collection inside Borealis, the Canadian national Dataverse.
+    452 UdeM datasets, each carrying a DataCite DOI under the 10.5683 prefix, plus 20-odd sub-collections
+    including a student Dataverse and per-researcher collections. Reachable through Borealis's Dataverse
+    native API by collection alias. The data and the DOIs are UdeM's; the API, the software and the hosting
+    are Borealis's, and the Dataverse contract is scored against Dataverse, not against this institution.
   humanURL: https://borealisdata.ca/dataverse/montreal
   baseURL: https://borealisdata.ca/api/dataverses/montreal
   tags:
@@ -244,13 +195,13 @@ apis:
   name: WorldCat Discovery — Université de Montréal
   x-operator: tenant
   x-operator-evidence: >-
-    umontreal.on.worldcat.org is an OCLC-assigned tenant subdomain on worldcat.org. The catalogue
-    holdings are UdeM's; the discovery platform and any API over it are OCLC's.
+    umontreal.on.worldcat.org is an OCLC-assigned tenant subdomain on worldcat.org. The catalogue holdings
+    are UdeM's; the discovery platform and any API over it are OCLC's.
   description: >-
     Library discovery for the Université de Montréal libraries, delivered on OCLC WorldCat Discovery.
-    Recorded as the institution's library-catalogue surface and explicitly as a tenancy. OCLC's
-    WorldCat Search API requires an OCLC-issued key and is not a Université de Montréal surface;
-    no OCLC contract is saved under this slug.
+    Recorded as the institution's library-catalogue surface and explicitly as a tenancy. OCLC's WorldCat
+    Search API requires an OCLC-issued key and is not a Université de Montréal surface; no OCLC contract
+    is saved under this slug.
   humanURL: https://umontreal.on.worldcat.org/discovery
   tags:
   - Library
@@ -261,6 +212,110 @@ apis:
   properties:
   - type: Documentation
     url: https://bib.umontreal.ca/
+- aid: universite-de-montreal:universite-de-montreal-identifiants-api
+  name: Université de Montréal Identifiants API
+  description: Persistent identifier (idsadvr) lookup for individuals and research units.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
+  tags:
+  - Identifiants
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-identifiants-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-ressource-schema.json
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-uniterech-schema.json
+  - type: Examples
+    url: examples/universite-de-montreal-sadvr-ressource-faculte-example.json
+  - type: Vocabulary
+    url: vocabulary/universite-de-montreal-sadvr-vocabulary.yml
+  - type: Rules
+    url: rules/universite-de-montreal-sadvr-rules.yml
+  - type: JSONLD
+    url: json-ld/universite-de-montreal-context.jsonld
+- aid: universite-de-montreal:universite-de-montreal-informations-api
+  name: Université de Montréal Informations API
+  description: Full record retrieval by persistent identifier.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
+  tags:
+  - Informations
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-informations-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-ressource-schema.json
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-uniterech-schema.json
+  - type: Examples
+    url: examples/universite-de-montreal-sadvr-ressource-faculte-example.json
+  - type: Vocabulary
+    url: vocabulary/universite-de-montreal-sadvr-vocabulary.yml
+  - type: Rules
+    url: rules/universite-de-montreal-sadvr-rules.yml
+  - type: JSONLD
+    url: json-ld/universite-de-montreal-context.jsonld
+- aid: universite-de-montreal:universite-de-montreal-recherche-api
+  name: Université de Montréal Recherche API
+  description: SOLR-backed search across the Vitrine-Recherche showcases.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
+  tags:
+  - Recherche
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-recherche-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-ressource-schema.json
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-uniterech-schema.json
+  - type: Examples
+    url: examples/universite-de-montreal-sadvr-ressource-faculte-example.json
+  - type: Vocabulary
+    url: vocabulary/universite-de-montreal-sadvr-vocabulary.yml
+  - type: Rules
+    url: rules/universite-de-montreal-sadvr-rules.yml
+  - type: JSONLD
+    url: json-ld/universite-de-montreal-context.jsonld
+- aid: universite-de-montreal:universite-de-montreal-ressources-api
+  name: Université de Montréal Ressources API
+  description: Controlled reference values used to filter the identifier services.
+  humanURL: >-
+    https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  baseURL: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
+  tags:
+  - Ressources
+  properties:
+  - type: OpenAPI
+    url: openapi/universite-de-montreal-ressources-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-ressource-schema.json
+  - type: JSONSchema
+    url: json-schema/universite-de-montreal-sadvr-uniterech-schema.json
+  - type: Examples
+    url: examples/universite-de-montreal-sadvr-ressource-faculte-example.json
+  - type: Vocabulary
+    url: vocabulary/universite-de-montreal-sadvr-vocabulary.yml
+  - type: Rules
+    url: rules/universite-de-montreal-sadvr-rules.yml
+  - type: JSONLD
+    url: json-ld/universite-de-montreal-context.jsonld
 common:
 - type: Website
   url: https://www.umontreal.ca/en/
