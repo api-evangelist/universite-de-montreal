@@ -103,6 +103,12 @@ apis:
   - Identity Federation
   - Shibboleth
   - SAML
+  - SSO
+  - Authentication
+  tags_raw:
+  - Identity Federation
+  - Shibboleth
+  - SAML
   - Single Sign-On
   - Authentication
   properties:
