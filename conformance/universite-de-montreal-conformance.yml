@@ -1,0 +1,154 @@
+---
+specification: API Evangelist Conformance
+specificationVersion: '0.1'
+provider: Université de Montréal
+providerId: universite-de-montreal
+generated: '2026-08-30'
+method: probed
+source: live probes of Université de Montréal hosts, 2026-08-30
+regime: education
+description: >-
+  Domain-standard conformance for Université de Montréal, measured against the Kin Score
+  `education` regime standards list. Every entry below was established by fetching the surface
+  and reading the response body, never by reading a prose claim. Each conformance carries the
+  operator of the surface it was found on: a standard implemented by a vendor platform running
+  under a UdeM subdomain is a real institutional fact but it is not UdeM's engineering.
+standards:
+- standard: shibboleth
+  status: conformant
+  x-operator: institution
+  evidence:
+    url: https://shibboleth.umontreal.ca/idp/shibboleth
+    status: 200
+    contentType: application/xml
+    detail: >-
+      Live Shibboleth Identity Provider metadata under the institution's own registrable domain.
+      The document declares shibmd:Scope "umontreal.ca" (twice, non-regexp), an mdui:DisplayName
+      of "Université de Montréal" in fr and en, mdui:Description "UdeM - IdP", and a
+      urn:mace:shibboleth:1.0:profiles:AuthnRequest SingleSignOnService binding at
+      /idp/profile/Shibboleth/SSO. A second endpoint, https://shibboleth.umontreal.ca/idp/status,
+      returns 200 text/plain with the running IdP's JVM and uptime report.
+  note: >-
+    Institution-operated by definition. This is the surface class the university pipeline calls
+    out as almost never catalogued, and it was absent from this repo's June 2026 profile.
+- standard: saml
+  status: conformant
+  x-operator: institution
+  evidence:
+    url: https://shibboleth.umontreal.ca/idp/shibboleth
+    status: 200
+    contentType: application/xml
+    detail: >-
+      SAML 2.0 EntityDescriptor, entityID https://shibboleth.umontreal.ca/idp/shibboleth,
+      IDPSSODescriptor advertising protocolSupportEnumeration
+      "urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:mace:shibboleth:1.0",
+      plus an AttributeAuthorityDescriptor for SAML 1.1. Bindings observed: HTTP-POST,
+      HTTP-POST-SimpleSign, HTTP-Redirect and SOAP for SSO/SLO, and SOAP ArtifactResolution on
+      port 8443 for both SAML 1.0 and SAML 2.0.
+- standard: oai-pmh
+  status: conformant
+  x-operator: tenant
+  evidence:
+    url: https://umontreal.scholaris.ca/server/oai/request?verb=ListMetadataFormats
+    status: 200
+    contentType: text/xml
+    detail: >-
+      OAI-PMH 2.0 repository for PAPYRUS, the UdeM institutional repository. Identify returns
+      repositoryName "PAPYRUS - Dépôt institutionnel de l'Université de Montréal". The default
+      context advertises 18 metadata prefixes — oai_dc, qdc, mods, marc, marc21, dim, ore, mets,
+      didl, rdf, xoai, uketd_dc, etdms, etdms10, etdms11, oai_etdms, oai_openaire and
+      oai_openaire4science. A second context at /server/oai/openaire4 answers Identify,
+      ListMetadataFormats and ListSets and is restricted to oai_openaire against the OpenAIRE
+      repo-lit 4.0 schema.
+  note: >-
+    UdeM's repository content and UdeM's subdomain, but the OAI-PMH implementation is DSpace's,
+    delivered through Scholaris, the CRKN-hosted national DSpace service. Credit the institution
+    for operating a harvestable repository; the protocol conformance belongs to DSpace.
+- standard: datacite
+  status: conformant
+  x-operator: tenant
+  evidence:
+    url: https://borealisdata.ca/api/search?q=*&subtree=montreal&type=dataset
+    status: 200
+    contentType: application/json
+    detail: >-
+      452 datasets in the Université de Montréal collection on Borealis, each carrying a DataCite
+      DOI under the 10.5683 prefix (observed global_id doi:10.5683/SP3/NLBK6N). DOI registration
+      is performed by Borealis on the institution's behalf.
+  note: >-
+    UdeM's data and UdeM's DOIs; the minting infrastructure is Borealis / Scholars Portal.
+- standard: orcid
+  status: not-found
+  x-operator: null
+  evidence:
+    url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/idext/individu?faculte=23
+    status: 200
+    contentType: application/json
+    detail: >-
+      An 11 MB extended-record response covering an entire faculty contains zero occurrences of
+      the string "orcid". SADVR carries UdeM's own persistent identifier (idsadvr) for researchers
+      and does not cross-walk to ORCID.
+  note: A genuine absence, recorded so the gap is measurable rather than assumed.
+- standard: lti
+  status: inconclusive
+  x-operator: tenant
+  evidence:
+    url: https://studium.umontreal.ca/mod/lti/auth.php
+    status: 200
+    contentType: text/html
+    detail: >-
+      StudiUM, UdeM's Moodle LMS, answers on the LTI authorisation path, but the response is a
+      themed HTML page rather than an LTI platform response. No LTI platform configuration,
+      JWKS or registration endpoint was found unauthenticated.
+  note: >-
+    Not claimed as conformance. Recorded so a later pass does not have to re-probe from nothing.
+- standard: scim
+  status: not-found
+  x-operator: null
+  evidence:
+    url: https://api.umontreal.ca/
+    status: 400
+    contentType: null
+    detail: >-
+      api.umontreal.ca resolves (132.204.8.11) and answers, but returns HTTP 400 with a zero-byte
+      body on every unauthenticated path tried, including / and /v1. No SCIM ServiceProviderConfig,
+      no discovery document, no documentation anywhere on umontreal.ca that names this host.
+  note: >-
+    Evidence of an internal API gateway, not of a public SCIM surface. Not recorded as an API entry.
+- standard: oneroster
+  status: not-found
+  x-operator: null
+  evidence:
+    url: https://www.umontreal.ca/en/
+    status: 200
+    detail: No OneRoster surface found on any Université de Montréal host.
+- standard: ed-fi
+  status: not-found
+  x-operator: null
+  evidence:
+    url: https://www.umontreal.ca/en/
+    status: 200
+    detail: No Ed-Fi surface found. Ed-Fi is a US K-12 standard with no Québec HE deployment.
+- standard: caliper
+  status: not-found
+  x-operator: null
+  evidence:
+    url: https://studium.umontreal.ca/
+    status: 200
+    detail: No Caliper Analytics event store or endpoint exposed by StudiUM.
+- standard: qti
+  status: not-found
+  x-operator: null
+  evidence:
+    url: https://studium.umontreal.ca/
+    status: 200
+    detail: No public QTI item-bank or assessment interchange surface.
+- standard: crossref
+  status: not-found
+  x-operator: null
+  evidence:
+    url: https://umontreal.scholaris.ca/server/oai/request?verb=ListMetadataFormats
+    status: 200
+    detail: >-
+      Papyrus deposits carry Handle-style and DataCite identifiers; no Crossref member deposit
+      surface is operated by the institution.

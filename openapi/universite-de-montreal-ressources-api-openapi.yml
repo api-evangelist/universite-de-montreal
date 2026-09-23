@@ -1,0 +1,397 @@
+openapi: 3.2.0
+info:
+  title: SADVR REST API (Vitrine-Recherche) Ressources API
+  summary: Université de Montréal's own research-expertise and research-unit API.
+  description: REST API of the Service d'accès aux données de la Vitrine-Recherche (SADVR), built and operated by Université de Montréal's Centre d'expertise numérique pour la recherche (CEN-R) to redistribute the data held in the Vitrine-Recherche repository.
+  version: '1.8'
+  contact:
+    name: Centre d'expertise numérique pour la recherche (CEN-R), Université de Montréal
+    url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  x-operator: institution
+  x-operator-evidence: servers[] and every documented route are under recherche.umontreal.ca, the institution's own registrable domain; the API was developed in-house by the CEN-R under the SADVR project (2015-2016) and is documented on the institution's own wiki.
+  x-provenance:
+    generated: '2026-08-30'
+    method: derived
+    source: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+    confirmed_by: live probes of 15 documented routes on 2026-08-30, all returning 200 application/json
+    authored_by: API Evangelist — NOT published by Université de Montréal
+servers:
+- url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
+  description: Documented production base. Requests are 301-redirected to the /vitrine/rest/public/api/1.8/ form; clients must follow redirects. The trailing /umontreal/ path segment is a tenancy slot the CEN-R reserved so the same API could later serve other Québec universities.
+security: []
+tags:
+- name: Ressources
+  description: Controlled reference values used to filter the identifier services.
+paths:
+  /ressource/faculte:
+    get:
+      tags:
+      - Ressources
+      operationId: listFacultes
+      summary: List every UdeM faculty and its SAD code
+      parameters:
+      - name: uniterech
+        in: query
+        required: false
+        description: Restrict to the faculties of one or more research units (idsadvr, repeatable as uniterech[0], uniterech[1]).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Envelope containing the faculty list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeSadEnvelope'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/departement:
+    get:
+      tags:
+      - Ressources
+      operationId: listDepartements
+      summary: List every UdeM department and its SAD code
+      parameters:
+      - name: uniterech
+        in: query
+        required: false
+        description: Restrict to the departments of one or more research units (idsadvr, repeatable).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Envelope containing the department list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeSadEnvelope'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/uniteadmin:
+    get:
+      tags:
+      - Ressources
+      operationId: listUnitesAdministratives
+      summary: List every administrative unit and its SAD code
+      responses:
+        '200':
+          description: Envelope containing the administrative-unit list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeSadEnvelope'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/fonction:
+    get:
+      tags:
+      - Ressources
+      operationId: listFonctions
+      summary: List every job title, in masculine and feminine French forms
+      responses:
+        '200':
+          description: Envelope containing the job-title list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codeSad:
+                          type: string
+                          example: '42001'
+                        nomM:
+                          type: string
+                          description: Masculine French form.
+                        nomF:
+                          type: string
+                          description: Feminine French form.
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/programme:
+    get:
+      tags:
+      - Ressources
+      operationId: listProgrammes
+      summary: List every study programme and its SAD number
+      responses:
+        '200':
+          description: Envelope containing the programme list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        noSad:
+                          type: string
+                          example: '195546'
+                        nom:
+                          type: string
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/domaineetude:
+    get:
+      tags:
+      - Ressources
+      operationId: listDomainesEtude
+      summary: List every study domain
+      responses:
+        '200':
+          description: Envelope containing the study-domain list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNomEnvelope'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/discipline:
+    get:
+      tags:
+      - Ressources
+      operationId: listDisciplines
+      summary: List every research discipline, with French and English labels
+      responses:
+        '200':
+          description: Envelope containing the discipline list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNomsEnvelope'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/typeuniterech:
+    get:
+      tags:
+      - Ressources
+      operationId: listTypesUniteRecherche
+      summary: List every research-unit type, with French and English labels
+      responses:
+        '200':
+          description: Envelope containing the research-unit-type list.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdNomsEnvelope'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/langue:
+    get:
+      tags:
+      - Ressources
+      operationId: listLangues
+      summary: List spoken and written languages, with ISO 639-2 codes
+      responses:
+        '200':
+          description: Envelope containing the language list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Langue'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /ressource/expertiserech:
+    get:
+      tags:
+      - Ressources
+      operationId: listExpertisesRecherche
+      summary: List research-expertise keywords for a faculty or department
+      description: Global exposure is refused by design. At least one of `faculte` (single) or `departement` (repeatable) must be supplied, and multiple departments must all belong to the same faculty.
+      parameters:
+      - name: faculte
+        in: query
+        required: false
+        description: SAD code of a single faculty. Required unless `departement` is supplied.
+        schema:
+          type: string
+          example: '03'
+      - name: departement
+        in: query
+        required: false
+        description: SAD code of a department (repeatable as departement[0], departement[1]).
+        schema:
+          type: string
+          example: '0337'
+      - name: fonction
+        in: query
+        required: false
+        description: SAD code of a job title (repeatable).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Envelope containing the expertise keyword list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ExpertiseRecherche'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    NomTraduit:
+      type: object
+      description: A label carried in one language.
+      properties:
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
+    IdNomEnvelope:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              nom:
+                type: string
+    IdNomsEnvelope:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              noms:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NomTraduit'
+    CodeSadEnvelope:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              codeSad:
+                type: string
+                description: SAD (Système Académique Décisionnel) code.
+              nom:
+                type: string
+    Langue:
+      type: object
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+          description: ISO 639-2 three-letter language code.
+          example: fre
+        oral:
+          type: boolean
+        ecrit:
+          type: boolean
+        noms:
+          type: array
+          items:
+            $ref: '#/components/schemas/NomTraduit'
+    Erreur:
+      type: object
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      properties:
+        message:
+          type: string
+    ExpertiseRecherche:
+      type: object
+      properties:
+        nom:
+          type: string
+        volet:
+          type: string
+          description: Facet the keyword belongs to.
+          example: Période chronologique
+        nbIndividus:
+          type: integer
+        nomTraduction:
+          type: array
+          items:
+            $ref: '#/components/schemas/NomTraduit'
+        departement:
+          type: array
+          description: Present only for the "Mot-clé" facet.
+          items:
+            type: object
+            properties:
+              departementCodeSad:
+                type: string
+              departementNom:
+                type: string
+              nbIndividus:
+                type: integer
+        faculte:
+          type: array
+          description: Present only for the "Mot-clé" facet.
+          items:
+            type: object
+            properties:
+              faculteCodeSad:
+                type: string
+              faculteNom:
+                type: string
+              nbIndividus:
+                type: integer
+  responses:
+    ServerError:
+      description: Server-side fault in the SADVR API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
+    BadRequest:
+      description: The request is missing required elements or references values that do not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
+externalDocs:
+  description: API REST – Description technique (Université de Montréal Confluence wiki)
+  url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique

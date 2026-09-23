@@ -1,0 +1,483 @@
+openapi: 3.2.0
+info:
+  title: SADVR REST API (Vitrine-Recherche) Informations API
+  summary: Université de Montréal's own research-expertise and research-unit API.
+  description: REST API of the Service d'accès aux données de la Vitrine-Recherche (SADVR), built and operated by Université de Montréal's Centre d'expertise numérique pour la recherche (CEN-R) to redistribute the data held in the Vitrine-Recherche repository.
+  version: '1.8'
+  contact:
+    name: Centre d'expertise numérique pour la recherche (CEN-R), Université de Montréal
+    url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  x-operator: institution
+  x-operator-evidence: servers[] and every documented route are under recherche.umontreal.ca, the institution's own registrable domain; the API was developed in-house by the CEN-R under the SADVR project (2015-2016) and is documented on the institution's own wiki.
+  x-provenance:
+    generated: '2026-08-30'
+    method: derived
+    source: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+    confirmed_by: live probes of 15 documented routes on 2026-08-30, all returning 200 application/json
+    authored_by: API Evangelist — NOT published by Université de Montréal
+servers:
+- url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
+  description: Documented production base. Requests are 301-redirected to the /vitrine/rest/public/api/1.8/ form; clients must follow redirects. The trailing /umontreal/ path segment is a tenancy slot the CEN-R reserved so the same API could later serve other Québec universities.
+security: []
+tags:
+- name: Informations
+  description: Full record retrieval by persistent identifier.
+paths:
+  /info/individu:
+    get:
+      tags:
+      - Informations
+      operationId: getIndividu
+      summary: Retrieve the full record for one or more individuals
+      parameters:
+      - name: idsadvr
+        in: query
+        required: true
+        description: Persistent identifier, e.g. in13593. Repeatable as idsadvr[0], idsadvr[1].
+        schema:
+          type: string
+          example: in13593
+      responses:
+        '200':
+          description: Envelope containing full individual records, including publication, teaching, funding and consent blocks.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IndividuComplet'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /info/uniterech:
+    get:
+      tags:
+      - Informations
+      operationId: getUniteRecherche
+      summary: Retrieve the full record for one or more research units
+      parameters:
+      - name: idsadvr
+        in: query
+        required: true
+        description: Persistent identifier, e.g. ur13852. Repeatable as idsadvr[0], idsadvr[1].
+        schema:
+          type: string
+          example: ur13852
+      responses:
+        '200':
+          description: Envelope containing full research-unit records.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UniteRecherche'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    Affiliation:
+      type: object
+      properties:
+        fonction:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        uniteAdministrative:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        departement:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        faculte:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        courrielInstitutionnel:
+          type: string
+          format: email
+        telephone:
+          type: object
+          properties:
+            numero:
+              type:
+              - string
+              - 'null'
+            poste:
+              type:
+              - string
+              - 'null'
+        immeuble:
+          type:
+          - string
+          - 'null'
+        local:
+          type:
+          - string
+          - 'null'
+        exclusion:
+          type: string
+        exclusionTel:
+          type: string
+    Expertise:
+      type: object
+      properties:
+        secteursRecherche:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        disciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        motsCles:
+          type: array
+          items:
+            $ref: '#/components/schemas/MotCle'
+        pays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        continents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        periodesChronologiques:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        phraseCle:
+          type: array
+          items:
+            type: object
+            properties:
+              codeLangue:
+                type: string
+              contenu:
+                type: string
+    MotCle:
+      allOf:
+      - $ref: '#/components/schemas/TermeClasse'
+      - type: object
+        properties:
+          departement:
+            type:
+            - string
+            - 'null'
+          departementCodeSAD:
+            type:
+            - string
+            - 'null'
+          faculte:
+            type:
+            - string
+            - 'null'
+          faculteCodeSAD:
+            type:
+            - string
+            - 'null'
+          uniteRecherche:
+            type:
+            - string
+            - 'null'
+          uniteRechercheIdsadvr:
+            type:
+            - string
+            - 'null'
+    IndividuComplet:
+      allOf:
+      - $ref: '#/components/schemas/IndividuEtendu'
+      - type: object
+        description: Full record. Adds the consent and web-display blocks that record which UdeM showcases the person has agreed to appear in, plus biography, teaching, publications, grants and awards.
+        properties:
+          sexe:
+            type: string
+          institution:
+            type: string
+          paysCode:
+            type: string
+          paysNom:
+            type: string
+          in-memoriam:
+            type: boolean
+          consentement:
+            type: object
+            description: Per-showcase consent status. This is the field that makes the personal data in this API lawful to publish; consumers must not redistribute records whose consent status is withdrawn.
+            properties:
+              departements:
+                type: array
+                items:
+                  type: object
+              facultes:
+                type: array
+                items:
+                  type: object
+              unitesRecherche:
+                type: array
+                items:
+                  type: object
+              UdeM:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    nom:
+                      type: string
+                    statutConsentement:
+                      type: string
+          affichageWeb:
+            type: array
+            items:
+              type: object
+          langues:
+            type: array
+            items:
+              type: object
+              properties:
+                nom:
+                  type: string
+                medium:
+                  type: string
+                  enum:
+                  - Écrit
+                  - Oral
+          formations:
+            type: array
+            items:
+              type: object
+          biographie:
+            type: array
+            items:
+              type: object
+          unitesRecherche:
+            type: array
+            items:
+              type: object
+          projetsRecherche:
+            type: array
+            items:
+              type: object
+          activitesRecherche:
+            type: array
+            items:
+              type: object
+          activiteEnseignement:
+            type: array
+            items:
+              type: object
+          publication:
+            type: array
+            items:
+              type: object
+          communication:
+            type: array
+            items:
+              type: object
+          expertiseMedia:
+            type: array
+            items:
+              type: object
+          prix:
+            type: array
+            items:
+              type: object
+          visuels:
+            type: array
+            items:
+              type: object
+          activitesPromotion:
+            type: array
+            items:
+              type: object
+          infosSupplementaires:
+            type: array
+            items:
+              type: object
+          recrutementRecherche:
+            type: boolean
+    TermeClasse:
+      type: object
+      properties:
+        uid:
+          type: string
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
+        ordre:
+          type: string
+    IndividuEtendu:
+      type: object
+      description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
+      properties:
+        idsadvr:
+          type: string
+        prenom:
+          type: string
+        nom:
+          type: string
+        affiliations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Affiliation'
+        courriels:
+          type: array
+          items:
+            type: string
+        telephones:
+          type: array
+          items:
+            type: object
+            properties:
+              numero:
+                type: string
+              poste:
+                type:
+                - string
+                - 'null'
+              categorie:
+                type: string
+        etablissementsAffilies:
+          type: array
+          items:
+            type: string
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
+        expertise:
+          $ref: '#/components/schemas/Expertise'
+        urlVitrine:
+          type: array
+          items:
+            type: object
+            properties:
+              nom:
+                type: string
+              url:
+                type: string
+                format: uri
+        recrutementRecherche:
+          type: boolean
+    UniteRecherche:
+      type: object
+      description: A UdeM research unit — chair, group, centre or affiliated research structure.
+      properties:
+        idsadvr:
+          type: string
+          example: ur13580
+        nom:
+          type: string
+        acronyme:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+        typeTrad:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        responsable:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              nom:
+                type: string
+              prenom:
+                type: string
+              courriel:
+                type: string
+                format: email
+              fonction:
+                type: string
+              fonctionCodeSAD:
+                type: string
+              uniteAdmin:
+                type: string
+              fonctionResp:
+                type: string
+        unitesRattachement:
+          type: object
+          properties:
+            departements:
+              type: array
+              items:
+                type: object
+            facultes:
+              type: array
+              items:
+                type: object
+        expertise:
+          $ref: '#/components/schemas/Expertise'
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
+    Erreur:
+      type: object
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      properties:
+        message:
+          type: string
+  responses:
+    BadRequest:
+      description: The request is missing required elements or references values that do not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
+    ServerError:
+      description: Server-side fault in the SADVR API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
+externalDocs:
+  description: API REST – Description technique (Université de Montréal Confluence wiki)
+  url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique

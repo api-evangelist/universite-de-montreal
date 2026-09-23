@@ -1,0 +1,110 @@
+{
+  "generated": "2026-08-30",
+  "method": "probed",
+  "source": "https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal",
+  "note": "Verbatim live response captured by API Evangelist on 2026-08-30. Reference (non-personal) endpoints only — the SADVR identifier and info services return personal data and are deliberately not sampled here. Truncated to the first 6 of 64 items.",
+  "operation": "GET /ressource/langue",
+  "status": 200,
+  "contentType": "application/json",
+  "itemsInLiveResponse": 64,
+  "response": {
+    "data": [
+      {
+        "id": "1",
+        "code": "aar",
+        "oral": true,
+        "ecrit": false,
+        "noms": [
+          {
+            "codeLangue": "eng",
+            "nom": "Afar"
+          },
+          {
+            "codeLangue": "fre",
+            "nom": "Afar"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "code": "ady",
+        "oral": true,
+        "ecrit": false,
+        "noms": [
+          {
+            "codeLangue": "eng",
+            "nom": "Adyghe; Adygei"
+          },
+          {
+            "codeLangue": "fre",
+            "nom": "Adyghé"
+          }
+        ]
+      },
+      {
+        "id": "21",
+        "code": "ara",
+        "oral": true,
+        "ecrit": true,
+        "noms": [
+          {
+            "codeLangue": "eng",
+            "nom": "Arabic"
+          },
+          {
+            "codeLangue": "fre",
+            "nom": "Arabe"
+          }
+        ]
+      },
+      {
+        "id": "24",
+        "code": "arm",
+        "oral": true,
+        "ecrit": true,
+        "noms": [
+          {
+            "codeLangue": "eng",
+            "nom": "Armenian"
+          },
+          {
+            "codeLangue": "fre",
+            "nom": "Arménien"
+          }
+        ]
+      },
+      {
+        "id": "42",
+        "code": "bam",
+        "oral": true,
+        "ecrit": true,
+        "noms": [
+          {
+            "codeLangue": "eng",
+            "nom": "Bambara"
+          },
+          {
+            "codeLangue": "fre",
+            "nom": "Bambara"
+          }
+        ]
+      },
+      {
+        "id": "50",
+        "code": "ben",
+        "oral": true,
+        "ecrit": true,
+        "noms": [
+          {
+            "codeLangue": "eng",
+            "nom": "Bengali"
+          },
+          {
+            "codeLangue": "fre",
+            "nom": "Bengali"
+          }
+        ]
+      }
+    ]
+  }
+}

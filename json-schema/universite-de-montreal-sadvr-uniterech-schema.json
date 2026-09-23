@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/refs/heads/main/json-schema/universite-de-montreal-sadvr-uniterech-schema.json",
+  "title": "SADVR Research Unit (unité de recherche)",
+  "description": "A Université de Montréal research unit — chair, group, centre, institute or affiliated research structure — as returned by the SADVR /id/uniterech and /info/uniterech services. The `responsable` block carries personal data about the unit's lead.",
+  "x-provenance": {
+    "generated": "2026-08-30",
+    "method": "derived",
+    "source": "openapi/universite-de-montreal-sadvr-openapi.yml",
+    "confirmed_by": "live response probed 2026-08-30 from /info/uniterech?idsadvr=ur13852",
+    "x-operator": "institution"
+  },
+  "type": "object",
+  "required": ["idsadvr", "nom"],
+  "properties": {
+    "idsadvr": {
+      "type": "string",
+      "description": "Persistent identifier for a research unit. Always prefixed 'ur'.",
+      "pattern": "^ur[0-9]+$",
+      "examples": ["ur13852"]
+    },
+    "nom": { "type": "string" },
+    "acronyme": { "type": ["string", "null"] },
+    "type": { "type": "string", "examples": ["Autre structure de recherche affiliée"] },
+    "typeTrad": { "type": "array", "items": { "$ref": "#/$defs/TermeClasse" } },
+    "responsable": {
+      "type": "array",
+      "description": "Unit leads. CONTAINS PERSONAL DATA — name, institutional email, job title.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "nom": { "type": "string" },
+          "prenom": { "type": "string" },
+          "courriel": { "type": "string", "format": "email" },
+          "fonction": { "type": "string" },
+          "fonctionCodeSAD": { "type": "string" },
+          "uniteAdmin": { "type": "string" },
+          "fonctionResp": { "type": "string" }
+        }
+      }
+    },
+    "unitesRattachement": {
+      "type": "object",
+      "properties": {
+        "departements": { "type": "array", "items": { "type": "object" } },
+        "facultes": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "expertise": {
+      "type": "object",
+      "description": "The unit's declared research expertise, faceted the same way as an individual's.",
+      "properties": {
+        "secteursRecherche": { "type": "array", "items": { "$ref": "#/$defs/TermeClasse" } },
+        "disciplines": { "type": "array", "items": { "$ref": "#/$defs/TermeClasse" } },
+        "motsCles": { "type": "array", "items": { "type": "object" } },
+        "pays": { "type": "array", "items": { "$ref": "#/$defs/TermeClasse" } },
+        "continents": { "type": "array", "items": { "$ref": "#/$defs/TermeClasse" } },
+        "periodesChronologiques": { "type": "array", "items": { "$ref": "#/$defs/TermeClasse" } }
+      }
+    },
+    "visuelOfficiel": { "type": ["string", "null"], "format": "uri" },
+    "visuelOfficielGrand": { "type": ["string", "null"], "format": "uri" }
+  },
+  "$defs": {
+    "TermeClasse": {
+      "type": "object",
+      "description": "A classified term, repeated once per language.",
+      "properties": {
+        "uid": { "type": "string" },
+        "codeLangue": { "type": "string", "enum": ["fre", "eng"] },
+        "nom": { "type": "string" },
+        "ordre": { "type": "string" }
+      }
+    }
+  }
+}

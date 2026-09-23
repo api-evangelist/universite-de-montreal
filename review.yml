@@ -3,42 +3,83 @@ name: Université de Montréal
 description: Université de Montréal public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-08-30'
 reviews:
-  - date: '2026-06-03'
-    rating: 2
-    summary: >-
-      UdeM has no centralized, branded developer portal. The verified public
-      surface is research/library oriented: the Papyrus OAI-PMH endpoint was
-      probed live and returns a valid OAI-PMH 2.0 Identify response, the SADVR
-      REST API is documented on the UdeM Confluence wiki (doc page live, but its
-      documented base path returns 404 and appears to be a testing/legacy
-      endpoint), and UdeM participates in the Borealis Canadian Dataverse. The
-      official UdeM Libraries GitHub org (bibudem) exists and hosts repository
-      tooling. No endpoints, keys, or baseURLs were fabricated; the SADVR base
-      URL is intentionally omitted from apis.yml because it does not resolve.
-    endpoints:
-      - url: https://umontreal.scholaris.ca/server/oai/openaire4?verb=Identify
-        status: 200
-        note: Live OAI-PMH 2.0 endpoint; valid Identify for Papyrus repository.
-      - url: https://papyrus.bib.umontreal.ca/
-        status: 200
-        note: Papyrus institutional repository home (DSpace/Scholaris).
-      - url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
-        status: 200
-        note: SADVR REST API technical documentation (Confluence wiki).
-      - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/langues
-        status: 404
-        note: Documented SADVR base path does not resolve (testing/legacy).
-      - url: https://borealisdata.ca/dataverse/montreal
-        status: 200
-        note: UdeM collection in Borealis Canadian Dataverse.
-      - url: https://github.com/bibudem
-        status: 200
-        note: Official UdeM Libraries (Bibliothèques) GitHub org.
-      - url: https://www.umontreal.ca/en/
-        status: 200
-        note: Official institutional website.
-      - url: https://www.linkedin.com/school/universite-de-montreal/
-        status: 999
-        note: LinkedIn school page exists; 999 is LinkedIn bot-block, not absence.
+- date: '2026-08-30'
+  rating: 3
+  summary: 'University-pipeline re-profile and correction. The June 2026 profile carried 36 OpenAPI documents
+    and 38 apis[] entries; every one of the 36 was the Dataverse product''s own contract, a title five
+    to eight other institutions in this cohort also ship, harvested from the shared Borealis instance
+    and then re-based by our own refine-openapis step onto umontreal.scholaris.ca, a DSpace host that
+    does not serve the Dataverse API at all. Those 36 specs and the 88 artifacts derived from them (collections,
+    JSON Schema, JSON Structure, examples, JSON-LD, vocabulary, Spectral rules, agentic-access) were removed
+    file by file. In their place: the SADVR REST API, which the June profile recorded as a dead testing
+    endpoint and which is in fact live — the documented example URL says ressource/langues where the deployment
+    serves ressource/langue, and the undocumented HTML 404 read as decommissioned. Fifteen documented
+    SADVR routes returned 200 application/json. Also newly found: UdeM''s Shibboleth Identity Provider,
+    publishing SAML 2.0 entity metadata under the institution''s own domain, which is exactly the surface
+    class this cohort systematically misses. Apparent footprint falls from 38 entries to 6; measured footprint
+    rises.'
+  endpoints:
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/faculte
+    status: 200
+    note: SADVR reference service, 29 faculties. Institution-operated, keyless.
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/recherche/professeur/select?q=*:*&rows=1
+    status: 200
+    note: SOLR search, numFound 3,516 researchers.
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/langues
+    status: 404
+    note: The URL the June profile probed. Plural; deployment serves the singular. One character produced
+      a false "dead API" verdict.
+  - url: https://shibboleth.umontreal.ca/idp/shibboleth
+    status: 200
+    note: SAML 2.0 IdP metadata, shibmd:Scope umontreal.ca. NEW FIND — institution-operated identity federation.
+  - url: https://shibboleth.umontreal.ca/idp/status
+    status: 200
+    note: Live Shibboleth IdP operational report.
+  - url: https://umontreal.scholaris.ca/server/oai/request?verb=ListMetadataFormats
+    status: 200
+    note: OAI-PMH 2.0, 18 metadata prefixes. Tenant — Scholaris/DSpace, not UdeM engineering.
+  - url: https://borealisdata.ca/api/dataverses/montreal
+    status: 200
+    note: Dataverse collection 75123, 452 datasets with DataCite DOIs. Tenant — Borealis/Scholars Portal.
+  - url: https://umontreal.on.worldcat.org/discovery
+    status: 200
+    note: OCLC WorldCat Discovery tenant.
+  - url: https://api.umontreal.ca/
+    status: 400
+    note: Resolves, empty body, undocumented. Internal gateway, not recorded as an API.
+- date: '2026-06-03'
+  rating: 2
+  summary: 'UdeM has no centralized, branded developer portal. The verified public surface is research/library
+    oriented: the Papyrus OAI-PMH endpoint was probed live and returns a valid OAI-PMH 2.0 Identify response,
+    the SADVR REST API is documented on the UdeM Confluence wiki (doc page live, but its documented base
+    path returns 404 and appears to be a testing/legacy endpoint), and UdeM participates in the Borealis
+    Canadian Dataverse. The official UdeM Libraries GitHub org (bibudem) exists and hosts repository tooling.
+    No endpoints, keys, or baseURLs were fabricated; the SADVR base URL is intentionally omitted from
+    apis.yml because it does not resolve.'
+  endpoints:
+  - url: https://umontreal.scholaris.ca/server/oai/openaire4?verb=Identify
+    status: 200
+    note: Live OAI-PMH 2.0 endpoint; valid Identify for Papyrus repository.
+  - url: https://papyrus.bib.umontreal.ca/
+    status: 200
+    note: Papyrus institutional repository home (DSpace/Scholaris).
+  - url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+    status: 200
+    note: SADVR REST API technical documentation (Confluence wiki).
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/langues
+    status: 404
+    note: Documented SADVR base path does not resolve (testing/legacy).
+  - url: https://borealisdata.ca/dataverse/montreal
+    status: 200
+    note: UdeM collection in Borealis Canadian Dataverse.
+  - url: https://github.com/bibudem
+    status: 200
+    note: Official UdeM Libraries (Bibliothèques) GitHub org.
+  - url: https://www.umontreal.ca/en/
+    status: 200
+    note: Official institutional website.
+  - url: https://www.linkedin.com/school/universite-de-montreal/
+    status: 999
+    note: LinkedIn school page exists; 999 is LinkedIn bot-block, not absence.

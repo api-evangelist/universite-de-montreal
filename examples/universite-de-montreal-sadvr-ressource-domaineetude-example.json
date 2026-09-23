@@ -1,0 +1,90 @@
+{
+  "generated": "2026-08-30",
+  "method": "probed",
+  "source": "https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal",
+  "note": "Verbatim live response captured by API Evangelist on 2026-08-30. Reference (non-personal) endpoints only — the SADVR identifier and info services return personal data and are deliberately not sampled here.",
+  "operation": "GET /ressource/domaineetude",
+  "status": 200,
+  "contentType": "application/json",
+  "itemsInLiveResponse": 19,
+  "response": {
+    "data": [
+      {
+        "id": "1",
+        "nom": "Aménagement"
+      },
+      {
+        "id": "2",
+        "nom": "Arts et musique"
+      },
+      {
+        "id": "3",
+        "nom": "Communication"
+      },
+      {
+        "id": "4",
+        "nom": "Droit"
+      },
+      {
+        "id": "5",
+        "nom": "Économie et politique"
+      },
+      {
+        "id": "6",
+        "nom": "Enseignement et sciences de l'éducation"
+      },
+      {
+        "id": "19",
+        "nom": "Environnement et développement durable"
+      },
+      {
+        "id": "7",
+        "nom": "Lettres et langues"
+      },
+      {
+        "id": "15",
+        "nom": "Préparation aux études universitaires"
+      },
+      {
+        "id": "16",
+        "nom": "Programmes individualisés"
+      },
+      {
+        "id": "8",
+        "nom": "Sciences de l'administration et gestion"
+      },
+      {
+        "id": "17",
+        "nom": "Sciences de la santé"
+      },
+      {
+        "id": "18",
+        "nom": "Sciences de la vie"
+      },
+      {
+        "id": "9",
+        "nom": "Sciences humaines"
+      },
+      {
+        "id": "10",
+        "nom": "Sciences pures et sciences appliquées"
+      },
+      {
+        "id": "11",
+        "nom": "Sciences sociales"
+      },
+      {
+        "id": "12",
+        "nom": "Sciences sociales : intervention"
+      },
+      {
+        "id": "13",
+        "nom": "Technologies de l'information (TIC)"
+      },
+      {
+        "id": "14",
+        "nom": "Théologie et sciences des religions"
+      }
+    ]
+  }
+}

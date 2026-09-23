@@ -1,0 +1,845 @@
+# x-archived-from: universite-de-montreal-sadvr-openapi.yml
+# x-archived-on: 2026-09-16
+---
+openapi: 3.0.3
+info:
+  title: SADVR REST API (Vitrine-Recherche)
+  summary: Université de Montréal's own research-expertise and research-unit API.
+  description: >-
+    REST API of the Service d'accès aux données de la Vitrine-Recherche (SADVR), built and
+    operated by Université de Montréal's Centre d'expertise numérique pour la recherche (CEN-R)
+    to redistribute the data held in the Vitrine-Recherche repository. It exposes UdeM's
+    faculties, departments, job titles, study programmes, study domains, disciplines, research
+    expertise keywords, spoken/written languages and research-unit types; resolves and searches
+    UdeM's persistent identifiers (idsadvr) for individuals and research units; returns full
+    records for a given idsadvr; and fronts the Vitrine-Recherche SOLR index with native SOLR
+    query syntax.
+
+    This is one of the few genuinely institution-operated APIs in the Université de Montréal
+    footprint. It runs on the institution's own registrable domain (umontreal.ca), is read-only,
+    is served without an API key, and is documented by UdeM staff on the institution's own
+    Confluence wiki.
+
+    PROVENANCE: this description was written by API Evangelist from the institution's published
+    technical documentation (wiki.umontreal.ca, "API REST – Description technique", last updated
+    by Luc Grondin on 2024-02-08) and confirmed against live responses probed on 2026-08-30.
+    Université de Montréal does not publish an OpenAPI description of its own; this is a
+    third-party contract and must not be read as a first-party artifact.
+  version: '1.8'
+  contact:
+    name: Centre d'expertise numérique pour la recherche (CEN-R), Université de Montréal
+    url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  x-operator: institution
+  x-operator-evidence: >-
+    servers[] and every documented route are under recherche.umontreal.ca, the institution's own
+    registrable domain; the API was developed in-house by the CEN-R under the SADVR project
+    (2015-2016) and is documented on the institution's own wiki.
+  x-provenance:
+    generated: '2026-08-30'
+    method: derived
+    source: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+    confirmed_by: live probes of 15 documented routes on 2026-08-30, all returning 200 application/json
+    authored_by: API Evangelist — NOT published by Université de Montréal
+externalDocs:
+  description: API REST – Description technique (Université de Montréal Confluence wiki)
+  url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+servers:
+- url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal
+  description: >-
+    Documented production base. Requests are 301-redirected to the /vitrine/rest/public/api/1.8/
+    form; clients must follow redirects. The trailing /umontreal/ path segment is a tenancy slot
+    the CEN-R reserved so the same API could later serve other Québec universities.
+tags:
+- name: Ressources
+  description: Controlled reference values used to filter the identifier services.
+- name: Identifiants
+  description: Persistent identifier (idsadvr) lookup for individuals and research units.
+- name: Informations
+  description: Full record retrieval by persistent identifier.
+- name: Recherche
+  description: SOLR-backed search across the Vitrine-Recherche showcases.
+paths:
+  /ressource/faculte:
+    get:
+      tags: [Ressources]
+      operationId: listFacultes
+      summary: List every UdeM faculty and its SAD code
+      parameters:
+      - name: uniterech
+        in: query
+        required: false
+        description: Restrict to the faculties of one or more research units (idsadvr, repeatable as uniterech[0], uniterech[1]).
+        schema: { type: string }
+      responses:
+        '200':
+          description: Envelope containing the faculty list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CodeSadEnvelope' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/departement:
+    get:
+      tags: [Ressources]
+      operationId: listDepartements
+      summary: List every UdeM department and its SAD code
+      parameters:
+      - name: uniterech
+        in: query
+        required: false
+        description: Restrict to the departments of one or more research units (idsadvr, repeatable).
+        schema: { type: string }
+      responses:
+        '200':
+          description: Envelope containing the department list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CodeSadEnvelope' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/uniteadmin:
+    get:
+      tags: [Ressources]
+      operationId: listUnitesAdministratives
+      summary: List every administrative unit and its SAD code
+      responses:
+        '200':
+          description: Envelope containing the administrative-unit list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CodeSadEnvelope' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/fonction:
+    get:
+      tags: [Ressources]
+      operationId: listFonctions
+      summary: List every job title, in masculine and feminine French forms
+      responses:
+        '200':
+          description: Envelope containing the job-title list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codeSad: { type: string, example: '42001' }
+                        nomM: { type: string, description: Masculine French form. }
+                        nomF: { type: string, description: Feminine French form. }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/programme:
+    get:
+      tags: [Ressources]
+      operationId: listProgrammes
+      summary: List every study programme and its SAD number
+      responses:
+        '200':
+          description: Envelope containing the programme list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        noSad: { type: string, example: '195546' }
+                        nom: { type: string }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/domaineetude:
+    get:
+      tags: [Ressources]
+      operationId: listDomainesEtude
+      summary: List every study domain
+      responses:
+        '200':
+          description: Envelope containing the study-domain list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/IdNomEnvelope' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/discipline:
+    get:
+      tags: [Ressources]
+      operationId: listDisciplines
+      summary: List every research discipline, with French and English labels
+      responses:
+        '200':
+          description: Envelope containing the discipline list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/IdNomsEnvelope' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/typeuniterech:
+    get:
+      tags: [Ressources]
+      operationId: listTypesUniteRecherche
+      summary: List every research-unit type, with French and English labels
+      responses:
+        '200':
+          description: Envelope containing the research-unit-type list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/IdNomsEnvelope' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/langue:
+    get:
+      tags: [Ressources]
+      operationId: listLangues
+      summary: List spoken and written languages, with ISO 639-2 codes
+      responses:
+        '200':
+          description: Envelope containing the language list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/Langue' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /ressource/expertiserech:
+    get:
+      tags: [Ressources]
+      operationId: listExpertisesRecherche
+      summary: List research-expertise keywords for a faculty or department
+      description: >-
+        Global exposure is refused by design. At least one of `faculte` (single) or `departement`
+        (repeatable) must be supplied, and multiple departments must all belong to the same faculty.
+      parameters:
+      - name: faculte
+        in: query
+        required: false
+        description: SAD code of a single faculty. Required unless `departement` is supplied.
+        schema: { type: string, example: '03' }
+      - name: departement
+        in: query
+        required: false
+        description: SAD code of a department (repeatable as departement[0], departement[1]).
+        schema: { type: string, example: '0337' }
+      - name: fonction
+        in: query
+        required: false
+        description: SAD code of a job title (repeatable).
+        schema: { type: string }
+      responses:
+        '200':
+          description: Envelope containing the expertise keyword list.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/ExpertiseRecherche' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /id/individu:
+    get:
+      tags: [Identifiants]
+      operationId: findIndividuIdentifiers
+      summary: Resolve persistent identifiers (idsadvr) for individuals
+      description: >-
+        Returns a summary record per individual. All filters are optional and repeatable in the
+        PHP bracket form (fonction[0], fonction[1]). Supplying no filter returns the whole
+        population and a multi-megabyte response.
+      parameters:
+      - { $ref: '#/components/parameters/uniterech' }
+      - { $ref: '#/components/parameters/faculte' }
+      - { $ref: '#/components/parameters/departement' }
+      - { $ref: '#/components/parameters/uniteadmin' }
+      - { $ref: '#/components/parameters/fonction' }
+      - { $ref: '#/components/parameters/programme' }
+      - { $ref: '#/components/parameters/domaineEtude' }
+      - { $ref: '#/components/parameters/expertiseRech' }
+      - { $ref: '#/components/parameters/recrutement' }
+      responses:
+        '200':
+          description: Envelope containing summary individual records.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/IndividuSommaire' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /id/uniterech:
+    get:
+      tags: [Identifiants]
+      operationId: findUniteRechercheIdentifiers
+      summary: Resolve persistent identifiers (idsadvr) for research units
+      parameters:
+      - { $ref: '#/components/parameters/faculte' }
+      - { $ref: '#/components/parameters/departement' }
+      - name: typeuniterech
+        in: query
+        required: false
+        description: Research-unit type identifier (repeatable).
+        schema: { type: string }
+      responses:
+        '200':
+          description: Envelope containing research-unit records.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/UniteRecherche' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /idext/individu:
+    get:
+      tags: [Identifiants]
+      operationId: findIndividuIdentifiersExtended
+      summary: Resolve identifiers for individuals with the extended payload
+      description: >-
+        Same filters as /id/individu but returns affiliations, contact details, expertise and
+        showcase URLs. The institution's own documentation recommends always supplying at least
+        one filter to keep the response tractable.
+      parameters:
+      - { $ref: '#/components/parameters/uniterech' }
+      - { $ref: '#/components/parameters/faculte' }
+      - { $ref: '#/components/parameters/departement' }
+      - { $ref: '#/components/parameters/uniteadmin' }
+      - { $ref: '#/components/parameters/fonction' }
+      - { $ref: '#/components/parameters/programme' }
+      - { $ref: '#/components/parameters/domaineEtude' }
+      - { $ref: '#/components/parameters/expertiseRech' }
+      - { $ref: '#/components/parameters/recrutement' }
+      responses:
+        '200':
+          description: Envelope containing extended individual records.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/IndividuEtendu' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /info/individu:
+    get:
+      tags: [Informations]
+      operationId: getIndividu
+      summary: Retrieve the full record for one or more individuals
+      parameters:
+      - name: idsadvr
+        in: query
+        required: true
+        description: Persistent identifier, e.g. in13593. Repeatable as idsadvr[0], idsadvr[1].
+        schema: { type: string, example: in13593 }
+      responses:
+        '200':
+          description: Envelope containing full individual records, including publication, teaching, funding and consent blocks.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/IndividuComplet' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /info/uniterech:
+    get:
+      tags: [Informations]
+      operationId: getUniteRecherche
+      summary: Retrieve the full record for one or more research units
+      parameters:
+      - name: idsadvr
+        in: query
+        required: true
+        description: Persistent identifier, e.g. ur13852. Repeatable as idsadvr[0], idsadvr[1].
+        schema: { type: string, example: ur13852 }
+      responses:
+        '200':
+          description: Envelope containing full research-unit records.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [data]
+                properties:
+                  data:
+                    type: array
+                    items: { $ref: '#/components/schemas/UniteRecherche' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /recherche/professeur/select:
+    get:
+      tags: [Recherche]
+      operationId: searchProfesseurs
+      summary: Search the Vitrine des professeurs SOLR index
+      parameters:
+      - { $ref: '#/components/parameters/solrQ' }
+      - { $ref: '#/components/parameters/solrStart' }
+      - { $ref: '#/components/parameters/solrRows' }
+      - { $ref: '#/components/parameters/solrSort' }
+      responses:
+        '200':
+          description: Paginated SOLR result set, reformatted to the /idext/individu record shape.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SolrIndividuEnvelope' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /recherche/uniterech/select:
+    get:
+      tags: [Recherche]
+      operationId: searchUnitesRecherche
+      summary: Search the Vitrine des unités de recherche SOLR index
+      parameters:
+      - { $ref: '#/components/parameters/solrQ' }
+      - { $ref: '#/components/parameters/solrStart' }
+      - { $ref: '#/components/parameters/solrRows' }
+      - { $ref: '#/components/parameters/solrSort' }
+      responses:
+        '200':
+          description: Paginated SOLR result set, reformatted to the /id/uniterech record shape.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SolrUniteRechercheEnvelope' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+  /recherche/expertmedia/select:
+    get:
+      tags: [Recherche]
+      operationId: searchExpertsMedia
+      summary: Search the Répertoire des experts à l'intention des médias SOLR index
+      parameters:
+      - { $ref: '#/components/parameters/solrQ' }
+      - { $ref: '#/components/parameters/solrStart' }
+      - { $ref: '#/components/parameters/solrRows' }
+      - { $ref: '#/components/parameters/solrSort' }
+      responses:
+        '200':
+          description: Paginated SOLR result set of media experts, in the /idext/individu record shape.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SolrIndividuEnvelope' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '500': { $ref: '#/components/responses/ServerError' }
+components:
+  parameters:
+    uniterech:
+      name: uniterech
+      in: query
+      required: false
+      description: Research-unit persistent identifier (repeatable).
+      schema: { type: string, example: ur13605 }
+    faculte:
+      name: faculte
+      in: query
+      required: false
+      description: Faculty SAD code (repeatable).
+      schema: { type: string, example: '23' }
+    departement:
+      name: departement
+      in: query
+      required: false
+      description: Department SAD code (repeatable).
+      schema: { type: string, example: '0328' }
+    uniteadmin:
+      name: uniteadmin
+      in: query
+      required: false
+      description: Administrative-unit SAD code (repeatable).
+      schema: { type: string }
+    fonction:
+      name: fonction
+      in: query
+      required: false
+      description: Job-title SAD code (repeatable).
+      schema: { type: string, example: '42001' }
+    programme:
+      name: programme
+      in: query
+      required: false
+      description: Study-programme SAD number (repeatable).
+      schema: { type: string }
+    domaineEtude:
+      name: domaineEtude
+      in: query
+      required: false
+      description: Study-domain identifier (repeatable).
+      schema: { type: string }
+    expertiseRech:
+      name: expertiseRech
+      in: query
+      required: false
+      description: Research-expertise keyword (repeatable).
+      schema: { type: string }
+    recrutement:
+      name: recrutement
+      in: query
+      required: false
+      description: Restrict to individuals currently recruiting research trainees.
+      schema: { type: string, enum: ['true'] }
+    solrQ:
+      name: q
+      in: query
+      required: true
+      description: >-
+        Native SOLR query. Field names are followed by a colon; spaces are encoded as +.
+        Example, all objects, q=ID:*
+      schema: { type: string, example: 'ID:*' }
+    solrStart:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first result.
+      schema: { type: integer, minimum: 0, default: 0 }
+    solrRows:
+      name: rows
+      in: query
+      required: false
+      description: Number of results per page.
+      schema: { type: integer, minimum: 1, default: 10 }
+    solrSort:
+      name: sort
+      in: query
+      required: false
+      description: >-
+        SOLR sort clause. Documented as accepted but NOT functional; the institution's own
+        documentation states the SOLR ordering is lost when the API reformats the result set.
+      schema: { type: string, example: 'ChercheurNP_tri asc' }
+      deprecated: true
+  responses:
+    BadRequest:
+      description: The request is missing required elements or references values that do not exist.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Erreur' }
+    ServerError:
+      description: Server-side fault in the SADVR API.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Erreur' }
+  schemas:
+    Erreur:
+      type: object
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      properties:
+        message: { type: string }
+    CodeSadEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              codeSad: { type: string, description: SAD (Système Académique Décisionnel) code. }
+              nom: { type: string }
+    IdNomEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              nom: { type: string }
+    IdNomsEnvelope:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              noms:
+                type: array
+                items: { $ref: '#/components/schemas/NomTraduit' }
+    NomTraduit:
+      type: object
+      description: A label carried in one language.
+      properties:
+        codeLangue: { type: string, enum: [fre, eng] }
+        nom: { type: string }
+    Langue:
+      type: object
+      properties:
+        id: { type: string }
+        code: { type: string, description: ISO 639-2 three-letter language code., example: fre }
+        oral: { type: boolean }
+        ecrit: { type: boolean }
+        noms:
+          type: array
+          items: { $ref: '#/components/schemas/NomTraduit' }
+    ExpertiseRecherche:
+      type: object
+      properties:
+        nom: { type: string }
+        volet:
+          type: string
+          description: Facet the keyword belongs to.
+          example: Période chronologique
+        nbIndividus: { type: integer }
+        nomTraduction:
+          type: array
+          items: { $ref: '#/components/schemas/NomTraduit' }
+        departement:
+          type: array
+          description: Present only for the "Mot-clé" facet.
+          items:
+            type: object
+            properties:
+              departementCodeSad: { type: string }
+              departementNom: { type: string }
+              nbIndividus: { type: integer }
+        faculte:
+          type: array
+          description: Present only for the "Mot-clé" facet.
+          items:
+            type: object
+            properties:
+              faculteCodeSad: { type: string }
+              faculteNom: { type: string }
+              nbIndividus: { type: integer }
+    IndividuSommaire:
+      type: object
+      description: >-
+        Summary record for a person. CONTAINS PERSONAL DATA — name, institutional job title and
+        institutional email — published by UdeM under the consent regime recorded in the full
+        record's `consentement` block.
+      properties:
+        idsadvr: { type: string, example: in13580 }
+        prenom: { type: string }
+        nom: { type: string }
+        fonction: { type: string }
+        uniteAdmin: { type: string }
+        courriel: { type: string, format: email }
+        etablissementsAffilies: { type: array, items: { type: string } }
+        visuelOfficiel: { type: string, format: uri, nullable: true }
+        visuelOfficielGrand: { type: string, format: uri, nullable: true }
+    Affiliation:
+      type: object
+      properties:
+        fonction:
+          type: object
+          properties:
+            codeSad: { type: string }
+            nom: { type: string }
+        uniteAdministrative:
+          type: object
+          properties:
+            codeSad: { type: string }
+            nom: { type: string }
+        departement:
+          type: object
+          properties:
+            codeSad: { type: string }
+            nom: { type: string }
+        faculte:
+          type: object
+          properties:
+            codeSad: { type: string }
+            nom: { type: string }
+        courrielInstitutionnel: { type: string, format: email }
+        telephone:
+          type: object
+          properties:
+            numero: { type: string, nullable: true }
+            poste: { type: string, nullable: true }
+        immeuble: { type: string, nullable: true }
+        local: { type: string, nullable: true }
+        exclusion: { type: string }
+        exclusionTel: { type: string }
+    Expertise:
+      type: object
+      properties:
+        secteursRecherche: { type: array, items: { $ref: '#/components/schemas/TermeClasse' } }
+        disciplines: { type: array, items: { $ref: '#/components/schemas/TermeClasse' } }
+        motsCles: { type: array, items: { $ref: '#/components/schemas/MotCle' } }
+        pays: { type: array, items: { $ref: '#/components/schemas/TermeClasse' } }
+        continents: { type: array, items: { $ref: '#/components/schemas/TermeClasse' } }
+        periodesChronologiques: { type: array, items: { $ref: '#/components/schemas/TermeClasse' } }
+        phraseCle:
+          type: array
+          items:
+            type: object
+            properties:
+              codeLangue: { type: string }
+              contenu: { type: string }
+    TermeClasse:
+      type: object
+      properties:
+        uid: { type: string }
+        codeLangue: { type: string, enum: [fre, eng] }
+        nom: { type: string }
+        ordre: { type: string }
+    MotCle:
+      allOf:
+      - $ref: '#/components/schemas/TermeClasse'
+      - type: object
+        properties:
+          departement: { type: string, nullable: true }
+          departementCodeSAD: { type: string, nullable: true }
+          faculte: { type: string, nullable: true }
+          faculteCodeSAD: { type: string, nullable: true }
+          uniteRecherche: { type: string, nullable: true }
+          uniteRechercheIdsadvr: { type: string, nullable: true }
+    IndividuEtendu:
+      type: object
+      description: >-
+        Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional
+        email and telephone numbers.
+      properties:
+        idsadvr: { type: string }
+        prenom: { type: string }
+        nom: { type: string }
+        affiliations: { type: array, items: { $ref: '#/components/schemas/Affiliation' } }
+        courriels: { type: array, items: { type: string } }
+        telephones:
+          type: array
+          items:
+            type: object
+            properties:
+              numero: { type: string }
+              poste: { type: string, nullable: true }
+              categorie: { type: string }
+        etablissementsAffilies: { type: array, items: { type: string } }
+        visuelOfficiel: { type: string, format: uri, nullable: true }
+        visuelOfficielGrand: { type: string, format: uri, nullable: true }
+        expertise: { $ref: '#/components/schemas/Expertise' }
+        urlVitrine:
+          type: array
+          items:
+            type: object
+            properties:
+              nom: { type: string }
+              url: { type: string, format: uri }
+        recrutementRecherche: { type: boolean }
+    IndividuComplet:
+      allOf:
+      - $ref: '#/components/schemas/IndividuEtendu'
+      - type: object
+        description: >-
+          Full record. Adds the consent and web-display blocks that record which UdeM showcases
+          the person has agreed to appear in, plus biography, teaching, publications, grants and awards.
+        properties:
+          sexe: { type: string }
+          institution: { type: string }
+          paysCode: { type: string }
+          paysNom: { type: string }
+          in-memoriam: { type: boolean }
+          consentement:
+            type: object
+            description: >-
+              Per-showcase consent status. This is the field that makes the personal data in this
+              API lawful to publish; consumers must not redistribute records whose consent status
+              is withdrawn.
+            properties:
+              departements: { type: array, items: { type: object } }
+              facultes: { type: array, items: { type: object } }
+              unitesRecherche: { type: array, items: { type: object } }
+              UdeM:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    nom: { type: string }
+                    statutConsentement: { type: string }
+          affichageWeb: { type: array, items: { type: object } }
+          langues:
+            type: array
+            items:
+              type: object
+              properties:
+                nom: { type: string }
+                medium: { type: string, enum: [Écrit, Oral] }
+          formations: { type: array, items: { type: object } }
+          biographie: { type: array, items: { type: object } }
+          unitesRecherche: { type: array, items: { type: object } }
+          projetsRecherche: { type: array, items: { type: object } }
+          activitesRecherche: { type: array, items: { type: object } }
+          activiteEnseignement: { type: array, items: { type: object } }
+          publication: { type: array, items: { type: object } }
+          communication: { type: array, items: { type: object } }
+          expertiseMedia: { type: array, items: { type: object } }
+          prix: { type: array, items: { type: object } }
+          visuels: { type: array, items: { type: object } }
+          activitesPromotion: { type: array, items: { type: object } }
+          infosSupplementaires: { type: array, items: { type: object } }
+          recrutementRecherche: { type: boolean }
+    UniteRecherche:
+      type: object
+      description: A UdeM research unit — chair, group, centre or affiliated research structure.
+      properties:
+        idsadvr: { type: string, example: ur13580 }
+        nom: { type: string }
+        acronyme: { type: string, nullable: true }
+        type: { type: string }
+        typeTrad: { type: array, items: { $ref: '#/components/schemas/TermeClasse' } }
+        responsable:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: string }
+              nom: { type: string }
+              prenom: { type: string }
+              courriel: { type: string, format: email }
+              fonction: { type: string }
+              fonctionCodeSAD: { type: string }
+              uniteAdmin: { type: string }
+              fonctionResp: { type: string }
+        unitesRattachement:
+          type: object
+          properties:
+            departements: { type: array, items: { type: object } }
+            facultes: { type: array, items: { type: object } }
+        expertise: { $ref: '#/components/schemas/Expertise' }
+        visuelOfficiel: { type: string, format: uri, nullable: true }
+        visuelOfficielGrand: { type: string, format: uri, nullable: true }
+    PaginationSolr:
+      type: object
+      properties:
+        numFound: { type: integer }
+        start: { type: integer }
+        rows: { type: integer }
+    SolrIndividuEnvelope:
+      type: object
+      properties:
+        paginationSOLR: { $ref: '#/components/schemas/PaginationSolr' }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/IndividuEtendu' }
+    SolrUniteRechercheEnvelope:
+      type: object
+      properties:
+        paginationSOLR: { $ref: '#/components/schemas/PaginationSolr' }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/UniteRecherche' }
+security: []

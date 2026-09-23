@@ -1,0 +1,170 @@
+{
+  "generated": "2026-08-30",
+  "method": "probed",
+  "source": "https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal",
+  "note": "Verbatim live response captured by API Evangelist on 2026-08-30. Reference (non-personal) endpoints only — the SADVR identifier and info services return personal data and are deliberately not sampled here.",
+  "operation": "GET /ressource/typeuniterech",
+  "status": 200,
+  "contentType": "application/json",
+  "itemsInLiveResponse": 12,
+  "response": {
+    "data": [
+      {
+        "id": "1",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Autre structure de recherche affiliée"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Other affiliated research structure"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Centre de recherche hospitalier"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Hospital research centre"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Centre facultaire"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Faculty centre"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Centre institutionnel"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Institutional centre"
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Chaire de recherche contractuelle"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Contract Research Chair"
+          }
+        ]
+      },
+      {
+        "id": "7",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Chaire de recherche de l’UdeM"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "UdeM Research Chair"
+          }
+        ]
+      },
+      {
+        "id": "8",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Chaire de recherche du Canada"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Canada Research Chair"
+          }
+        ]
+      },
+      {
+        "id": "9",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Chaire de recherche philanthropique"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Philanthropic Chair"
+          }
+        ]
+      },
+      {
+        "id": "11",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Consortium de recherche de l’UdeM"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "UdeM Research Consortium"
+          }
+        ]
+      },
+      {
+        "id": "12",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Établissement affilié à l’UdeM"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Institution affiliated to UdeM"
+          }
+        ]
+      },
+      {
+        "id": "10",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Plateforme"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Platform"
+          }
+        ]
+      },
+      {
+        "id": "14",
+        "noms": [
+          {
+            "codeLangue": "fre",
+            "nom": "Unité de recherche facultaire"
+          },
+          {
+            "codeLangue": "eng",
+            "nom": "Faculty research unit"
+          }
+        ]
+      }
+    ]
+  }
+}

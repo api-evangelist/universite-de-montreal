@@ -1,0 +1,148 @@
+---
+# Spectral ruleset for the Université de Montréal SADVR contract.
+# generated: '2026-08-30'
+# method: derived
+# source: openapi/universite-de-montreal-sadvr-openapi.yml, plus defects observed live 2026-08-30
+# x-operator: institution
+#
+# These rules encode the governance facts this institution's one real API actually exhibits —
+# an undocumented HTML 404, a mandatory redirect, a version segment in the path, personal data
+# behind no credential. They are written against UdeM's contract, not lifted from a vendor's.
+formats:
+- oas3
+rules:
+  udem-info-title-present:
+    description: info.title must be present.
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: truthy
+  udem-info-version-matches-path:
+    description: >-
+      info.version must be the SADVR URI version segment (currently 1.8). The version lives in the
+      path, so a contract whose info.version disagrees with its servers[] URL is describing a base
+      that 404s.
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: pattern
+      functionOptions:
+        match: '^[0-9]+\.[0-9]+$'
+  udem-operator-declared:
+    description: >-
+      Every Université de Montréal contract must declare info.x-operator. A university is a
+      federation of buyers; a spec in this repo with no operator is the misattribution this
+      profile exists to prevent.
+    severity: error
+    given: $.info
+    then:
+      field: x-operator
+      function: truthy
+  udem-operator-is-institution:
+    description: >-
+      Only institution-operated contracts belong in openapi/. Tenant and vendor surfaces are
+      recorded as apis[] entries in apis.yml, never as saved specs.
+    severity: error
+    given: $.info
+    then:
+      field: x-operator
+      function: pattern
+      functionOptions:
+        match: '^institution$'
+  udem-server-on-institution-domain:
+    description: >-
+      Every servers[] URL must be under umontreal.ca. The 36 Dataverse specs removed from this
+      repo on 2026-08-30 failed exactly this rule twice over — a vendor product's contract, welded
+      onto a host that does not serve it.
+    severity: error
+    given: $.servers[*]
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: 'umontreal\.ca'
+  udem-provenance-block-present:
+    description: >-
+      info.x-provenance must record who authored the contract. UdeM publishes no OpenAPI of its
+      own; an unmarked spec here would be credited to the institution as though it did.
+    severity: error
+    given: $.info
+    then:
+      field: x-provenance
+      function: truthy
+  udem-external-docs-present:
+    description: The contract must link the institution's own documentation page.
+    severity: warn
+    given: $
+    then:
+      field: externalDocs
+      function: truthy
+  udem-operations-tagged:
+    description: Every operation must carry at least one tag.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch]
+    then:
+      field: tags
+      function: truthy
+  udem-operation-ids-unique-and-present:
+    description: Every operation must carry an operationId.
+    severity: error
+    given: $.paths[*][get,put,post,delete,patch]
+    then:
+      field: operationId
+      function: truthy
+  udem-read-only:
+    description: >-
+      SADVR is documented as GET-only. Any non-GET operation appearing in this contract is a
+      fabrication until the institution documents a write path.
+    severity: error
+    given: $.paths[*]
+    then:
+      field: '@key'
+      function: pattern
+      functionOptions:
+        notMatch: '^(put|post|delete|patch)$'
+  udem-declares-400:
+    description: The institution documents 400 as one of its three response codes; operations should declare it.
+    severity: warn
+    given: $.paths[*].get.responses
+    then:
+      field: '400'
+      function: truthy
+  udem-declares-500:
+    description: The institution documents 500 as one of its three response codes; operations should declare it.
+    severity: warn
+    given: $.paths[*].get.responses
+    then:
+      field: '500'
+      function: truthy
+  udem-json-responses:
+    description: Successful responses must be application/json; SADVR returns nothing else on success.
+    severity: warn
+    given: $.paths[*].get.responses.200.content
+    then:
+      field: application/json
+      function: truthy
+  udem-path-lowercase:
+    description: >-
+      SADVR path segments are lowercase and unpunctuated. `ressource/secteur_recherche`, the one
+      underscored path in UdeM's own example list, is also one of the three that 404s.
+    severity: warn
+    given: $.paths
+    then:
+      field: '@key'
+      function: pattern
+      functionOptions:
+        notMatch: '[A-Z_]'
+  udem-no-empty-security:
+    description: >-
+      A contract that serves personal data anonymously must say so explicitly with `security: []`
+      at the root rather than omitting the field, so the absence of a credential reads as a
+      measured fact and not an oversight.
+    severity: warn
+    given: $
+    then:
+      field: security
+      function: defined

@@ -1,0 +1,83 @@
+---
+specification: API Commons Errors
+specificationVersion: '0.1'
+provider: Université de Montréal
+providerId: universite-de-montreal
+generated: '2026-08-30'
+method: probed
+source: live probes of the SADVR API, 2026-08-30, plus the institution's own technical documentation
+description: >-
+  Error behaviour of the Université de Montréal SADVR API, the institution's one genuinely
+  institution-operated contract. UdeM documents a three-code model — 200, 400, 500 — and states
+  that on 400 or 500 the body is the error message in JSON. Live probing shows the deployed edge
+  does not honour that: unmatched routes fall through to an HTML 404 that the documentation never
+  mentions.
+documented:
+  source: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  codes:
+  - code: 200
+    meaning: OK. Body is a JSON object with the payload under `data`.
+  - code: 400
+    meaning: Bad request — the request is missing elements or references values that do not exist.
+    body: JSON error message
+  - code: 500
+    meaning: Internal server error — a bug in the SADVR service.
+    body: JSON error message
+observed:
+- code: 200
+  contentType: application/json
+  detail: >-
+    Confirmed on 15 routes. Success payloads are always wrapped in a `data` array; the SOLR search
+    routes add a sibling `paginationSOLR` object with numFound, start and rows.
+  evidence:
+    url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/faculte
+    status: 200
+- code: 404
+  contentType: text/html
+  documented: false
+  detail: >-
+    UNDOCUMENTED. An unmatched route returns a 693-byte styled HTML page, not the JSON error the
+    documentation promises. A client parsing the response as JSON gets a decode error rather than
+    a usable message. This is the defect that made the June 2026 profile of this repo conclude the
+    whole API was dead — a single wrong path segment (`ressource/langues` for `ressource/langue`)
+    produced an HTML 404 that read as a decommissioned endpoint.
+  evidence:
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/langues
+    status: 404
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/secteur_recherche
+    status: 404
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/ettbaffilie
+    status: 404
+- code: 301
+  documented: false
+  detail: >-
+    Every documented base URL redirects. https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/...
+    is rewritten to https://recherche.umontreal.ca/vitrine/rest/public/api/1.8/... — the www prefix
+    is dropped and a `public` segment is inserted. Clients that do not follow redirects get nothing.
+    The documentation does not mention the `public` segment, though two example URLs on the page
+    accidentally contain it.
+  evidence:
+    url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/faculte
+    status: 200
+    effectiveUrl: https://recherche.umontreal.ca/vitrine/rest/public/api/1.8/umontreal/ressource/faculte
+documentation_drift:
+- issue: Route names in the documentation table do not match the deployment.
+  detail: >-
+    Three routes listed in UdeM's own service table 404 as written — `ressource/secteurrech`
+    (documented) and `ressource/secteur_recherche` (in the example list) both fail, as does
+    `ressource/etablaffilie` / `ressource/ettbaffilie`. `ressource/uniteadmin` is documented and
+    was not independently confirmed.
+- issue: Version drift inside a single page.
+  detail: >-
+    The page names 1.7 as the root prefix, marks it as a test environment, and then gives every
+    example at 1.8. Only 1.8 answers; 1.6, 1.7, 1.9 and 2.0 all 404. The page was last updated
+    2024-02-08.
+- issue: A documented parameter is documented as broken.
+  detail: >-
+    The `sort` parameter on the SOLR search routes is documented as accepted but non-functional,
+    because ordering is lost when the API reformats the SOLR result set. Recorded in the OpenAPI
+    as deprecated.
+retry_guidance: >-
+  No Retry-After header and no rate-limit headers are emitted on any response. The
+  /idext/individu response for a single faculty is 11 MB; harvest politely and filter by faculty
+  or department rather than pulling the unfiltered population.

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/universite-de-montreal/refs/heads/main/json-schema/universite-de-montreal-sadvr-ressource-schema.json",
+  "title": "SADVR Reference Resource Envelope",
+  "description": "Response shape of the Université de Montréal SADVR /ressource/* family — the controlled vocabularies (faculties, departments, job titles, programmes, study domains, disciplines, languages, research-unit types) used to filter the identifier services. Contains no personal data.",
+  "x-provenance": {
+    "generated": "2026-08-30",
+    "method": "derived",
+    "source": "openapi/universite-de-montreal-sadvr-openapi.yml",
+    "confirmed_by": "live responses probed 2026-08-30 from https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/*",
+    "x-operator": "institution"
+  },
+  "type": "object",
+  "required": ["data"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { "$ref": "#/$defs/CodeSadItem" },
+          { "$ref": "#/$defs/IdNomItem" },
+          { "$ref": "#/$defs/IdNomsItem" },
+          { "$ref": "#/$defs/FonctionItem" },
+          { "$ref": "#/$defs/ProgrammeItem" },
+          { "$ref": "#/$defs/LangueItem" }
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "NomTraduit": {
+      "type": "object",
+      "required": ["codeLangue", "nom"],
+      "properties": {
+        "codeLangue": { "type": "string", "enum": ["fre", "eng"] },
+        "nom": { "type": "string" }
+      }
+    },
+    "CodeSadItem": {
+      "type": "object",
+      "description": "Faculty, department or administrative unit keyed by its SAD code.",
+      "required": ["codeSad", "nom"],
+      "properties": {
+        "codeSad": { "type": "string", "examples": ["03", "0337"] },
+        "nom": { "type": "string", "examples": ["Faculté des arts et des sciences"] }
+      }
+    },
+    "IdNomItem": {
+      "type": "object",
+      "description": "Study domain, keyed by a numeric identifier with a single French label.",
+      "required": ["id", "nom"],
+      "properties": {
+        "id": { "type": "string" },
+        "nom": { "type": "string" }
+      }
+    },
+    "IdNomsItem": {
+      "type": "object",
+      "description": "Discipline or research-unit type, carrying French and English labels.",
+      "required": ["id", "noms"],
+      "properties": {
+        "id": { "type": "string" },
+        "noms": { "type": "array", "items": { "$ref": "#/$defs/NomTraduit" } }
+      }
+    },
+    "FonctionItem": {
+      "type": "object",
+      "description": "Job title, carried in masculine and feminine French forms.",
+      "required": ["codeSad", "nomM", "nomF"],
+      "properties": {
+        "codeSad": { "type": "string", "examples": ["42001"] },
+        "nomM": { "type": "string" },
+        "nomF": { "type": "string" }
+      }
+    },
+    "ProgrammeItem": {
+      "type": "object",
+      "description": "Study programme, keyed by SAD number.",
+      "required": ["noSad", "nom"],
+      "properties": {
+        "noSad": { "type": "string" },
+        "nom": { "type": "string" }
+      }
+    },
+    "LangueItem": {
+      "type": "object",
+      "description": "Spoken or written language, keyed by ISO 639-2 three-letter code.",
+      "required": ["id", "code", "oral", "ecrit", "noms"],
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string", "minLength": 3, "maxLength": 3 },
+        "oral": { "type": "boolean" },
+        "ecrit": { "type": "boolean" },
+        "noms": { "type": "array", "items": { "$ref": "#/$defs/NomTraduit" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "generated": "2026-08-30",
+  "method": "probed",
+  "source": "https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal",
+  "note": "Verbatim live response captured by API Evangelist on 2026-08-30. Reference (non-personal) endpoints only — the SADVR identifier and info services return personal data and are deliberately not sampled here.",
+  "operation": "GET /ressource/faculte",
+  "status": 200,
+  "contentType": "application/json",
+  "itemsInLiveResponse": 29,
+  "response": {
+    "data": [
+      {
+        "codeSad": "13",
+        "nom": "Département de kinésiologie"
+      },
+      {
+        "codeSad": "33",
+        "nom": "École d'optométrie"
+      },
+      {
+        "codeSad": "08",
+        "nom": "École de diététique et nutrition"
+      },
+      {
+        "codeSad": "41",
+        "nom": "École de réadaptation"
+      },
+      {
+        "codeSad": "43",
+        "nom": "École de santé publique"
+      },
+      {
+        "codeSad": "11",
+        "nom": "Faculté de droit"
+      },
+      {
+        "codeSad": "01",
+        "nom": "Faculté de l'aménagement"
+      },
+      {
+        "codeSad": "71",
+        "nom": "Faculté de l'aménagement - Faculté des arts et sciences - Faculté de l'éducation permanente"
+      },
+      {
+        "codeSad": "16",
+        "nom": "Faculté de l'apprentissage continu"
+      },
+      {
+        "codeSad": "72",
+        "nom": "Faculté de l'éducation permanente - Faculté de médecine"
+      },
+      {
+        "codeSad": "74",
+        "nom": "Faculté de l'éducation permanente - Faculté de médecine - Département de kinésiologie"
+      },
+      {
+        "codeSad": "75",
+        "nom": "Faculté de l'éducation permanente - Faculté des sciences infirmières - Faculté de médecine"
+      },
+      {
+        "codeSad": "23",
+        "nom": "Faculté de médecine"
+      },
+      {
+        "codeSad": "06",
+        "nom": "Faculté de médecine dentaire"
+      },
+      {
+        "codeSad": "26",
+        "nom": "Faculté de médecine vétérinaire"
+      },
+      {
+        "codeSad": "28",
+        "nom": "Faculté de musique"
+      },
+      {
+        "codeSad": "36",
+        "nom": "Faculté de pharmacie"
+      },
+      {
+        "codeSad": "48",
+        "nom": "Faculté de théologie et de sciences des religions"
+      },
+      {
+        "codeSad": "03",
+        "nom": "Faculté des arts et des sciences"
+      },
+      {
+        "codeSad": "76",
+        "nom": "Faculté des arts et sciences  - Faculté de l'éducation permanente - Faculté de médecine"
+      },
+      {
+        "codeSad": "73",
+        "nom": "Faculté des arts et sciences - Faculté de l'éducation permanente"
+      },
+      {
+        "codeSad": "77",
+        "nom": "Faculté des arts et sciences - Faculté de l'éducation permanente - Faculté de théologie et de sciences des religions"
+      },
+      {
+        "codeSad": "70",
+        "nom": "Faculté des arts et sciences - Faculté des sciences de l'éducation"
+      },
+      {
+        "codeSad": "18",
+        "nom": "Faculté des études supérieures et postdoctorales"
+      },
+      {
+        "codeSad": "46",
+        "nom": "Faculté des sciences de l'éducation"
+      },
+      {
+        "codeSad": "31",
+        "nom": "Faculté des sciences infirmières"
+      },
+      {
+        "codeSad": "21",
+        "nom": "HEC Montréal"
+      },
+      {
+        "codeSad": "38",
+        "nom": "Polytechnique Montréal"
+      },
+      {
+        "codeSad": "99",
+        "nom": "Université de Montréal"
+      }
+    ]
+  }
+}

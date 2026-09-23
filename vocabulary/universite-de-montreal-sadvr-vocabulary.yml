@@ -1,0 +1,119 @@
+---
+vocabulary:
+  name: Université de Montréal SADVR Vocabulary
+  description: >-
+    Controlled vocabulary for the Service d'accès aux données de la Vitrine-Recherche (SADVR), the
+    research-expertise API Université de Montréal built and operates itself. Terms are taken from
+    the institution's own technical documentation and from live responses probed on 2026-08-30.
+    The vocabulary is French-first because the API is: field names, facet labels and reference
+    values are in French, with English carried only as a translation inside `noms` / `nomTraduction`
+    arrays.
+  version: '1.0.0'
+  generated: '2026-08-30'
+  method: derived
+  source: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
+  x-operator: institution
+  terms:
+  - term: SADVR
+    definition: >-
+      Service d'accès aux données de la Vitrine-Recherche. The 2015-2016 UdeM project, run by the
+      Centre d'expertise numérique pour la recherche, that produced this API.
+    tags: [programme, institution]
+  - term: Vitrine-Recherche
+    definition: >-
+      UdeM's research showcase — the repository of researcher and research-unit records the API
+      redistributes. Three showcases are individually searchable: Vitrine des professeurs, Vitrine
+      des unités de recherche, and Répertoire des experts à l'intention des médias.
+    tags: [repository, showcase]
+  - term: idsadvr
+    definition: >-
+      Université de Montréal's own persistent identifier for a researcher or a research unit,
+      resolvable in perpetuity. Prefixed `in` for individuals and `ur` for research units
+      (in13593, ur13852). Introduced specifically so the institution would not have to expose the
+      matricule, its internal employee number, which it classifies as sensitive.
+    tags: [persistent-identifier, privacy]
+  - term: matricule
+    definition: >-
+      UdeM's internal employee number. Explicitly excluded from the API as sensitive data that
+      cannot be exposed publicly without access control. Named here because the exclusion is the
+      design decision that produced idsadvr.
+    tags: [privacy, excluded]
+  - term: codeSad
+    definition: >-
+      Code from UdeM's Système Académique Décisionnel, the institution's academic reference system.
+      The join key for faculties, departments, administrative units and job titles. Two digits for
+      a faculty ("03"), four for a department ("0337"), five for a job title ("42001").
+    tags: [identifier, reference-data]
+  - term: faculte
+    definition: A UdeM faculty. 29 returned live on 2026-08-30, including the pseudo-faculty "Université de Montréal" (codeSad 99).
+    tags: [organization, reference-data]
+  - term: departement
+    definition: A department or school within a faculty.
+    tags: [organization, reference-data]
+  - term: uniteAdministrative
+    definition: >-
+      The administrative unit an affiliation attaches to, named as a faculty-plus-department
+      compound ("Faculté des arts et des sciences - Département d'histoire") and keyed by an
+      alphanumeric codeSad (N202A0).
+    tags: [organization, reference-data]
+  - term: uniterech
+    definition: >-
+      A research unit — chair, group, centre, institute or affiliated research structure. 12 types
+      are defined; 429 units were indexed live on 2026-08-30.
+    tags: [research, organization]
+  - term: fonction
+    definition: >-
+      A job title, carried in both masculine and feminine French forms (nomM / nomF) because French
+      job titles are gendered. This is a vocabulary feature that has no equivalent in the
+      English-language university APIs in this cohort.
+    tags: [reference-data, language]
+  - term: expertiserech
+    definition: >-
+      A research-expertise keyword. Faceted by `volet` — Mot-clé, Période chronologique, Pays,
+      Continent, Sous-région. Cannot be listed globally: the institution requires a faculty or
+      department filter by design.
+    tags: [research, taxonomy]
+  - term: volet
+    definition: The facet an expertise keyword belongs to. Determines which extra fields the item carries.
+    tags: [taxonomy]
+  - term: consentement
+    definition: >-
+      Per-showcase consent status recorded against a researcher, naming each UdeM showcase and a
+      `statutConsentement` flag. The lawful basis on which the personal data in this API is
+      published. The API returns the record regardless of the flag; honouring it is the consumer's
+      obligation.
+    tags: [privacy, governance]
+  - term: affichageWeb
+    definition: The public showcase URLs where a researcher's consented record is displayed.
+    tags: [privacy, publishing]
+  - term: exclusion
+    definition: >-
+      Per-affiliation suppression flags — `exclusion` and `exclusionTel` — marking an affiliation
+      or its telephone number as withheld from display.
+    tags: [privacy, governance]
+  - term: recrutementRecherche
+    definition: >-
+      Boolean flag marking a researcher as currently recruiting research trainees. Filterable via
+      `recrutement=true`, which makes this API a live index of open supervision capacity.
+    tags: [research, recruitment]
+  - term: paginationSOLR
+    definition: >-
+      Pagination envelope on the search routes, carrying numFound, start and rows. Present only on
+      /recherche/*/select responses.
+    tags: [search, pagination]
+  - term: data
+    definition: >-
+      The single top-level key on every SADVR success response. Always an array, even for a
+      single-record retrieval by idsadvr.
+    tags: [envelope]
+  - term: codeLangue
+    definition: >-
+      ISO 639-2 three-letter language code identifying which translation a label carries — `fre` or
+      `eng` throughout.
+    tags: [language, standard]
+  - term: domaineetude
+    definition: A study domain. 19 returned live; the coarsest grouping the API exposes.
+    tags: [reference-data, taxonomy]
+  - term: discipline
+    definition: A research discipline, carried bilingually. The finer companion to domaineetude.
+    tags: [reference-data, taxonomy]

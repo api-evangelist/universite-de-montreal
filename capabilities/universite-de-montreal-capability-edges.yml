@@ -1,0 +1,37 @@
+slug: universite-de-montreal
+provider: Université de Montréal
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Roles
+  spec_file: universite-de-montreal-roles-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /roles Roles_createNewRole; GET /roles/userSelectable Roles_getUserSelectableRoles; DELETE
+    /roles/{id} Roles_deleteRole
+  reason: Creation, inspection and deletion of authorisation roles assignable to users is access-control
+    administration, i.e. Identity & Access Management. Confidence tempered because it is application-level
+    RBAC rather than an enterprise IAM programme.
+- tag: Users
+  spec_file: universite-de-montreal-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.75
+  evidence: POST /users/register Users_registerOIDCUser; POST /users/token/recreate Users_recreateToken;
+    POST /users/{identifier}/removeRoles Users_removeUserRoles
+  reason: User registration via OIDC, API-token lifecycle, identifier changes, account merging and role
+    removal are identity and access administration. Application-level IAM rather than enterprise IAM,
+    so 0.75 rather than higher.

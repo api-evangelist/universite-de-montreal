@@ -1,0 +1,98 @@
+---
+specification: API Commons Authentication
+specificationVersion: '0.1'
+provider: Université de Montréal
+providerId: universite-de-montreal
+generated: '2026-08-30'
+method: probed
+source: live probes of the SADVR, Papyrus and Shibboleth surfaces, 2026-08-30
+description: >-
+  Authentication posture across Université de Montréal's programmable surfaces. The pattern is
+  the one most research universities show: the institution's own read-only research metadata is
+  wide open with no key at all, while everything that touches a person's account sits behind
+  campus SSO — and there is no self-service developer credential anywhere, because there is no
+  developer portal to issue one from.
+surfaces:
+- surface: SADVR REST API (Vitrine-Recherche)
+  x-operator: institution
+  scheme: none
+  registration: not-required
+  detail: >-
+    No API key, no token, no Authorization header, no cookie. Fifteen documented routes were
+    called anonymously on 2026-08-30 and all returned 200 application/json, including the full
+    /idext/individu extended-record payload. Read-only: the institution's documentation states
+    the API offers only GET.
+  evidence:
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/ressource/faculte
+    status: 200
+  - url: https://www.recherche.umontreal.ca/vitrine/rest/api/1.8/umontreal/idext/individu?faculte=23
+    status: 200
+  risk: >-
+    Unauthenticated access to personal data. The extended and full record services return
+    researcher names, institutional emails, telephone numbers, office locations and biographies
+    with no rate limit and no credential. The API's own `consentement` block is the only control,
+    and it is advisory to the consumer rather than enforced at the edge.
+- surface: PAPYRUS OAI-PMH (institutional repository)
+  x-operator: tenant
+  scheme: none
+  registration: not-required
+  detail: Anonymous harvesting, per the OAI-PMH 2.0 specification. No key.
+  evidence:
+  - url: https://umontreal.scholaris.ca/server/oai/openaire4?verb=Identify
+    status: 200
+- surface: PAPYRUS DSpace REST (HAL)
+  x-operator: tenant
+  scheme: none-for-read
+  registration: institutional
+  detail: >-
+    The DSpace 8 HAL root at /server/api answers anonymously and advertises the repository's
+    entry points; writes and any restricted item require a DSpace account issued by the library.
+  evidence:
+  - url: https://umontreal.scholaris.ca/server/api
+    status: 200
+- surface: Borealis Dataverse (UdeM collection)
+  x-operator: tenant
+  scheme: api-token
+  registration: institutional
+  detail: >-
+    Public search and collection reads are anonymous. Deposit requires a Dataverse API token
+    issued by Borealis to an authenticated account, which for UdeM researchers is obtained
+    through campus SSO.
+  evidence:
+  - url: https://borealisdata.ca/api/dataverses/montreal
+    status: 200
+- surface: UdeM Shibboleth Identity Provider
+  x-operator: institution
+  scheme: saml2
+  registration: federation
+  detail: >-
+    This is not an API to authenticate against — it is the institution's authentication
+    infrastructure. Relying parties join by exchanging SAML metadata through the federation, not
+    by signing up. The metadata document is public and unauthenticated; the SSO endpoints
+    themselves reject direct GETs (500 from the Redirect/SSO profile without a valid AuthnRequest).
+  evidence:
+  - url: https://shibboleth.umontreal.ca/idp/shibboleth
+    status: 200
+  - url: https://shibboleth.umontreal.ca/idp/profile/SAML2/Redirect/SSO
+    status: 500
+- surface: api.umontreal.ca
+  x-operator: institution
+  scheme: unknown
+  registration: not-public
+  detail: >-
+    The host resolves and answers, but returns HTTP 400 with an empty body on every path tried
+    anonymously. No documentation on any umontreal.ca surface names it. Treated as an internal
+    gateway, not a published API.
+  evidence:
+  - url: https://api.umontreal.ca/
+    status: 400
+summary:
+  self_service_credential: false
+  developer_portal: false
+  oauth2: false
+  api_keys_issued: false
+  campus_sso: shibboleth
+notes: >-
+  There is no route by which an outside developer can obtain a credential for any Université de
+  Montréal API. What is open is open to everyone anonymously; what is closed is closed to anyone
+  without a UdeM account. Nothing sits in between.

@@ -1,0 +1,86 @@
+---
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: Université de Montréal
+providerId: universite-de-montreal
+generated: '2026-08-30'
+method: probed
+source: live probes plus the institution's published documentation, 2026-08-30
+description: >-
+  Versioning and lifecycle posture for Université de Montréal's programmable surfaces. The
+  institution runs a URI-versioned API with a public change log — unusual discipline for a
+  university — but has not touched the documentation in over two years, and the page still frames
+  the live production base as a test environment.
+surfaces:
+- surface: SADVR REST API (Vitrine-Recherche)
+  x-operator: institution
+  versioning: uri-path
+  current_version: '1.8'
+  detail: >-
+    The version is a path segment: /vitrine/rest/api/{version}/umontreal/. Probing 1.6, 1.7, 1.9
+    and 2.0 on 2026-08-30 returned 404 for all four; only 1.8 answers. Older versions are
+    therefore removed rather than deprecated in place, with no sunset notice and no Deprecation
+    or Sunset header on any response.
+  change_log:
+    published: true
+    title: API REST - Changements par rapport aux versions antérieures
+    location: https://wiki.umontreal.ca/spaces/DOC/
+    detail: >-
+      UdeM maintains a dedicated page recording what changed between API versions, linked from
+      the technical description. A published, versioned change record is the strongest single
+      governance signal in this institution's footprint.
+  documentation_freshness:
+    last_updated: '2024-02-08'
+    author: Luc Grondin
+    age_at_probe: 2 years 6 months
+    detail: >-
+      The page still describes the 1.7 root as "available only for the test environment" and
+      promises the documentation will be updated once production is the only base. Production is
+      1.8 and has been for some time; the promise was not kept. Three route names in the service
+      table no longer resolve.
+  project_origin:
+    programme: Service d'accès aux données de la Vitrine-Recherche (SADVR)
+    period: 2015-2016
+    built_by: Centre d'expertise numérique pour la recherche (CEN-R), Université de Montréal
+  forward_design:
+    detail: >-
+      The /umontreal/ path segment was deliberately reserved so the same API could later serve
+      Université Laval, Sherbrooke and other Québec institutions. Ten years on, umontreal is the
+      only tenant observed.
+  status: live
+- surface: PAPYRUS institutional repository
+  x-operator: tenant
+  versioning: platform
+  current_version: DSpace 8 (Scholaris)
+  detail: >-
+    papyrus.bib.umontreal.ca now 301s to umontreal.scholaris.ca — the repository migrated from a
+    self-hosted DSpace to Scholaris, the CRKN-hosted national DSpace service. The legacy hostname
+    still resolves and redirects, which is the right way to retire a scholarly host. Lifecycle is
+    set by Scholaris, not by UdeM.
+  status: live
+- surface: Borealis Dataverse (UdeM collection)
+  x-operator: tenant
+  versioning: platform
+  current_version: Dataverse v6.x
+  detail: >-
+    Version cadence is Borealis / Scholars Portal's. UdeM operates a collection inside a shared
+    national instance and has no control over the API version it is served.
+  status: live
+- surface: UdeM Shibboleth Identity Provider
+  x-operator: institution
+  versioning: metadata
+  detail: >-
+    Lifecycle is expressed as SAML metadata rather than an API version. The IdP still advertises
+    SAML 1.1 and the legacy urn:mace:shibboleth:1.0 AuthnRequest profile alongside SAML 2.0 —
+    long-obsolete protocols kept live for old service providers. The metadata carries a commented-out
+    Redirect SLO binding, evidence the document is hand-maintained.
+  status: live
+retired:
+- surface: Dataverse product contract (36 OpenAPI documents)
+  removed: '2026-08-30'
+  reason: >-
+    Not a Université de Montréal surface. These were the Dataverse product's own API description,
+    harvested from Borealis and saved under the institution's slug, then re-based by our own
+    refine step onto umontreal.scholaris.ca — a DSpace host that does not serve the Dataverse API
+    at all. Removed under the university pipeline's operator rule; the tenant relationship with
+    Borealis is retained as an apis[] entry.
