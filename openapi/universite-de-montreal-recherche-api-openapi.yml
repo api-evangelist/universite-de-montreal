@@ -90,129 +90,116 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  parameters:
+    solrRows:
+      name: rows
+      in: query
+      required: false
+      description: Number of results per page.
+      schema:
+        type: integer
+        minimum: 1
+        default: 10
+    solrStart:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first result.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    solrSort:
+      name: sort
+      in: query
+      required: false
+      description: SOLR sort clause. Documented as accepted but NOT functional; the institution's own documentation states the SOLR ordering is lost when the API reformats the result set.
+      schema:
+        type: string
+        example: ChercheurNP_tri asc
+      deprecated: true
+    solrQ:
+      name: q
+      in: query
+      required: true
+      description: Native SOLR query. Field names are followed by a colon; spaces are encoded as +. Example, all objects, q=ID:*
+      schema:
+        type: string
+        example: ID:*
   schemas:
-    Affiliation:
+    UniteRecherche:
       type: object
+      description: A UdeM research unit — chair, group, centre or affiliated research structure.
       properties:
-        fonction:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        uniteAdministrative:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        departement:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        faculte:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        courrielInstitutionnel:
+        idsadvr:
           type: string
-          format: email
-        telephone:
-          type: object
-          properties:
-            numero:
-              type:
-              - string
-              - 'null'
-            poste:
-              type:
-              - string
-              - 'null'
-        immeuble:
+          example: ur13580
+        nom:
+          type: string
+        acronyme:
           type:
           - string
           - 'null'
-        local:
-          type:
-          - string
-          - 'null'
-        exclusion:
+        type:
           type: string
-        exclusionTel:
-          type: string
-    Expertise:
-      type: object
-      properties:
-        secteursRecherche:
+        typeTrad:
           type: array
           items:
             $ref: '#/components/schemas/TermeClasse'
-        disciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        motsCles:
-          type: array
-          items:
-            $ref: '#/components/schemas/MotCle'
-        pays:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        continents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        periodesChronologiques:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        phraseCle:
+        responsable:
           type: array
           items:
             type: object
             properties:
-              codeLangue:
+              id:
                 type: string
-              contenu:
+              nom:
                 type: string
-    MotCle:
-      allOf:
-      - $ref: '#/components/schemas/TermeClasse'
-      - type: object
-        properties:
-          departement:
-            type:
-            - string
-            - 'null'
-          departementCodeSAD:
-            type:
-            - string
-            - 'null'
-          faculte:
-            type:
-            - string
-            - 'null'
-          faculteCodeSAD:
-            type:
-            - string
-            - 'null'
-          uniteRecherche:
-            type:
-            - string
-            - 'null'
-          uniteRechercheIdsadvr:
-            type:
-            - string
-            - 'null'
+              prenom:
+                type: string
+              courriel:
+                type: string
+                format: email
+              fonction:
+                type: string
+              fonctionCodeSAD:
+                type: string
+              uniteAdmin:
+                type: string
+              fonctionResp:
+                type: string
+        unitesRattachement:
+          type: object
+          properties:
+            departements:
+              type: array
+              items:
+                type: object
+            facultes:
+              type: array
+              items:
+                type: object
+        expertise:
+          $ref: '#/components/schemas/Expertise'
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
+    SolrIndividuEnvelope:
+      type: object
+      properties:
+        paginationSOLR:
+          $ref: '#/components/schemas/PaginationSolr'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndividuEtendu'
     TermeClasse:
       type: object
       properties:
@@ -304,79 +291,128 @@ components:
                 format: uri
         recrutementRecherche:
           type: boolean
-    UniteRecherche:
+    Affiliation:
       type: object
-      description: A UdeM research unit — chair, group, centre or affiliated research structure.
       properties:
-        idsadvr:
+        fonction:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        uniteAdministrative:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        departement:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        faculte:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        courrielInstitutionnel:
           type: string
-          example: ur13580
-        nom:
-          type: string
-        acronyme:
+          format: email
+        telephone:
+          type: object
+          properties:
+            numero:
+              type:
+              - string
+              - 'null'
+            poste:
+              type:
+              - string
+              - 'null'
+        immeuble:
           type:
           - string
           - 'null'
-        type:
+        local:
+          type:
+          - string
+          - 'null'
+        exclusion:
           type: string
-        typeTrad:
+        exclusionTel:
+          type: string
+    MotCle:
+      allOf:
+      - $ref: '#/components/schemas/TermeClasse'
+      - type: object
+        properties:
+          departement:
+            type:
+            - string
+            - 'null'
+          departementCodeSAD:
+            type:
+            - string
+            - 'null'
+          faculte:
+            type:
+            - string
+            - 'null'
+          faculteCodeSAD:
+            type:
+            - string
+            - 'null'
+          uniteRecherche:
+            type:
+            - string
+            - 'null'
+          uniteRechercheIdsadvr:
+            type:
+            - string
+            - 'null'
+    Expertise:
+      type: object
+      properties:
+        secteursRecherche:
           type: array
           items:
             $ref: '#/components/schemas/TermeClasse'
-        responsable:
+        disciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        motsCles:
+          type: array
+          items:
+            $ref: '#/components/schemas/MotCle'
+        pays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        continents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        periodesChronologiques:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        phraseCle:
           type: array
           items:
             type: object
             properties:
-              id:
+              codeLangue:
                 type: string
-              nom:
+              contenu:
                 type: string
-              prenom:
-                type: string
-              courriel:
-                type: string
-                format: email
-              fonction:
-                type: string
-              fonctionCodeSAD:
-                type: string
-              uniteAdmin:
-                type: string
-              fonctionResp:
-                type: string
-        unitesRattachement:
-          type: object
-          properties:
-            departements:
-              type: array
-              items:
-                type: object
-            facultes:
-              type: array
-              items:
-                type: object
-        expertise:
-          $ref: '#/components/schemas/Expertise'
-        visuelOfficiel:
-          type:
-          - string
-          - 'null'
-          format: uri
-        visuelOfficielGrand:
-          type:
-          - string
-          - 'null'
-          format: uri
-    SolrIndividuEnvelope:
-      type: object
-      properties:
-        paginationSOLR:
-          $ref: '#/components/schemas/PaginationSolr'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/IndividuEtendu'
     Erreur:
       type: object
       description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
@@ -384,54 +420,18 @@ components:
         message:
           type: string
   responses:
-    ServerError:
-      description: Server-side fault in the SADVR API.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Erreur'
     BadRequest:
       description: The request is missing required elements or references values that do not exist.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Erreur'
-  parameters:
-    solrRows:
-      name: rows
-      in: query
-      required: false
-      description: Number of results per page.
-      schema:
-        type: integer
-        minimum: 1
-        default: 10
-    solrStart:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first result.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    solrSort:
-      name: sort
-      in: query
-      required: false
-      description: SOLR sort clause. Documented as accepted but NOT functional; the institution's own documentation states the SOLR ordering is lost when the API reformats the result set.
-      schema:
-        type: string
-        example: ChercheurNP_tri asc
-      deprecated: true
-    solrQ:
-      name: q
-      in: query
-      required: true
-      description: Native SOLR query. Field names are followed by a colon; spaces are encoded as +. Example, all objects, q=ID:*
-      schema:
-        type: string
-        example: ID:*
+    ServerError:
+      description: Server-side fault in the SADVR API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
 externalDocs:
   description: API REST – Description technique (Université de Montréal Confluence wiki)
   url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique

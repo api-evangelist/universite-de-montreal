@@ -89,6 +89,143 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    UniteRecherche:
+      type: object
+      description: A UdeM research unit — chair, group, centre or affiliated research structure.
+      properties:
+        idsadvr:
+          type: string
+          example: ur13580
+        nom:
+          type: string
+        acronyme:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+        typeTrad:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        responsable:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              nom:
+                type: string
+              prenom:
+                type: string
+              courriel:
+                type: string
+                format: email
+              fonction:
+                type: string
+              fonctionCodeSAD:
+                type: string
+              uniteAdmin:
+                type: string
+              fonctionResp:
+                type: string
+        unitesRattachement:
+          type: object
+          properties:
+            departements:
+              type: array
+              items:
+                type: object
+            facultes:
+              type: array
+              items:
+                type: object
+        expertise:
+          $ref: '#/components/schemas/Expertise'
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
+    TermeClasse:
+      type: object
+      properties:
+        uid:
+          type: string
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
+        ordre:
+          type: string
+    IndividuEtendu:
+      type: object
+      description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
+      properties:
+        idsadvr:
+          type: string
+        prenom:
+          type: string
+        nom:
+          type: string
+        affiliations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Affiliation'
+        courriels:
+          type: array
+          items:
+            type: string
+        telephones:
+          type: array
+          items:
+            type: object
+            properties:
+              numero:
+                type: string
+              poste:
+                type:
+                - string
+                - 'null'
+              categorie:
+                type: string
+        etablissementsAffilies:
+          type: array
+          items:
+            type: string
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
+        expertise:
+          $ref: '#/components/schemas/Expertise'
+        urlVitrine:
+          type: array
+          items:
+            type: object
+            properties:
+              nom:
+                type: string
+              url:
+                type: string
+                format: uri
+        recrutementRecherche:
+          type: boolean
     Affiliation:
       type: object
       properties:
@@ -146,6 +283,35 @@ components:
           type: string
         exclusionTel:
           type: string
+    MotCle:
+      allOf:
+      - $ref: '#/components/schemas/TermeClasse'
+      - type: object
+        properties:
+          departement:
+            type:
+            - string
+            - 'null'
+          departementCodeSAD:
+            type:
+            - string
+            - 'null'
+          faculte:
+            type:
+            - string
+            - 'null'
+          faculteCodeSAD:
+            type:
+            - string
+            - 'null'
+          uniteRecherche:
+            type:
+            - string
+            - 'null'
+          uniteRechercheIdsadvr:
+            type:
+            - string
+            - 'null'
     Expertise:
       type: object
       properties:
@@ -182,35 +348,6 @@ components:
                 type: string
               contenu:
                 type: string
-    MotCle:
-      allOf:
-      - $ref: '#/components/schemas/TermeClasse'
-      - type: object
-        properties:
-          departement:
-            type:
-            - string
-            - 'null'
-          departementCodeSAD:
-            type:
-            - string
-            - 'null'
-          faculte:
-            type:
-            - string
-            - 'null'
-          faculteCodeSAD:
-            type:
-            - string
-            - 'null'
-          uniteRecherche:
-            type:
-            - string
-            - 'null'
-          uniteRechercheIdsadvr:
-            type:
-            - string
-            - 'null'
     IndividuComplet:
       allOf:
       - $ref: '#/components/schemas/IndividuEtendu'
@@ -322,143 +459,6 @@ components:
               type: object
           recrutementRecherche:
             type: boolean
-    TermeClasse:
-      type: object
-      properties:
-        uid:
-          type: string
-        codeLangue:
-          type: string
-          enum:
-          - fre
-          - eng
-        nom:
-          type: string
-        ordre:
-          type: string
-    IndividuEtendu:
-      type: object
-      description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
-      properties:
-        idsadvr:
-          type: string
-        prenom:
-          type: string
-        nom:
-          type: string
-        affiliations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Affiliation'
-        courriels:
-          type: array
-          items:
-            type: string
-        telephones:
-          type: array
-          items:
-            type: object
-            properties:
-              numero:
-                type: string
-              poste:
-                type:
-                - string
-                - 'null'
-              categorie:
-                type: string
-        etablissementsAffilies:
-          type: array
-          items:
-            type: string
-        visuelOfficiel:
-          type:
-          - string
-          - 'null'
-          format: uri
-        visuelOfficielGrand:
-          type:
-          - string
-          - 'null'
-          format: uri
-        expertise:
-          $ref: '#/components/schemas/Expertise'
-        urlVitrine:
-          type: array
-          items:
-            type: object
-            properties:
-              nom:
-                type: string
-              url:
-                type: string
-                format: uri
-        recrutementRecherche:
-          type: boolean
-    UniteRecherche:
-      type: object
-      description: A UdeM research unit — chair, group, centre or affiliated research structure.
-      properties:
-        idsadvr:
-          type: string
-          example: ur13580
-        nom:
-          type: string
-        acronyme:
-          type:
-          - string
-          - 'null'
-        type:
-          type: string
-        typeTrad:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        responsable:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              nom:
-                type: string
-              prenom:
-                type: string
-              courriel:
-                type: string
-                format: email
-              fonction:
-                type: string
-              fonctionCodeSAD:
-                type: string
-              uniteAdmin:
-                type: string
-              fonctionResp:
-                type: string
-        unitesRattachement:
-          type: object
-          properties:
-            departements:
-              type: array
-              items:
-                type: object
-            facultes:
-              type: array
-              items:
-                type: object
-        expertise:
-          $ref: '#/components/schemas/Expertise'
-        visuelOfficiel:
-          type:
-          - string
-          - 'null'
-          format: uri
-        visuelOfficielGrand:
-          type:
-          - string
-          - 'null'
-          format: uri
     Erreur:
       type: object
       description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.

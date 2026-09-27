@@ -127,7 +127,106 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  parameters:
+    faculte:
+      name: faculte
+      in: query
+      required: false
+      description: Faculty SAD code (repeatable).
+      schema:
+        type: string
+        example: '23'
+    uniterech:
+      name: uniterech
+      in: query
+      required: false
+      description: Research-unit persistent identifier (repeatable).
+      schema:
+        type: string
+        example: ur13605
+    uniteadmin:
+      name: uniteadmin
+      in: query
+      required: false
+      description: Administrative-unit SAD code (repeatable).
+      schema:
+        type: string
+    fonction:
+      name: fonction
+      in: query
+      required: false
+      description: Job-title SAD code (repeatable).
+      schema:
+        type: string
+        example: '42001'
+    expertiseRech:
+      name: expertiseRech
+      in: query
+      required: false
+      description: Research-expertise keyword (repeatable).
+      schema:
+        type: string
+    domaineEtude:
+      name: domaineEtude
+      in: query
+      required: false
+      description: Study-domain identifier (repeatable).
+      schema:
+        type: string
+    departement:
+      name: departement
+      in: query
+      required: false
+      description: Department SAD code (repeatable).
+      schema:
+        type: string
+        example: 0328
+    recrutement:
+      name: recrutement
+      in: query
+      required: false
+      description: Restrict to individuals currently recruiting research trainees.
+      schema:
+        type: string
+        enum:
+        - 'true'
+    programme:
+      name: programme
+      in: query
+      required: false
+      description: Study-programme SAD number (repeatable).
+      schema:
+        type: string
   schemas:
+    MotCle:
+      allOf:
+      - $ref: '#/components/schemas/TermeClasse'
+      - type: object
+        properties:
+          departement:
+            type:
+            - string
+            - 'null'
+          departementCodeSAD:
+            type:
+            - string
+            - 'null'
+          faculte:
+            type:
+            - string
+            - 'null'
+          faculteCodeSAD:
+            type:
+            - string
+            - 'null'
+          uniteRecherche:
+            type:
+            - string
+            - 'null'
+          uniteRechercheIdsadvr:
+            type:
+            - string
+            - 'null'
     Affiliation:
       type: object
       properties:
@@ -185,6 +284,56 @@ components:
           type: string
         exclusionTel:
           type: string
+    TermeClasse:
+      type: object
+      properties:
+        uid:
+          type: string
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
+        ordre:
+          type: string
+    Expertise:
+      type: object
+      properties:
+        secteursRecherche:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        disciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        motsCles:
+          type: array
+          items:
+            $ref: '#/components/schemas/MotCle'
+        pays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        continents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        periodesChronologiques:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        phraseCle:
+          type: array
+          items:
+            type: object
+            properties:
+              codeLangue:
+                type: string
+              contenu:
+                type: string
     UniteRecherche:
       type: object
       description: A UdeM research unit — chair, group, centre or affiliated research structure.
@@ -249,62 +398,38 @@ components:
           - string
           - 'null'
           format: uri
-    Erreur:
+    IndividuSommaire:
       type: object
-      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      description: Summary record for a person. CONTAINS PERSONAL DATA — name, institutional job title and institutional email — published by UdeM under the consent regime recorded in the full record's `consentement` block.
       properties:
-        message:
+        idsadvr:
           type: string
-    Expertise:
-      type: object
-      properties:
-        secteursRecherche:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        disciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        motsCles:
-          type: array
-          items:
-            $ref: '#/components/schemas/MotCle'
-        pays:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        continents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        periodesChronologiques:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        phraseCle:
-          type: array
-          items:
-            type: object
-            properties:
-              codeLangue:
-                type: string
-              contenu:
-                type: string
-    TermeClasse:
-      type: object
-      properties:
-        uid:
+          example: in13580
+        prenom:
           type: string
-        codeLangue:
-          type: string
-          enum:
-          - fre
-          - eng
         nom:
           type: string
-        ordre:
+        fonction:
           type: string
+        uniteAdmin:
+          type: string
+        courriel:
+          type: string
+          format: email
+        etablissementsAffilies:
+          type: array
+          items:
+            type: string
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
     IndividuEtendu:
       type: object
       description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
@@ -364,137 +489,12 @@ components:
                 format: uri
         recrutementRecherche:
           type: boolean
-    IndividuSommaire:
+    Erreur:
       type: object
-      description: Summary record for a person. CONTAINS PERSONAL DATA — name, institutional job title and institutional email — published by UdeM under the consent regime recorded in the full record's `consentement` block.
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
       properties:
-        idsadvr:
+        message:
           type: string
-          example: in13580
-        prenom:
-          type: string
-        nom:
-          type: string
-        fonction:
-          type: string
-        uniteAdmin:
-          type: string
-        courriel:
-          type: string
-          format: email
-        etablissementsAffilies:
-          type: array
-          items:
-            type: string
-        visuelOfficiel:
-          type:
-          - string
-          - 'null'
-          format: uri
-        visuelOfficielGrand:
-          type:
-          - string
-          - 'null'
-          format: uri
-    MotCle:
-      allOf:
-      - $ref: '#/components/schemas/TermeClasse'
-      - type: object
-        properties:
-          departement:
-            type:
-            - string
-            - 'null'
-          departementCodeSAD:
-            type:
-            - string
-            - 'null'
-          faculte:
-            type:
-            - string
-            - 'null'
-          faculteCodeSAD:
-            type:
-            - string
-            - 'null'
-          uniteRecherche:
-            type:
-            - string
-            - 'null'
-          uniteRechercheIdsadvr:
-            type:
-            - string
-            - 'null'
-  parameters:
-    fonction:
-      name: fonction
-      in: query
-      required: false
-      description: Job-title SAD code (repeatable).
-      schema:
-        type: string
-        example: '42001'
-    uniteadmin:
-      name: uniteadmin
-      in: query
-      required: false
-      description: Administrative-unit SAD code (repeatable).
-      schema:
-        type: string
-    recrutement:
-      name: recrutement
-      in: query
-      required: false
-      description: Restrict to individuals currently recruiting research trainees.
-      schema:
-        type: string
-        enum:
-        - 'true'
-    expertiseRech:
-      name: expertiseRech
-      in: query
-      required: false
-      description: Research-expertise keyword (repeatable).
-      schema:
-        type: string
-    departement:
-      name: departement
-      in: query
-      required: false
-      description: Department SAD code (repeatable).
-      schema:
-        type: string
-        example: 0328
-    uniterech:
-      name: uniterech
-      in: query
-      required: false
-      description: Research-unit persistent identifier (repeatable).
-      schema:
-        type: string
-        example: ur13605
-    domaineEtude:
-      name: domaineEtude
-      in: query
-      required: false
-      description: Study-domain identifier (repeatable).
-      schema:
-        type: string
-    faculte:
-      name: faculte
-      in: query
-      required: false
-      description: Faculty SAD code (repeatable).
-      schema:
-        type: string
-        example: '23'
-    programme:
-      name: programme
-      in: query
-      required: false
-      description: Study-programme SAD number (repeatable).
-      schema:
-        type: string
   responses:
     BadRequest:
       description: The request is missing required elements or references values that do not exist.

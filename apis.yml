@@ -83,6 +83,7 @@ modified: '2026-08-30'
 specificationVersion: '0.23'
 apis:
 - aid: universite-de-montreal:shibboleth-idp
+  x-published: false
   name: UdeM Shibboleth Identity Provider (SAML metadata)
   x-operator: institution
   x-operator-evidence: >-
