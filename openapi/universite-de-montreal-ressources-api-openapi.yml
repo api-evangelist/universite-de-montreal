@@ -260,20 +260,18 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    BadRequest:
-      description: The request is missing required elements or references values that do not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Erreur'
-    ServerError:
-      description: Server-side fault in the SADVR API.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Erreur'
   schemas:
+    NomTraduit:
+      type: object
+      description: A label carried in one language.
+      properties:
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
     IdNomsEnvelope:
       type: object
       required:
@@ -290,6 +288,21 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/NomTraduit'
+    CodeSadEnvelope:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              codeSad:
+                type: string
+                description: SAD (Système Académique Décisionnel) code.
+              nom:
+                type: string
     Langue:
       type: object
       properties:
@@ -307,20 +320,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/NomTraduit'
-    IdNomEnvelope:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              nom:
-                type: string
     ExpertiseRecherche:
       type: object
       properties:
@@ -360,7 +359,13 @@ components:
                 type: string
               nbIndividus:
                 type: integer
-    CodeSadEnvelope:
+    Erreur:
+      type: object
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      properties:
+        message:
+          type: string
+    IdNomEnvelope:
       type: object
       required:
       - data
@@ -370,28 +375,23 @@ components:
           items:
             type: object
             properties:
-              codeSad:
+              id:
                 type: string
-                description: SAD (Système Académique Décisionnel) code.
               nom:
                 type: string
-    NomTraduit:
-      type: object
-      description: A label carried in one language.
-      properties:
-        codeLangue:
-          type: string
-          enum:
-          - fre
-          - eng
-        nom:
-          type: string
-    Erreur:
-      type: object
-      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
-      properties:
-        message:
-          type: string
+  responses:
+    BadRequest:
+      description: The request is missing required elements or references values that do not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
+    ServerError:
+      description: Server-side fault in the SADVR API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
 externalDocs:
   description: API REST – Description technique (Université de Montréal Confluence wiki)
   url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique

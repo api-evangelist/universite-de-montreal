@@ -90,43 +90,219 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  parameters:
-    solrRows:
-      name: rows
-      in: query
-      required: false
-      description: Number of results per page.
-      schema:
-        type: integer
-        minimum: 1
-        default: 10
-    solrStart:
-      name: start
-      in: query
-      required: false
-      description: Zero-based offset of the first result.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    solrSort:
-      name: sort
-      in: query
-      required: false
-      description: SOLR sort clause. Documented as accepted but NOT functional; the institution's own documentation states the SOLR ordering is lost when the API reformats the result set.
-      schema:
-        type: string
-        example: ChercheurNP_tri asc
-      deprecated: true
-    solrQ:
-      name: q
-      in: query
-      required: true
-      description: Native SOLR query. Field names are followed by a colon; spaces are encoded as +. Example, all objects, q=ID:*
-      schema:
-        type: string
-        example: ID:*
+  responses:
+    ServerError:
+      description: Server-side fault in the SADVR API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
+    BadRequest:
+      description: The request is missing required elements or references values that do not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
   schemas:
+    SolrIndividuEnvelope:
+      type: object
+      properties:
+        paginationSOLR:
+          $ref: '#/components/schemas/PaginationSolr'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndividuEtendu'
+    Affiliation:
+      type: object
+      properties:
+        fonction:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        uniteAdministrative:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        departement:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        faculte:
+          type: object
+          properties:
+            codeSad:
+              type: string
+            nom:
+              type: string
+        courrielInstitutionnel:
+          type: string
+          format: email
+        telephone:
+          type: object
+          properties:
+            numero:
+              type:
+              - string
+              - 'null'
+            poste:
+              type:
+              - string
+              - 'null'
+        immeuble:
+          type:
+          - string
+          - 'null'
+        local:
+          type:
+          - string
+          - 'null'
+        exclusion:
+          type: string
+        exclusionTel:
+          type: string
+    PaginationSolr:
+      type: object
+      properties:
+        numFound:
+          type: integer
+        start:
+          type: integer
+        rows:
+          type: integer
+    SolrUniteRechercheEnvelope:
+      type: object
+      properties:
+        paginationSOLR:
+          $ref: '#/components/schemas/PaginationSolr'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UniteRecherche'
+    Expertise:
+      type: object
+      properties:
+        secteursRecherche:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        disciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        motsCles:
+          type: array
+          items:
+            $ref: '#/components/schemas/MotCle'
+        pays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        continents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        periodesChronologiques:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        phraseCle:
+          type: array
+          items:
+            type: object
+            properties:
+              codeLangue:
+                type: string
+              contenu:
+                type: string
+    TermeClasse:
+      type: object
+      properties:
+        uid:
+          type: string
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
+        ordre:
+          type: string
+    IndividuEtendu:
+      type: object
+      description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
+      properties:
+        idsadvr:
+          type: string
+        prenom:
+          type: string
+        nom:
+          type: string
+        affiliations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Affiliation'
+        courriels:
+          type: array
+          items:
+            type: string
+        telephones:
+          type: array
+          items:
+            type: object
+            properties:
+              numero:
+                type: string
+              poste:
+                type:
+                - string
+                - 'null'
+              categorie:
+                type: string
+        etablissementsAffilies:
+          type: array
+          items:
+            type: string
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
+        expertise:
+          $ref: '#/components/schemas/Expertise'
+        urlVitrine:
+          type: array
+          items:
+            type: object
+            properties:
+              nom:
+                type: string
+              url:
+                type: string
+                format: uri
+        recrutementRecherche:
+          type: boolean
+    Erreur:
+      type: object
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      properties:
+        message:
+          type: string
     UniteRecherche:
       type: object
       description: A UdeM research unit — chair, group, centre or affiliated research structure.
@@ -191,163 +367,6 @@ components:
           - string
           - 'null'
           format: uri
-    SolrIndividuEnvelope:
-      type: object
-      properties:
-        paginationSOLR:
-          $ref: '#/components/schemas/PaginationSolr'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/IndividuEtendu'
-    TermeClasse:
-      type: object
-      properties:
-        uid:
-          type: string
-        codeLangue:
-          type: string
-          enum:
-          - fre
-          - eng
-        nom:
-          type: string
-        ordre:
-          type: string
-    PaginationSolr:
-      type: object
-      properties:
-        numFound:
-          type: integer
-        start:
-          type: integer
-        rows:
-          type: integer
-    SolrUniteRechercheEnvelope:
-      type: object
-      properties:
-        paginationSOLR:
-          $ref: '#/components/schemas/PaginationSolr'
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UniteRecherche'
-    IndividuEtendu:
-      type: object
-      description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
-      properties:
-        idsadvr:
-          type: string
-        prenom:
-          type: string
-        nom:
-          type: string
-        affiliations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Affiliation'
-        courriels:
-          type: array
-          items:
-            type: string
-        telephones:
-          type: array
-          items:
-            type: object
-            properties:
-              numero:
-                type: string
-              poste:
-                type:
-                - string
-                - 'null'
-              categorie:
-                type: string
-        etablissementsAffilies:
-          type: array
-          items:
-            type: string
-        visuelOfficiel:
-          type:
-          - string
-          - 'null'
-          format: uri
-        visuelOfficielGrand:
-          type:
-          - string
-          - 'null'
-          format: uri
-        expertise:
-          $ref: '#/components/schemas/Expertise'
-        urlVitrine:
-          type: array
-          items:
-            type: object
-            properties:
-              nom:
-                type: string
-              url:
-                type: string
-                format: uri
-        recrutementRecherche:
-          type: boolean
-    Affiliation:
-      type: object
-      properties:
-        fonction:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        uniteAdministrative:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        departement:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        faculte:
-          type: object
-          properties:
-            codeSad:
-              type: string
-            nom:
-              type: string
-        courrielInstitutionnel:
-          type: string
-          format: email
-        telephone:
-          type: object
-          properties:
-            numero:
-              type:
-              - string
-              - 'null'
-            poste:
-              type:
-              - string
-              - 'null'
-        immeuble:
-          type:
-          - string
-          - 'null'
-        local:
-          type:
-          - string
-          - 'null'
-        exclusion:
-          type: string
-        exclusionTel:
-          type: string
     MotCle:
       allOf:
       - $ref: '#/components/schemas/TermeClasse'
@@ -377,61 +396,42 @@ components:
             type:
             - string
             - 'null'
-    Expertise:
-      type: object
-      properties:
-        secteursRecherche:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        disciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        motsCles:
-          type: array
-          items:
-            $ref: '#/components/schemas/MotCle'
-        pays:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        continents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        periodesChronologiques:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        phraseCle:
-          type: array
-          items:
-            type: object
-            properties:
-              codeLangue:
-                type: string
-              contenu:
-                type: string
-    Erreur:
-      type: object
-      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
-      properties:
-        message:
-          type: string
-  responses:
-    BadRequest:
-      description: The request is missing required elements or references values that do not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Erreur'
-    ServerError:
-      description: Server-side fault in the SADVR API.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Erreur'
+  parameters:
+    solrRows:
+      name: rows
+      in: query
+      required: false
+      description: Number of results per page.
+      schema:
+        type: integer
+        minimum: 1
+        default: 10
+    solrStart:
+      name: start
+      in: query
+      required: false
+      description: Zero-based offset of the first result.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    solrQ:
+      name: q
+      in: query
+      required: true
+      description: Native SOLR query. Field names are followed by a colon; spaces are encoded as +. Example, all objects, q=ID:*
+      schema:
+        type: string
+        example: ID:*
+    solrSort:
+      name: sort
+      in: query
+      required: false
+      description: SOLR sort clause. Documented as accepted but NOT functional; the institution's own documentation states the SOLR ordering is lost when the API reformats the result set.
+      schema:
+        type: string
+        example: ChercheurNP_tri asc
+      deprecated: true
 externalDocs:
   description: API REST – Description technique (Université de Montréal Confluence wiki)
   url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
