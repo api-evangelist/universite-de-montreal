@@ -127,164 +127,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    BadRequest:
-      description: The request is missing required elements or references values that do not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Erreur'
-    ServerError:
-      description: Server-side fault in the SADVR API.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Erreur'
   schemas:
-    Expertise:
-      type: object
-      properties:
-        secteursRecherche:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        disciplines:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        motsCles:
-          type: array
-          items:
-            $ref: '#/components/schemas/MotCle'
-        pays:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        continents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        periodesChronologiques:
-          type: array
-          items:
-            $ref: '#/components/schemas/TermeClasse'
-        phraseCle:
-          type: array
-          items:
-            type: object
-            properties:
-              codeLangue:
-                type: string
-              contenu:
-                type: string
-    TermeClasse:
-      type: object
-      properties:
-        uid:
-          type: string
-        codeLangue:
-          type: string
-          enum:
-          - fre
-          - eng
-        nom:
-          type: string
-        ordre:
-          type: string
-    MotCle:
-      allOf:
-      - $ref: '#/components/schemas/TermeClasse'
-      - type: object
-        properties:
-          departement:
-            type:
-            - string
-            - 'null'
-          departementCodeSAD:
-            type:
-            - string
-            - 'null'
-          faculte:
-            type:
-            - string
-            - 'null'
-          faculteCodeSAD:
-            type:
-            - string
-            - 'null'
-          uniteRecherche:
-            type:
-            - string
-            - 'null'
-          uniteRechercheIdsadvr:
-            type:
-            - string
-            - 'null'
-    IndividuEtendu:
-      type: object
-      description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
-      properties:
-        idsadvr:
-          type: string
-        prenom:
-          type: string
-        nom:
-          type: string
-        affiliations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Affiliation'
-        courriels:
-          type: array
-          items:
-            type: string
-        telephones:
-          type: array
-          items:
-            type: object
-            properties:
-              numero:
-                type: string
-              poste:
-                type:
-                - string
-                - 'null'
-              categorie:
-                type: string
-        etablissementsAffilies:
-          type: array
-          items:
-            type: string
-        visuelOfficiel:
-          type:
-          - string
-          - 'null'
-          format: uri
-        visuelOfficielGrand:
-          type:
-          - string
-          - 'null'
-          format: uri
-        expertise:
-          $ref: '#/components/schemas/Expertise'
-        urlVitrine:
-          type: array
-          items:
-            type: object
-            properties:
-              nom:
-                type: string
-              url:
-                type: string
-                format: uri
-        recrutementRecherche:
-          type: boolean
-    Erreur:
-      type: object
-      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
-      properties:
-        message:
-          type: string
     IndividuSommaire:
       type: object
       description: Summary record for a person. CONTAINS PERSONAL DATA — name, institutional job title and institutional email — published by UdeM under the consent regime recorded in the full record's `consentement` block.
@@ -374,6 +217,150 @@ components:
           type: string
         exclusionTel:
           type: string
+    Erreur:
+      type: object
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      properties:
+        message:
+          type: string
+    TermeClasse:
+      type: object
+      properties:
+        uid:
+          type: string
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
+        ordre:
+          type: string
+    Expertise:
+      type: object
+      properties:
+        secteursRecherche:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        disciplines:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        motsCles:
+          type: array
+          items:
+            $ref: '#/components/schemas/MotCle'
+        pays:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        continents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        periodesChronologiques:
+          type: array
+          items:
+            $ref: '#/components/schemas/TermeClasse'
+        phraseCle:
+          type: array
+          items:
+            type: object
+            properties:
+              codeLangue:
+                type: string
+              contenu:
+                type: string
+    IndividuEtendu:
+      type: object
+      description: Extended record for a person. CONTAINS PERSONAL DATA — name, affiliations, institutional email and telephone numbers.
+      properties:
+        idsadvr:
+          type: string
+        prenom:
+          type: string
+        nom:
+          type: string
+        affiliations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Affiliation'
+        courriels:
+          type: array
+          items:
+            type: string
+        telephones:
+          type: array
+          items:
+            type: object
+            properties:
+              numero:
+                type: string
+              poste:
+                type:
+                - string
+                - 'null'
+              categorie:
+                type: string
+        etablissementsAffilies:
+          type: array
+          items:
+            type: string
+        visuelOfficiel:
+          type:
+          - string
+          - 'null'
+          format: uri
+        visuelOfficielGrand:
+          type:
+          - string
+          - 'null'
+          format: uri
+        expertise:
+          $ref: '#/components/schemas/Expertise'
+        urlVitrine:
+          type: array
+          items:
+            type: object
+            properties:
+              nom:
+                type: string
+              url:
+                type: string
+                format: uri
+        recrutementRecherche:
+          type: boolean
+    MotCle:
+      allOf:
+      - $ref: '#/components/schemas/TermeClasse'
+      - type: object
+        properties:
+          departement:
+            type:
+            - string
+            - 'null'
+          departementCodeSAD:
+            type:
+            - string
+            - 'null'
+          faculte:
+            type:
+            - string
+            - 'null'
+          faculteCodeSAD:
+            type:
+            - string
+            - 'null'
+          uniteRecherche:
+            type:
+            - string
+            - 'null'
+          uniteRechercheIdsadvr:
+            type:
+            - string
+            - 'null'
     UniteRecherche:
       type: object
       description: A UdeM research unit — chair, group, centre or affiliated research structure.
@@ -439,6 +426,38 @@ components:
           - 'null'
           format: uri
   parameters:
+    programme:
+      name: programme
+      in: query
+      required: false
+      description: Study-programme SAD number (repeatable).
+      schema:
+        type: string
+    departement:
+      name: departement
+      in: query
+      required: false
+      description: Department SAD code (repeatable).
+      schema:
+        type: string
+        example: 0328
+    recrutement:
+      name: recrutement
+      in: query
+      required: false
+      description: Restrict to individuals currently recruiting research trainees.
+      schema:
+        type: string
+        enum:
+        - 'true'
+    fonction:
+      name: fonction
+      in: query
+      required: false
+      description: Job-title SAD code (repeatable).
+      schema:
+        type: string
+        example: '42001'
     uniterech:
       name: uniterech
       in: query
@@ -454,30 +473,6 @@ components:
       description: Research-expertise keyword (repeatable).
       schema:
         type: string
-    programme:
-      name: programme
-      in: query
-      required: false
-      description: Study-programme SAD number (repeatable).
-      schema:
-        type: string
-    faculte:
-      name: faculte
-      in: query
-      required: false
-      description: Faculty SAD code (repeatable).
-      schema:
-        type: string
-        example: '23'
-    recrutement:
-      name: recrutement
-      in: query
-      required: false
-      description: Restrict to individuals currently recruiting research trainees.
-      schema:
-        type: string
-        enum:
-        - 'true'
     domaineEtude:
       name: domaineEtude
       in: query
@@ -492,22 +487,27 @@ components:
       description: Administrative-unit SAD code (repeatable).
       schema:
         type: string
-    departement:
-      name: departement
+    faculte:
+      name: faculte
       in: query
       required: false
-      description: Department SAD code (repeatable).
+      description: Faculty SAD code (repeatable).
       schema:
         type: string
-        example: 0328
-    fonction:
-      name: fonction
-      in: query
-      required: false
-      description: Job-title SAD code (repeatable).
-      schema:
-        type: string
-        example: '42001'
+        example: '23'
+  responses:
+    BadRequest:
+      description: The request is missing required elements or references values that do not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
+    ServerError:
+      description: Server-side fault in the SADVR API.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Erreur'
 externalDocs:
   description: API REST – Description technique (Université de Montréal Confluence wiki)
   url: https://wiki.umontreal.ca/spaces/DOC/pages/294781211/API+REST+%E2%80%93+Description+technique
