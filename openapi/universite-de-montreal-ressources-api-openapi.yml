@@ -277,44 +277,6 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/NomTraduit'
-    CodeSadEnvelope:
-      type: object
-      required:
-      - data
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              codeSad:
-                type: string
-                description: SAD (Système Académique Décisionnel) code.
-              nom:
-                type: string
-    Erreur:
-      type: object
-      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
-      properties:
-        message:
-          type: string
-    Langue:
-      type: object
-      properties:
-        id:
-          type: string
-        code:
-          type: string
-          description: ISO 639-2 three-letter language code.
-          example: fre
-        oral:
-          type: boolean
-        ecrit:
-          type: boolean
-        noms:
-          type: array
-          items:
-            $ref: '#/components/schemas/NomTraduit'
     ExpertiseRecherche:
       type: object
       properties:
@@ -354,6 +316,32 @@ components:
                 type: string
               nbIndividus:
                 type: integer
+    CodeSadEnvelope:
+      type: object
+      required:
+      - data
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              codeSad:
+                type: string
+                description: SAD (Système Académique Décisionnel) code.
+              nom:
+                type: string
+    NomTraduit:
+      type: object
+      description: A label carried in one language.
+      properties:
+        codeLangue:
+          type: string
+          enum:
+          - fre
+          - eng
+        nom:
+          type: string
     IdNomEnvelope:
       type: object
       required:
@@ -368,16 +356,28 @@ components:
                 type: string
               nom:
                 type: string
-    NomTraduit:
+    Langue:
       type: object
-      description: A label carried in one language.
       properties:
-        codeLangue:
+        id:
           type: string
-          enum:
-          - fre
-          - eng
-        nom:
+        code:
+          type: string
+          description: ISO 639-2 three-letter language code.
+          example: fre
+        oral:
+          type: boolean
+        ecrit:
+          type: boolean
+        noms:
+          type: array
+          items:
+            $ref: '#/components/schemas/NomTraduit'
+    Erreur:
+      type: object
+      description: Error envelope. The API documents 400 and 500 as its only failure codes and returns the message as JSON.
+      properties:
+        message:
           type: string
   responses:
     BadRequest:
